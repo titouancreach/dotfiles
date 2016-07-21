@@ -15,8 +15,9 @@ Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'oshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'neomake/neomake'
 
 call plug#end()
 
@@ -194,6 +195,12 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+"use NeoMake
+autocmd! BufWritePost * Neomake
+
+" Configure linter for javascript
+let g:neomake_javascript_enabled_makers = ['jshint']
 
 " }}}
 
