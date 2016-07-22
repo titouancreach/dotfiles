@@ -18,6 +18,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neomake/neomake'
+Plug 'mhartington/deoplete-typescript'
+Plug 'carlitux/deoplete-ternjs'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -206,6 +208,8 @@ autocmd! BufWritePost * Neomake
 
 " Configure linter for javascript
 let g:neomake_javascript_enabled_makers = ['jshint']
+
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 

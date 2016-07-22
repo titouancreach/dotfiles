@@ -1,3 +1,6 @@
+# Plugins should not be on the repo
 plugged
 autoload
 colors
+
+.init.vim-rplugin~
