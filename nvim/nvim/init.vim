@@ -20,6 +20,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'neomake/neomake'
 Plug 'mhartington/deoplete-typescript'
 Plug 'carlitux/deoplete-ternjs'
+Plug 'mhartington/oceanic-next'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -84,7 +85,8 @@ set background=dark
 
 syntax enable
 
-colorscheme onedark
+"colorscheme onedark
+colorscheme OceanicNext
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -119,6 +121,7 @@ set scrolloff=3
 "airline
 set laststatus=2 "enabled vim airline
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+let g:airline_theme='oceanicnext'
 
 "enable true color (24bpp) color for the terminal
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
