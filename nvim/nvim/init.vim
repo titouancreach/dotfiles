@@ -3,6 +3,8 @@
 filetype off
 
 " Plugins -------------------------------------------- {{{
+"
+
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -14,18 +16,15 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'joshdick/onedark.vim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'neomake/neomake'
-Plug 'mhartington/deoplete-typescript'
-Plug 'carlitux/deoplete-ternjs'
-Plug 'mhartington/oceanic-next'
-
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'chriskempson/base16-vim'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'ervandew/supertab'
+Plug 'w0rp/ale'
+Plug 'posva/vim-vue'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'shmargum/vim-sass-colors'
 
 call plug#end()
 
@@ -85,8 +84,8 @@ set background=dark
 
 syntax enable
 
-"colorscheme onedark
-colorscheme OceanicNext
+"colorscheme base16-gruvbox-dark-pale
+colorscheme base16-materia
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -107,7 +106,7 @@ set showcmd
 let &t_Co=256
 
 "show line number
-set number
+"set number
 
 "enable mouse
 set mouse=a
@@ -121,7 +120,7 @@ set scrolloff=3
 "airline
 set laststatus=2 "enabled vim airline
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-let g:airline_theme='oceanicnext'
+"let g:airline_theme='oceanicnext'
 
 "enable true color (24bpp) color for the terminal
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -160,6 +159,9 @@ let g:mapleader = ","
 inoremap \fn <C-R>=expand("%:t")<CR>
 "insert the date of today with \today
 inoremap \today <C-R>=strftime("%d/%m/%y")<CR>
+
+"save as root with w!!
+cnoremap w!! w !sudo tee > /dev/null %
 
 "refresh configuration
 nmap <leader>s :source ~/.config/nvim/init.vim<CR>
@@ -206,13 +208,12 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-"use NeoMake
-autocmd! BufWritePost * Neomake
-
-" Configure linter for javascript
-let g:neomake_javascript_enabled_makers = ['jshint']
 
 let g:deoplete#enable_at_startup = 1
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
 
 " }}}
 
