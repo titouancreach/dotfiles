@@ -36,6 +36,11 @@ Plug 'kyuhi/vim-emoji-complete'
 Plug 'elmcast/elm-vim'
 Plug 'morhetz/gruvbox'
 
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
+Plug 'haya14busa/vim-textobj-function-syntax'
+
+
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
 Plug 'ryanoasis/vim-devicons'
