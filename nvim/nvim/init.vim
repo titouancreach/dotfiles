@@ -178,9 +178,14 @@ let mapleader = ","
 let g:mapleader = ","
 
 "insert filename of the file when write \fn
+
 inoremap \fn <C-R>=expand("%:t")<CR>
 "insert the date of today with \today
+
 inoremap \today <C-R>=strftime("%d/%m/%y")<CR>
+
+" Add the issue number if contained in the branch
+inoremap \issue <C-R>=system('git rev-parse --abbrev-ref HEAD \| grep -Eo "[0-9]+" \| tr -d "\n"')<CR>
 
 "save as root with w!!
 cnoremap w!! w !sudo tee > /dev/null %
