@@ -33,6 +33,12 @@ Plug 'mxw/vim-jsx'
 
 Plug 'kyuhi/vim-emoji-complete'
 
+Plug 'elmcast/elm-vim'
+Plug 'morhetz/gruvbox'
+
+" Should be loaded at the end
+" Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -92,8 +98,7 @@ set background=dark
 
 syntax enable
 
-"colorscheme base16-gruvbox-dark-pale
-colorscheme OceanicNext
+colorscheme gruvbox
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -143,7 +148,8 @@ endif
 set autoindent
 set copyindent "use previous indent
 
-" At klaxoon, prefered indent is 4, uncomment to use 2
+" At Klaxoon, we use 4, but I'm too lazy to have 2 vimrc dependings if I'm at
+" home or not :'(
  set shiftwidth=4 "for >
  set tabstop=4 "for auto indent
  set softtabstop=4 "for <BS>
