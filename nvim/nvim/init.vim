@@ -1,6 +1,6 @@
 " vim:fdm=marker
 
-filetype off
+filetype plugin on
 
 " Plugins -------------------------------------------- {{{
 "
@@ -8,7 +8,7 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'https://github.com/kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdTree'
 Plug 'tpope/vim-fugitive'
@@ -16,15 +16,23 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'rking/ag.vim'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'chriskempson/base16-vim'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'ervandew/supertab'
 Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'shmargum/vim-sass-colors'
+Plug 'mhartington/oceanic-next' 
+Plug 'prettier/vim-prettier'
+Plug 'easymotion/vim-easymotion'
+Plug 'luochen1990/rainbow'
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+
+Plug 'kyuhi/vim-emoji-complete'
+
 
 call plug#end()
 
@@ -85,7 +93,7 @@ set background=dark
 syntax enable
 
 "colorscheme base16-gruvbox-dark-pale
-colorscheme base16-materia
+colorscheme OceanicNext
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -134,9 +142,12 @@ endif
 
 set autoindent
 set copyindent "use previous indent
-set shiftwidth=2 "for >
-set tabstop=2 "for auto indent
-set softtabstop=2 "for <BS>
+
+" At klaxoon, prefered indent is 4, uncomment to use 2
+ set shiftwidth=4 "for >
+ set tabstop=4 "for auto indent
+ set softtabstop=4 "for <BS>
+
 set shiftround "using multiples of shiftwidth"
 set expandtab "using spaces
 
@@ -172,14 +183,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-"completion with ctrl-space (like eclipse)
-inoremap <Nul> <C-n>
-inoremap <C-space> <C-n>
-
-"fast saving
-nmap <leader>w :w!<CR>
-nmap <leader>q :wqa!<CR>
-
 "// stop current search
 map // :nohlsearch<CR>
 
@@ -209,11 +212,21 @@ if executable('ag')
 endif
 
 
-let g:deoplete#enable_at_startup = 1
-
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
+
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0
+
+let g:rainbow_active = 1
+
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 " }}}
 
