@@ -11,6 +11,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdTree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'tpope/vim-fugitive'
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
@@ -176,6 +178,12 @@ let g:html_indent_inctags = "html,body,head,tbody"
 
 let mapleader = ","
 let g:mapleader = ","
+
+" Change window in the terminal as usual
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-w> <C-\><C-n><C-w>l
 
 "insert filename of the file when write \fn
 
