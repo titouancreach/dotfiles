@@ -8,8 +8,9 @@ filetype plugin on
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'kien/ctrlp.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -17,30 +18,35 @@ Plug 'tpope/vim-fugitive'
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
-Plug 'rking/ag.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'shmargum/vim-sass-colors'
-Plug 'mhartington/oceanic-next' 
 Plug 'prettier/vim-prettier'
 Plug 'easymotion/vim-easymotion'
-Plug 'luochen1990/rainbow'
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
-Plug 'kyuhi/vim-emoji-complete'
+Plug 'kyuhi/vim-emoji-complete' " 😄
 
 Plug 'elmcast/elm-vim'
-Plug 'morhetz/gruvbox'
 
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 Plug 'haya14busa/vim-textobj-function-syntax'
+
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+
+Plug 'ayu-theme/ayu-vim'
+
+Plug 'terryma/vim-smooth-scroll'
 
 
 " Should be loaded at the end
@@ -59,7 +65,7 @@ set nowrap
 set autoread
 
 "change dir if a file is opened
-set autochdir
+" set autochdir
 
 "ignore case when searching
 set ignorecase
@@ -105,7 +111,9 @@ set background=dark
 
 syntax enable
 
-colorscheme gruvbox
+let ayucolor="mirage"
+colorscheme ayu
+
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -126,7 +134,7 @@ set showcmd
 let &t_Co=256
 
 "show line number
-"set number
+set number
 
 "enable mouse
 set mouse=a
@@ -140,7 +148,7 @@ set scrolloff=3
 "airline
 set laststatus=2 "enabled vim airline
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-"let g:airline_theme='oceanicnext'
+let g:airline_theme='ayu_mirage'
 
 "enable true color (24bpp) color for the terminal
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -185,6 +193,16 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-w> <C-\><C-n><C-w>l
 
+" Go to normal mode when typing jj (works in the neovim terminal mode)
+imap jj <Esc>
+tnoremap jj <C-\><C-n>
+
+
+" move line up and down in visual mode
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+
 "insert filename of the file when write \fn
 
 inoremap \fn <C-R>=expand("%:t")<CR>
@@ -202,10 +220,10 @@ cnoremap w!! w !sudo tee > /dev/null %
 nmap <leader>s :source ~/.config/nvim/init.vim<CR>
 
 "Change split keymap
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 "// stop current search
 map // :nohlsearch<CR>
@@ -213,8 +231,16 @@ map // :nohlsearch<CR>
 "should be here by default
 nnoremap Y y$ 
 
-"ctrl-p for file, ctrl-b for buffers (can clash with tmux conf)
-nmap <C-b> :CtrlPBuffer<CR>
+nmap <leader>n :NERDTreeFind<CR>
+nmap <leader>m :NERDTreeToggle<CR>
+
+" fuzzy finding
+nnoremap <C-p> :GFiles<cr>
+nnoremap <C-b> :Buffers<cr>
+
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " }}}
 
@@ -228,23 +254,28 @@ augroup END
 " }}}
 
 " Plugin configuration ------------------------------- {{{
+"
 
-"use ag instead of grep in ctrlp (much faster)
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+" Add a space after comments // 
+let g:NERDSpaceDelims = 1
+
+" Enable airline for the tabs
+let g:airline#extensions#tabline#enabled = 1
 
 
+" Linter / Fixer (javascript)
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\}
+
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint']
 \}
 
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0
 
-let g:rainbow_active = 1
 
 let g:user_emmet_settings = {
   \  'javascript.jsx' : {
