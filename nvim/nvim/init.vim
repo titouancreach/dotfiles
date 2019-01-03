@@ -28,6 +28,10 @@ Plug 'prettier/vim-prettier'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'michaeljsmith/vim-indent-object'
+
+Plug 'justinmk/vim-sneak'
+
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
@@ -48,6 +52,8 @@ Plug 'ayu-theme/ayu-vim'
 
 Plug 'terryma/vim-smooth-scroll'
 
+Plug 'tpope/vim-unimpaired'
+
 
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
@@ -59,7 +65,7 @@ call plug#end()
 
 " Miscellaneous -------------------------------------- {{{
 
-set nowrap
+set wrap
 
 "read outgoing modifictions
 set autoread
@@ -70,8 +76,9 @@ set autoread
 "ignore case when searching
 set ignorecase
 
-"highlight search
-set hlsearch
+"no highlight search
+"set hlsearch
+set nohlsearch
 
 
 "no indent when pasting text
@@ -102,6 +109,9 @@ autocmd BufReadPost *
 set nobackup
 set nowb
 set noswapfile
+
+set undofile
+set undodir=~/.vim/undodir
 
 " }}}
 
@@ -193,6 +203,25 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-w> <C-\><C-n><C-w>l
 
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+
+" for unimpaired
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
+
 " Go to normal mode when typing jj (works in the neovim terminal mode)
 imap jj <Esc>
 tnoremap jj <C-\><C-n>
@@ -258,6 +287,8 @@ augroup END
 
 " Add a space after comments // 
 let g:NERDSpaceDelims = 1
+let NERDTreeShowBookmarks=1
+
 
 " Enable airline for the tabs
 let g:airline#extensions#tabline#enabled = 1
@@ -275,6 +306,9 @@ let g:ale_fixers = {
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0
+
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
 
 
 let g:user_emmet_settings = {
