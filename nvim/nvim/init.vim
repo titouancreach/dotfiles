@@ -25,12 +25,9 @@ Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'shmargum/vim-sass-colors'
 Plug 'prettier/vim-prettier'
-Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'michaeljsmith/vim-indent-object'
-
-Plug 'justinmk/vim-sneak'
 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -39,21 +36,16 @@ Plug 'kyuhi/vim-emoji-complete' " 😄
 
 Plug 'elmcast/elm-vim'
 
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-function'
-Plug 'haya14busa/vim-textobj-function-syntax'
-
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-
 Plug 'ayu-theme/ayu-vim'
 
-Plug 'terryma/vim-smooth-scroll'
+Plug 'markonm/traces.vim'
 
-Plug 'tpope/vim-unimpaired'
-
+" more text objects
+Plug 'wellle/targets.vim'
 
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
@@ -231,6 +223,9 @@ tnoremap jj <C-\><C-n>
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
+" Close all buffer exepted the current one (clean buffers)
+nnoremap <leader><leader>c :bd\|e#<CR>
+
 
 "insert filename of the file when write \fn
 
@@ -267,9 +262,6 @@ nmap <leader>m :NERDTreeToggle<CR>
 nnoremap <C-p> :GFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " }}}
 
@@ -288,6 +280,10 @@ augroup END
 " Add a space after comments // 
 let g:NERDSpaceDelims = 1
 let NERDTreeShowBookmarks=1
+
+autocmd User targets#mappings#user call targets#mappings#extend({
+    \ 'a': {'argument': [{'o': '[{([]', 'c': '[])}]', 's': ','}]}
+    \ })
 
 
 " Enable airline for the tabs
