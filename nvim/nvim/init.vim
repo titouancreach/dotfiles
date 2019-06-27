@@ -27,15 +27,26 @@ Plug 'shmargum/vim-sass-colors'
 Plug 'prettier/vim-prettier'
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'jnurmine/Zenburn'
+Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
+Plug 'mhartington/oceanic-next'
+Plug 'tomasiser/vim-code-dark'
+
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
+
+Plug 'airblade/vim-gitgutter'
+"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 Plug 'kyuhi/vim-emoji-complete' " 😄
 
 Plug 'elmcast/elm-vim'
 
+
+Plug 'leafgarland/typescript-vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -44,8 +55,11 @@ Plug 'ayu-theme/ayu-vim'
 
 Plug 'markonm/traces.vim'
 
-" more text objects
-Plug 'wellle/targets.vim'
+" more text objects (argument is "a")
+Plug 'wellle/targets.vim' 
+
+
+Plug 'Townk/vim-autoclose'
 
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
@@ -56,8 +70,11 @@ call plug#end()
 " }}}
 
 " Miscellaneous -------------------------------------- {{{
-
 set wrap
+
+
+" let the plugins to redraw (ale, gitgutter...)
+set updatetime=100
 
 "read outgoing modifictions
 set autoread
@@ -67,6 +84,8 @@ set autoread
 
 "ignore case when searching
 set ignorecase
+
+set lazyredraw
 
 "no highlight search
 "set hlsearch
@@ -113,8 +132,8 @@ set background=dark
 
 syntax enable
 
-let ayucolor="mirage"
-colorscheme ayu
+colorscheme OceanicNext
+
 
 
 "disable sound
@@ -126,7 +145,7 @@ endif
 "show cursor position
 set ruler
 
-"show match bracklet
+"show matching brackets
 set showmatch
 
 "show the cmd
@@ -135,8 +154,8 @@ set showcmd
 "256 colors terminal
 let &t_Co=256
 
-"show line number
-set number
+"don't show line number
+set nonumber
 
 "enable mouse
 set mouse=a
@@ -150,7 +169,7 @@ set scrolloff=3
 "airline
 set laststatus=2 "enabled vim airline
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-let g:airline_theme='ayu_mirage'
+let g:airline_theme='oceanicnext'
 
 "enable true color (24bpp) color for the terminal
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -199,11 +218,6 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
-
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
 
 
 " for unimpaired
@@ -261,6 +275,7 @@ nmap <leader>m :NERDTreeToggle<CR>
 " fuzzy finding
 nnoremap <C-p> :GFiles<cr>
 nnoremap <C-b> :Buffers<cr>
+nnoremap <C-g> :History<cr>
 
 
 " }}}
@@ -289,15 +304,23 @@ autocmd User targets#mappings#user call targets#mappings#extend({
 " Enable airline for the tabs
 let g:airline#extensions#tabline#enabled = 1
 
+" Enable error in the status line (like vscode)
+let g:airline#extensions#ale#enabled = 1
+
 
 " Linter / Fixer (javascript)
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'typescript': ['eslint']
 \}
 
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint']
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint']
 \}
+
+" put the errors in the quickfix list 
+let g:ale_set_quickfix = 1
 
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
@@ -315,4 +338,4 @@ let g:user_emmet_settings = {
 
 " }}}
 
-
+au BufNewFile,BufRead,BufReadPost *.jsx set syntax=javascript.jsx
