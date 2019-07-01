@@ -19,8 +19,6 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ervandew/supertab'
-Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'shmargum/vim-sass-colors'
@@ -58,6 +56,8 @@ Plug 'markonm/traces.vim'
 " more text objects (argument is "a")
 Plug 'wellle/targets.vim' 
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 Plug 'Townk/vim-autoclose'
 
@@ -73,7 +73,7 @@ call plug#end()
 set wrap
 
 
-" let the plugins to redraw (ale, gitgutter...)
+" let the plugins to redraw (gitgutter...)
 set updatetime=100
 
 "read outgoing modifictions
@@ -303,31 +303,10 @@ autocmd User targets#mappings#user call targets#mappings#extend({
 
 " Enable airline for the tabs
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Enable error in the status line (like vscode)
 let g:airline#extensions#ale#enabled = 1
-
-
-" Linter / Fixer (javascript)
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint']
-\}
-
-let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'typescript': ['prettier', 'eslint']
-\}
-
-" put the errors in the quickfix list 
-let g:ale_set_quickfix = 1
-
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0
-
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
 
 
 let g:user_emmet_settings = {
@@ -338,4 +317,13 @@ let g:user_emmet_settings = {
 
 " }}}
 
-au BufNewFile,BufRead,BufReadPost *.jsx set syntax=javascript.jsx
+
+" use AG instead of find (this respects the .gitignore) and it's fast :) :)
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+au BufNewFile,BufRead,BufReadPost *.jsx set filetype=javascript.jsx
+au BufNewFile,BufRead,BufReadPost *.tsx set filetype=typescript.tsx
+
+set signcolumn=yes
+
+inoremap <silent><expr> <c-space> coc#refresh()
