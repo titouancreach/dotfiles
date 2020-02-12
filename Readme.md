@@ -9,6 +9,12 @@ To install, you need to have GNU Stow, and run ```install.sh```
 I use [vim-plug](https://github.com/junegunn/vim-plug) as a plugin manager, you must to install it before using this configuration.
 Then, type ```:PlugInstall``` in Neovim.
 
+Siver searcher (a.k.a Ag) is required to search through the code and for FZF, on Ubuntu
+
+```bash
+sudo apt install install silversearcher-ag
+```
+
 ![screenshot](./screenshot/vim.png)
 
 
