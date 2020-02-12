@@ -55,6 +55,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'markonm/traces.vim'
 
 " more text objects (argument is "a")
+" n to change in the Next: cin(
 Plug 'wellle/targets.vim' 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
