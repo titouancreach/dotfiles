@@ -8,9 +8,6 @@ filetype plugin on
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -30,6 +27,10 @@ Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
 Plug 'mhartington/oceanic-next'
 Plug 'tomasiser/vim-code-dark'
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -127,14 +128,14 @@ set undodir=~/.vim/undodir
 " }}}
 
 " Appearance ----------------------------------------- {{{
+"256 colors terminal
+let &t_Co=256
 
-set background=dark
+set background=light
 
 syntax enable
 
-colorscheme OceanicNext
-
-
+" colorscheme PaperColor
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -151,8 +152,6 @@ set showmatch
 "show the cmd
 set showcmd
 
-"256 colors terminal
-let &t_Co=256
 
 "don't show line number
 set nonumber
@@ -165,11 +164,6 @@ set cursorline
 
 "lines which surround the cursor
 set scrolloff=3
-
-"airline
-set laststatus=2 "enabled vim airline
-set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-let g:airline_theme='oceanicnext'
 
 "enable true color (24bpp) color for the terminal
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -301,14 +295,6 @@ autocmd User targets#mappings#user call targets#mappings#extend({
     \ })
 
 
-" Enable airline for the tabs
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" Enable error in the status line (like vscode)
-let g:airline#extensions#ale#enabled = 1
-
-
 let g:user_emmet_settings = {
   \  'javascript.jsx' : {
     \      'extends' : 'jsx',
@@ -327,3 +313,9 @@ au BufNewFile,BufRead,BufReadPost *.tsx set filetype=typescript.tsx
 set signcolumn=yes
 
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Don't show insert in the bottom bar since it's already display by vim
+" lightline
+set noshowmode
+
+
