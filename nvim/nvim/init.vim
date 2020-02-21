@@ -11,6 +11,9 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+
+Plug 'terryma/vim-multiple-cursors'
+
 Plug 'tpope/vim-fugitive'
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'tpope/vim-surround'
@@ -30,6 +33,7 @@ Plug 'tomasiser/vim-code-dark'
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'OrangeT/vim-csharp'
 Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'michaeljsmith/vim-indent-object'
@@ -62,10 +66,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
 Plug 'Townk/vim-autoclose'
+Plug 'cocopon/iceberg.vim'
 
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
-Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -132,11 +136,11 @@ set undodir=~/.vim/undodir
 "256 colors terminal
 let &t_Co=256
 
-set background=light
+set background=dark
 
 syntax enable
 
-" colorscheme PaperColor
+colorscheme iceberg
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -271,6 +275,7 @@ nmap <leader>m :NERDTreeToggle<CR>
 nnoremap <C-p> :GFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-g> :History<cr>
+nnoremap <C-f> :Ag<cr>
 
 
 " }}}
