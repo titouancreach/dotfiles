@@ -8,4 +8,5 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 ln -sf $PWD/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 
+echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PlugInstall, then :source ~/.config/nvim/init.vim 🎉"
