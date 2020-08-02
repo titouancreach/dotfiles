@@ -8,11 +8,13 @@ filetype plugin on
 
 call plug#begin('~/.config/nvim/plugged')
 
+
+Plug 'puremourning/vimspector'
+Plug 'mhartington/oceanic-next'
+
+
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
-
-Plug 'terryma/vim-multiple-cursors'
 
 Plug 'tpope/vim-fugitive'
 Plug 'jtratner/vim-flavored-markdown'
@@ -30,10 +32,10 @@ Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
 Plug 'mhartington/oceanic-next'
 Plug 'tomasiser/vim-code-dark'
+Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'OrangeT/vim-csharp'
 Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'michaeljsmith/vim-indent-object'
@@ -59,17 +61,19 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'markonm/traces.vim'
 
 " more text objects (argument is "a")
-" n to change in the Next: cin(
 Plug 'wellle/targets.vim' 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
 Plug 'Townk/vim-autoclose'
-Plug 'cocopon/iceberg.vim'
+
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'OrangeT/vim-csharp'
 
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -140,7 +144,7 @@ set background=dark
 
 syntax enable
 
-colorscheme iceberg
+colorscheme codedark
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -162,7 +166,7 @@ set showcmd
 set nonumber
 
 "enable mouse
-set mouse=a
+"set mouse=a
 
 "hightlight current line
 set cursorline
@@ -175,6 +179,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 if (has("termguicolors"))
   set termguicolors
 endif
+
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set lcs+=space:·
+set list
 
 " }}}
 
@@ -275,7 +284,6 @@ nmap <leader>m :NERDTreeToggle<CR>
 nnoremap <C-p> :GFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-g> :History<cr>
-nnoremap <C-f> :Ag<cr>
 
 
 " }}}
@@ -323,5 +331,24 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Don't show insert in the bottom bar since it's already display by vim
 " lightline
 set noshowmode
+
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current
+" paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+"
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+nmap <leader>rn <Plug>(coc-rename)
+
+
+set ffs=unix,dos
+
+nnoremap j gj
+nnoremap k gk
 
 
