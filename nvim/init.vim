@@ -101,6 +101,9 @@ set lazyredraw
 "set hlsearch
 set nohlsearch
 
+" fix endline
+set fileformat=unix
+
 
 "no indent when pasting text
 set pastetoggle=<F2>
@@ -351,4 +354,4 @@ set ffs=unix,dos
 nnoremap j gj
 nnoremap k gk
 
-
+set ff=unix
