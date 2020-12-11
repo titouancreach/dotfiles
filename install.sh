@@ -12,6 +12,8 @@ ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 
 git config --global alias.co 'checkout'
 git config --global alias.up 'pull --rebase --autostash'
+git config --global fetch.prune true
+
 
 echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PlugInstall, then :source ~/.config/nvim/init.vim 🎉"

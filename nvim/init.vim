@@ -68,7 +68,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Townk/vim-autoclose'
 
-Plug 'OmniSharp/omnisharp-vim'
+" Plug 'OmniSharp/omnisharp-vim'
 Plug 'OrangeT/vim-csharp'
 
 " Should be loaded at the end
