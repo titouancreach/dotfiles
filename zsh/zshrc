@@ -115,7 +115,7 @@ export MailjetApi__SendMailToInDevEnv="t.creach@unitee.io"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #autojump
-[[ -s /home/dev/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
 
