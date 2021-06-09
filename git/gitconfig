@@ -1,0 +1,12 @@
+[user]
+	email = t.creach@unitee.io
+	name = Titouan CREACH
+[branch]
+	autosetupmerge = always
+[alias]
+	co = checkout
+	up = pull --rebase --autostash
+[fetch]
+	prune = true
+[core]
+	editor = vim
