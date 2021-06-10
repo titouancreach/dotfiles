@@ -1,0 +1,70 @@
+# Hyperviseurs
+
+Host kdev
+    Hostname 10.10.0.2
+    User unitee
+
+Host k2
+    HostName 193.33.169.226
+    User unitee
+
+Host k3
+    HostName 193.33.169.227
+    User unitee
+
+# SQL
+
+Host sql1
+    HostName sql1.unitee.org
+    User unitee
+
+Host sqldev
+    HostName sqldev.unitee.org
+    User unitee
+
+# Staging
+
+Host sopral1
+    HostName sopral1.unitee.org
+    User unitee
+
+Host staging1
+    HostName staging1.unitee.org
+    User unitee
+
+# Prod
+
+Host cybille1
+    HostName cybille1.unitee.org
+    User unitee
+
+Host intereem1
+    HostName intereem1.unitee.org
+    User unitee
+
+Host unitee1
+    HostName unitee1.unitee.org
+    User unitee
+
+Host liveboat1
+    HostName unitee1.unitee.org
+    User unitee
+
+Host per1
+    HostName per1.unitee.org
+    User unitee
+
+Host unitee1
+    HostName unitee1.unitee.org
+    User unitee
+
+Host grean1
+    Hostname grean1.unitee.org
+    User unitee
+
+# Dev
+
+Host dev
+    Hostname 10.10.200.102
+    User dev
+

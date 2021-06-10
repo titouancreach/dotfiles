@@ -10,6 +10,9 @@ ln -sf $PWD/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 ln -sf $PWD/git/gitconfig $HOME/.gitconfig
 
+mkdir -p $HOME/.ssh
+ln -sf $PWD/ssh/config $HOME/.ssh/config
+
 
 echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PlugInstall, then :source ~/.config/nvim/init.vim 🎉"
