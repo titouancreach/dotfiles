@@ -1,3 +1,9 @@
+# Routeurs
+
+Host eclo
+    Hostname 10.10.0.1
+    User unitee
+
 # Hyperviseurs
 
 Host kdev
@@ -68,3 +74,10 @@ Host dev
     Hostname 10.10.200.102
     User dev
 
+Host ara
+    Hostname 10.10.200.105
+    User dev
+
+Host ame
+    Hostname 10.10.200.109
+    User dev
