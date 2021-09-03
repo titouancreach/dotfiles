@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.dotnet:$HOME/.dotnet/tools:/usr/local/go/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.dotnet:$HOME/.dotnet/tools:/usr/local/go/bin:$HOME/bin/flutter/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -117,5 +117,10 @@ export MailjetApi__SendMailToInDevEnv="t.creach@unitee.io"
 #autojump
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
+
+export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home/
+export ANDROID_HOME=~/Library/Android/sdk
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
+export ANDROID_AVD_HOME=~/.android/avd
 
 

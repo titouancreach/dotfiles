@@ -68,6 +68,10 @@ Host grean1
     Hostname grean1.unitee.org
     User unitee
 
+Host kize1
+    Hostname 172.18.15.1
+    User kize
+
 # Dev
 
 Host dev
@@ -80,4 +84,16 @@ Host ara
 
 Host ame
     Hostname 10.10.200.109
+    User dev
+
+Host gro
+    Hostname 10.10.200.110
+    User dev
+
+Host jva
+    Hostname 10.10.200.111
+    User dev
+
+Host aca
+    Hostname 10.10.200.104
     User dev
