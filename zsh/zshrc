@@ -103,7 +103,6 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias prune="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 alias dc="docker-compose"
-alias code="code-insiders"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
