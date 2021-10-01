@@ -38,6 +38,7 @@ if [[ $HAS_CODE -eq 1 ]]; then
   code --install-extension PKief.material-icon-theme --force
   code --install-extension vscodevim.vim --force
   code --install-extension william-voyek.vscode-nginx --force
+  code --install-extension bradlc.vscode-tailwindcss --force
 
 fi
 
