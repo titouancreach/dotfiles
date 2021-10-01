@@ -13,6 +13,10 @@ ln -sf $PWD/git/gitconfig $HOME/.gitconfig
 mkdir -p $HOME/.ssh
 ln -sf $PWD/ssh/config $HOME/.ssh/config
 
+#if mac
+if [[ $OSTYPE == 'darwin'* ]]; then
+    ln -sf $PWD/vscode/settings.json "$HOME/Library/ApplicationSupport/Code/User/settings.json"
+fi
 
 echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PlugInstall, then :source ~/.config/nvim/init.vim 🎉"
