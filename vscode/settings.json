@@ -33,9 +33,7 @@
   "[dart]": {
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
-    "editor.rulers": [
-      80
-    ],
+    "editor.rulers": [80],
     "editor.selectionHighlight": false,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
@@ -61,7 +59,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "editor.cursorBlinking": "solid",
   "editor.lineNumbers": "off",
@@ -77,9 +75,7 @@
   "terminal.integrated.tabs.enabled": true,
   "dart.flutterSdkPath": "/Users/titouancreach/bin/flutter",
   "editor.wordWrapColumn": 120,
-  "editor.rulers": [
-    120
-  ],
+  "editor.rulers": [120],
   "editor.inlineSuggest.enabled": true,
   "gitlens.advanced.messages": {
     "suppressGitMissingWarning": true
@@ -99,4 +95,12 @@
   "[nginx]": {
     "editor.defaultFormatter": "raynigon.nginx-formatter"
   },
+  "git.ignoreRebaseWarning": true,
+  "redhat.telemetry.enabled": true,
+  "files.associations": {
+    "appsettings.json": "jsonc",
+    "appsettings.Development.json": "jsonc",
+    "appsettings.Staging.json": "jsonc",
+    "appsettings.Production.json": "jsonc"
+  }
 }
