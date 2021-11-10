@@ -125,3 +125,6 @@ export ANDROID_AVD_HOME=~/.android/avd
 
 [[ -f /bin/kubectl ]] && source <(kubectl completion zsh)
 
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+
