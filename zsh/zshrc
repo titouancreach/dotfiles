@@ -128,4 +128,4 @@ export ANDROID_AVD_HOME=~/.android/avd
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)

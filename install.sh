@@ -18,6 +18,7 @@ if [[ $HAS_CODE -eq 1 ]]; then
   #if mac
   if [[ $OSTYPE == 'darwin'* ]]; then
       ln -sf $PWD/vscode/settings.json "$HOME/Library/ApplicationSupport/Code/User/settings.json"
+      ln -sf $PWD/vscode/settings.json "$HOME/Users/tcreach/Library/Application Support/Code - Insiders/User/settings.json"
   fi
 
   code --install-extension eamodio.gitlens --force
