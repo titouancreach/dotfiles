@@ -232,12 +232,12 @@ noremap  <buffer> <silent> $ g$
 
 
 " for unimpaired
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+" nmap < [
+" nmap > ]
+" omap < [
+" omap > ]
+" xmap < [
+" xmap > ]
 
 " Go to normal mode when typing jj (works in the neovim terminal mode)
 imap jj <Esc>

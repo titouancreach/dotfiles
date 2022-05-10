@@ -62,7 +62,8 @@
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "ms-azuretools.vscode-azurefunctions",
-    "GitHub.copilot"
+    "GitHub.copilot",
+    "medo64.render-crlf",
   ],
   "tailwindCSS.includeLanguages": {
     "aspnetcorerazor": "html"
@@ -107,11 +108,17 @@
     "appsettings.json": "jsonc",
     "appsettings.Development.json": "jsonc",
     "appsettings.Staging.json": "jsonc",
-    "appsettings.Production.json": "jsonc"
+    "appsettings.Production.json": "jsonc",
+    "*.cshtml": "aspnetcorerazor"
   },
   "security.workspace.trust.untrustedFiles": "open",
   "git.rebaseWhenSync": true,
-  "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
-  "window.zoomLevel": 1,
-  "editor.fontSize": 11
+  "editor.fontSize": 11,
+  "editor.wordWrapColumn": 120,
+  "workbench.colorTheme": "GitHub Light",
+  "redhat.telemetry.enabled": false,
+  "[markdown]": {
+      "files.trimTrailingWhitespace": false
+  },
+  "window.zoomLevel": 1
 }

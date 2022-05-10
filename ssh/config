@@ -97,3 +97,9 @@ Host jva
 Host aca
     Hostname 10.10.200.104
     User dev
+
+# Autre
+
+Host videocybille
+    Hostname 15.237.25.206
+    User cybille
