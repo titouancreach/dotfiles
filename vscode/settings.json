@@ -28,6 +28,14 @@
     {
       "before": ["+"],
       "commands": ["git.openChange"]
+    },
+    {
+      "before": ["down"],
+      "after": [ "g", "j" ]
+    },
+    {
+      "before": ["up"],
+      "after": [ "g", "k" ]
     }
   ],
   "workbench.editorAssociations": {
@@ -120,5 +128,8 @@
   "[markdown]": {
       "files.trimTrailingWhitespace": false
   },
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "extensions.ignoreRecommendations": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace"
 }
