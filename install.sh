@@ -40,6 +40,7 @@ if [[ $HAS_CODE -eq 1 ]]; then
   code --install-extension vscodevim.vim --force
   code --install-extension william-voyek.vscode-nginx --force
   code --install-extension bradlc.vscode-tailwindcss --force
+  code --install-extension qufiwefefwoyn.inline-sql-syntax --force
 
 fi
 
