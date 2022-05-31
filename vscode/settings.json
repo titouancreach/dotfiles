@@ -5,7 +5,7 @@
   "vim.replaceWithRegister": true,
   "omnisharp.enableRoslynAnalyzers": true,
   "omnisharp.enableEditorConfigSupport": true,
-  "editor.semanticHighlighting.enabled": true,
+  "editor.semanticHighlighting.enabled": false,
   "git.enableSmartCommit": true,
   "editor.lineHeight": 27,
   "editor.fontLigatures": true,
@@ -122,8 +122,7 @@
   "security.workspace.trust.untrustedFiles": "open",
   "git.rebaseWhenSync": true,
   "editor.fontSize": 11,
-  "editor.wordWrapColumn": 120,
-  "workbench.colorTheme": "GitHub Light",
+  "editor.wordWrapColumn": 150,
   "redhat.telemetry.enabled": false,
   "[markdown]": {
       "files.trimTrailingWhitespace": false
@@ -131,5 +130,7 @@
   "window.zoomLevel": 1,
   "extensions.ignoreRecommendations": true,
   "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace"
+  "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+  "csharp.semanticHighlighting.enabled": false,
+  "workbench.colorTheme": "Visual Studio 2019 Light",
 }
