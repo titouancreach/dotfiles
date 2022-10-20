@@ -130,5 +130,10 @@ bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
 
 alias code="code-insiders"
+alias kf="kill -9 `ps ax | grep func | grep -v grep | awk '{ print $1 }'`"
 
 # eval $(thefuck --alias)
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

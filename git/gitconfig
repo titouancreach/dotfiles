@@ -6,12 +6,16 @@
 [alias]
 	co = checkout
 	up = pull --rebase --autostash
+	graph = log --graph --oneline
 [fetch]
 	prune = true
 [core]
 	editor = vim
+	quotepath = off
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[init]
+	defaultBranch = main

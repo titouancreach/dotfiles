@@ -7,7 +7,7 @@
   "omnisharp.enableEditorConfigSupport": true,
   "editor.semanticHighlighting.enabled": false,
   "git.enableSmartCommit": true,
-  "editor.lineHeight": 27,
+  "editor.lineHeight": 23,
   "editor.fontLigatures": true,
   "files.autoSave": "onFocusChange",
   "vim.visualModeKeyBindings": [
@@ -58,7 +58,6 @@
     "editor.tabCompletion": "onlySnippets",
     "editor.wordBasedSuggestions": false
   },
-  "editor.minimap.enabled": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -72,15 +71,13 @@
     "ms-azuretools.vscode-azurefunctions",
     "GitHub.copilot",
     "medo64.render-crlf",
+    "qufiwefefwoyn.inline-sql-syntax"
   ],
   "tailwindCSS.includeLanguages": {
     "aspnetcorerazor": "html"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "editor.cursorBlinking": "solid",
   "editor.lineNumbers": "off",
@@ -96,14 +93,14 @@
   "terminal.integrated.tabs.enabled": true,
   "editor.rulers": [1000],
   "editor.inlineSuggest.enabled": true,
+
   "gitlens.advanced.messages": {
-    "suppressGitMissingWarning": true
+    "suppressGitMissingWarning": true,
+    "suppressGitVersionWarning": true
   },
+
   "github.copilot.enable": {
     "*": true,
-    "yaml": true,
-    "plaintext": false,
-    "markdown": true
   },
   "diffEditor.ignoreTrimWhitespace": false,
   "[javascriptreact]": {
@@ -121,16 +118,25 @@
   },
   "security.workspace.trust.untrustedFiles": "open",
   "git.rebaseWhenSync": true,
-  "editor.fontSize": 11,
+  "editor.fontSize": 10.8,
   "editor.wordWrapColumn": 150,
-  "redhat.telemetry.enabled": false,
   "[markdown]": {
       "files.trimTrailingWhitespace": false
   },
-  "window.zoomLevel": 1,
   "extensions.ignoreRecommendations": true,
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "Source Code Pro, Hack, Fira Code, Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
   "csharp.semanticHighlighting.enabled": false,
-  "workbench.colorTheme": "Visual Studio 2019 Light",
+  "editor.accessibilitySupport": "off",
+  "workbench.sideBar.location": "right",
+  "debug.toolBarLocation": "docked",
+  "workbench.editor.showTabs": false,
+  "editor.minimap.enabled": false,
+  "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.note-new-transformation": false,
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.zoomLevel": 1,
+  "githubPullRequests.fileListLayout": "flat",
 }

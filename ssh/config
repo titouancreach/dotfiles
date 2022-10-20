@@ -100,6 +100,13 @@ Host aca
 
 # Autre
 
+
 Host videocybille
-    Hostname 15.237.25.206
+    Hostname video.cybille.fr
     User cybille
+
+# VM Azure
+
+Host persql
+    Hostname 20.216.179.180
+    User per
