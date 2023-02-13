@@ -5,13 +5,10 @@ filetype plugin on
 " Plugins -------------------------------------------- {{{
 "
 
-
 call plug#begin('~/.config/nvim/plugged')
-
 
 Plug 'puremourning/vimspector'
 Plug 'mhartington/oceanic-next'
-
 
 Plug 'scrooloose/nerdTree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -27,16 +24,12 @@ Plug 'shmargum/vim-sass-colors'
 Plug 'prettier/vim-prettier'
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'jnurmine/Zenburn'
 Plug 'joshdick/onedark.vim'
-Plug 'dracula/vim'
 Plug 'mhartington/oceanic-next'
 Plug 'tomasiser/vim-code-dark'
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'itchyny/lightline.vim'
-
-Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -46,17 +39,10 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'airblade/vim-gitgutter'
 "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
-Plug 'kyuhi/vim-emoji-complete' " 😄
-
-Plug 'elmcast/elm-vim'
-
-
 Plug 'leafgarland/typescript-vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-Plug 'ayu-theme/ayu-vim'
 
 Plug 'markonm/traces.vim'
 
@@ -64,7 +50,6 @@ Plug 'markonm/traces.vim'
 Plug 'wellle/targets.vim' 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 
 Plug 'Townk/vim-autoclose'
 
@@ -74,6 +59,8 @@ Plug 'OrangeT/vim-csharp'
 " Should be loaded at the end
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
 Plug 'ryanoasis/vim-devicons'
+Plug 'github/copilot.vim'
+Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
@@ -216,8 +203,8 @@ let g:html_indent_inctags = "html,body,head,tbody"
 
 " Map ------------------------------------------------ {{{
 
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = "<space>"
+let g:mapleader = "<space>"
 
 " Change window in the terminal as usual
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -334,7 +321,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Don't show insert in the bottom bar since it's already display by vim
 " lightline
 set noshowmode
-
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current
 " paragraph

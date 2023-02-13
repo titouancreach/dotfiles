@@ -1,15 +1,4 @@
 {
-  "files.trimTrailingWhitespace": true,
-  "editor.renderWhitespace": "all",
-  "editor.wordWrap": "bounded",
-  "vim.replaceWithRegister": true,
-  "omnisharp.enableRoslynAnalyzers": true,
-  "omnisharp.enableEditorConfigSupport": true,
-  "editor.semanticHighlighting.enabled": false,
-  "git.enableSmartCommit": true,
-  "editor.lineHeight": 23,
-  "editor.fontLigatures": true,
-  "files.autoSave": "onFocusChange",
   "vim.visualModeKeyBindings": [
     {
       "before": [">"],
@@ -31,112 +20,16 @@
     },
     {
       "before": ["down"],
-      "after": [ "g", "j" ]
+      "after": ["g", "j"]
     },
     {
       "before": ["up"],
-      "after": [ "g", "k" ]
+      "after": ["g", "k"]
+    },
+    {
+      "before": ["/", "/"],
+      "commands": [":nohl"]
     }
   ],
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter-notebook"
-  },
-  "git.confirmSync": false,
-  "git.autofetch": true,
-  "debug.onTaskErrors": "abort",
-  "editor.wrappingIndent": "indent",
-  "keyboard.touchbar.enabled": false,
-  "[dart]": {
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-    "editor.rulers": [
-      120
-    ],
-    "editor.selectionHighlight": false,
-    "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "editor.suggestSelection": "first",
-    "editor.tabCompletion": "onlySnippets",
-    "editor.wordBasedSuggestions": false
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.suggestSelection": "first",
-  "remote.containers.defaultExtensions": [
-    "eamodio.gitlens",
-    "ms-dotnettools.csharp",
-    "sleistner.vscode-fileutils",
-    "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
-    "ms-azuretools.vscode-azurefunctions",
-    "GitHub.copilot",
-    "medo64.render-crlf",
-    "qufiwefefwoyn.inline-sql-syntax"
-  ],
-  "tailwindCSS.includeLanguages": {
-    "aspnetcorerazor": "html"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.cursorBlinking": "solid",
-  "editor.lineNumbers": "off",
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.acceptSuggestionOnCommitCharacter": false,
-  "dart.debugSdkLibraries": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "workbench.startupEditor": "none",
-  "terminal.integrated.tabs.enabled": true,
-  "editor.rulers": [1000],
-  "editor.inlineSuggest.enabled": true,
-
-  "gitlens.advanced.messages": {
-    "suppressGitMissingWarning": true,
-    "suppressGitVersionWarning": true
-  },
-
-  "github.copilot.enable": {
-    "*": true,
-  },
-  "diffEditor.ignoreTrimWhitespace": false,
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.bracketPairColorization.enabled": true,
-  "code-eol.newlineCharacter": "↵",
-  "git.ignoreRebaseWarning": true,
-  "files.associations": {
-    "appsettings.json": "jsonc",
-    "appsettings.Development.json": "jsonc",
-    "appsettings.Staging.json": "jsonc",
-    "appsettings.Production.json": "jsonc",
-    "*.cshtml": "aspnetcorerazor"
-  },
-  "security.workspace.trust.untrustedFiles": "open",
-  "git.rebaseWhenSync": true,
-  "editor.fontSize": 10.8,
-  "editor.wordWrapColumn": 150,
-  "[markdown]": {
-      "files.trimTrailingWhitespace": false
-  },
-  "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": "Source Code Pro, Hack, Fira Code, Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
-  "csharp.semanticHighlighting.enabled": false,
-  "editor.accessibilitySupport": "off",
-  "workbench.sideBar.location": "right",
-  "debug.toolBarLocation": "docked",
-  "workbench.editor.showTabs": false,
-  "editor.minimap.enabled": false,
-  "svelte.enable-ts-plugin": true,
-  "svelte.plugin.svelte.note-new-transformation": false,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
-  "vsicons.dontShowNewVersionMessage": true,
-  "window.zoomLevel": 1,
-  "githubPullRequests.fileListLayout": "flat",
+  "editor.inlineSuggest.enabled": true
 }
