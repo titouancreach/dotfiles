@@ -1,7 +1,6 @@
 " vim:fdm=marker
 
 filetype plugin on
-
 " Plugins -------------------------------------------- {{{
 "
 
@@ -47,7 +46,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'markonm/traces.vim'
 
 " more text objects (argument is "a")
-Plug 'wellle/targets.vim' 
+Plug 'wellle/targets.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -60,7 +59,8 @@ Plug 'OrangeT/vim-csharp'
 " Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
 Plug 'ryanoasis/vim-devicons'
 Plug 'github/copilot.vim'
-Plug 'justinmk/vim-sneak'
+
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -203,8 +203,8 @@ let g:html_indent_inctags = "html,body,head,tbody"
 
 " Map ------------------------------------------------ {{{
 
-let mapleader = "<space>"
-let g:mapleader = "<space>"
+let mapleader = ","
+let g:mapleader = ","
 
 " Change window in the terminal as usual
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -265,7 +265,7 @@ nnoremap <C-l> <C-W>l
 map // :nohlsearch<CR>
 
 "should be here by default
-nnoremap Y y$ 
+nnoremap Y y$
 
 nmap <leader>n :NERDTreeFind<CR>
 nmap <leader>m :NERDTreeToggle<CR>
@@ -289,8 +289,9 @@ augroup END
 
 " Plugin configuration ------------------------------- {{{
 "
+nmap s <Plug>(easymotion-overwin-f2)
 
-" Add a space after comments // 
+" Add a space after comments //
 let g:NERDSpaceDelims = 1
 let NERDTreeShowBookmarks=1
 

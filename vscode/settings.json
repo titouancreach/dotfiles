@@ -7,6 +7,10 @@
     {
       "before": ["<"],
       "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands":[ "editor.action.smartSelect.grow"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -29,7 +33,26 @@
     {
       "before": ["/", "/"],
       "commands": [":nohl"]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["editor.action.smartSelect.grow"]
+    },
+    {
+      "before": ["g", "n"],
+      "commands": ["editor.action.marker.next"]
+    },
+    {
+      "before": ["g", "p"],
+      "commands": ["editor.action.marker.prev"]
+    },
+    {
+      "before": ["s"],
+      "after": [",", ",", "2", "f"]
+    },
+    {
+      "before": ["S"],
+      "after": [",", ",", "2", "F"]
     }
-  ],
-  "editor.inlineSuggest.enabled": true
+  ]
 }
