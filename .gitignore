@@ -4,3 +4,5 @@ autoload
 colors
 
 .init.vim-rplugin~
+
+packer_compiled.lua

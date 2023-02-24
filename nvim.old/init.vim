@@ -1,74 +1,60 @@
-" vim:fdm=marker
-
 filetype plugin on
-" Plugins -------------------------------------------- {{{
-"
+
+function! Cond(Cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:Cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'puremourning/vimspector'
-Plug 'mhartington/oceanic-next'
-
-Plug 'scrooloose/nerdTree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'tpope/vim-fugitive'
-Plug 'jtratner/vim-flavored-markdown'
+" motion / general text editing plugins
 Plug 'tpope/vim-surround'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'wellle/targets.vim'
+Plug 'Townk/vim-autoclose'
+Plug 'easymotion/vim-easymotion', Cond(!exists('g:vscode'))
+" use VSCode easymotion when in VSCode mode
+Plug 'asvetliakov/vim-easymotion', Cond(exists('g:vscode'), { 'as': 'vsc-easymotion' })
+Plug 'tpope/vim-commentary'
+
+" Apperance plugins
+Plug 'scrooloose/nerdTree'
+Plug 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'tomasiser/vim-code-dark'
+Plug 'itchyny/lightline.vim'
+Plug 'Luxed/ayu-vim'
+
+" language specific plugins
 Plug 'mattn/emmet-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'posva/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'shmargum/vim-sass-colors'
 Plug 'prettier/vim-prettier'
-Plug 'scrooloose/nerdcommenter'
-
-Plug 'joshdick/onedark.vim'
-Plug 'mhartington/oceanic-next'
-Plug 'tomasiser/vim-code-dark'
-Plug 'AndrewRadev/splitjoin.vim'
-
-Plug 'itchyny/lightline.vim'
-
-Plug 'michaeljsmith/vim-indent-object'
-
+Plug 'jtratner/vim-flavored-markdown'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-
-Plug 'airblade/vim-gitgutter'
-"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
 Plug 'leafgarland/typescript-vim'
+Plug 'OrangeT/vim-csharp'
 
+" git
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'markonm/traces.vim'
-
-" more text objects (argument is "a")
-Plug 'wellle/targets.vim'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'Townk/vim-autoclose'
-
-" Plug 'OmniSharp/omnisharp-vim'
-Plug 'OrangeT/vim-csharp'
-
-" Should be loaded at the end
-" Use patched nerd font (thanks me later for this link: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/LiberationMono/complete/Literation%20Mono%20Nerd%20Font%20Complete%20Mono.ttf)
-Plug 'ryanoasis/vim-devicons'
+"other
 Plug 'github/copilot.vim'
 
-Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
-" }}}
-
-" Miscellaneous -------------------------------------- {{{
 set wrap
-
 
 " let the plugins to redraw (gitgutter...)
 set updatetime=100
@@ -90,7 +76,6 @@ set nohlsearch
 
 " fix endline
 set fileformat=unix
-
 
 "no indent when pasting text
 set pastetoggle=<F2>
@@ -124,9 +109,6 @@ set noswapfile
 set undofile
 set undodir=~/.vim/undodir
 
-" }}}
-
-" Appearance ----------------------------------------- {{{
 "256 colors terminal
 let &t_Co=256
 
@@ -134,7 +116,8 @@ set background=dark
 
 syntax enable
 
-colorscheme codedark
+let ayucolor="mirage"
+" colorscheme ayu
 
 "disable sound
 set noerrorbells visualbell t_vb=
@@ -150,7 +133,6 @@ set showmatch
 
 "show the cmd
 set showcmd
-
 
 "don't show line number
 set nonumber
@@ -170,84 +152,34 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set lcs+=space:·
 set list
 
-" }}}
-
-" Indent --------------------------------------------- {{{
+" indent
 
 set autoindent
 set copyindent "use previous indent
 
-" At Klaxoon, we use 4, but I'm too lazy to have 2 vimrc dependings if I'm at
-" home or not :'(
- set shiftwidth=4 "for >
- set tabstop=4 "for auto indent
- set softtabstop=4 "for <BS>
+set shiftwidth=4 "for >
+set tabstop=4 "for auto indent
+set softtabstop=4 "for <BS>
 
-set shiftround "using multiples of shiftwidth"
+"using multiples of shiftwidth"
+set shiftround
+
 set expandtab "using spaces
 
 autocmd Filetype python setlocal ts=4 sw=4 sts=4
 
-"read settings from the file i.e. /* vim: tw=60 */
-set modeline
-
 "indent tags
 let g:html_indent_inctags = "html,body,head,tbody"
 
-" }}}
 
-" Map ------------------------------------------------ {{{
+" Map
 
 let mapleader = ","
 let g:mapleader = ","
-
-" Change window in the terminal as usual
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-w> <C-\><C-n><C-w>l
-
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
-
-
-" for unimpaired
-" nmap < [
-" nmap > ]
-" omap < [
-" omap > ]
-" xmap < [
-" xmap > ]
-
-" Go to normal mode when typing jj (works in the neovim terminal mode)
-imap jj <Esc>
-tnoremap jj <C-\><C-n>
-
-
-" move line up and down in visual mode
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
-
-" Close all buffer exepted the current one (clean buffers)
-nnoremap <leader><leader>c :bd\|e#<CR>
-
-
-"insert filename of the file when write \fn
-
-inoremap \fn <C-R>=expand("%:t")<CR>
-"insert the date of today with \today
-
-inoremap \today <C-R>=strftime("%d/%m/%y")<CR>
-
-" Add the issue number if contained in the branch
-inoremap \issue <C-R>=system('git rev-parse --abbrev-ref HEAD \| grep -Eo "[0-9]+" \| tr -d "\n"')<CR>
 
 "save as root with w!!
 cnoremap w!! w !sudo tee > /dev/null %
@@ -275,30 +207,34 @@ nnoremap <C-p> :GFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-g> :History<cr>
 
-
-" }}}
-
-" Markdown ------------------------------------------- {{{
-
 augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 
-" }}}
+let g:EasyMotion_smartcase = 1
 
-" Plugin configuration ------------------------------- {{{
-"
-nmap s <Plug>(easymotion-overwin-f2)
+nmap s <Plug>(easymotion-f2)
+vmap s <Plug>(easymotion-f2)
+nmap S <Plug>(easymotion-F2)
+vmap S <Plug>(easymotion-F2)
 
-" Add a space after comments //
+nmap f <Plug>(easymotion-fl)
+vmap f <Plug>(easymotion-fl)
+nmap F <Plug>(easymotion-Fl)
+vmap F <Plug>(easymotion-Fl)
+
+nmap t <Plug>(easymotion-tl)
+vmap t <Plug>(easymotion-tl)
+nmap T <Plug>(easymotion-Tl)
+vmap T <Plug>(easymotion-Tl)
+
 let g:NERDSpaceDelims = 1
 let NERDTreeShowBookmarks=1
 
 autocmd User targets#mappings#user call targets#mappings#extend({
     \ 'a': {'argument': [{'o': '[{([]', 'c': '[])}]', 's': ','}]}
     \ })
-
 
 let g:user_emmet_settings = {
   \  'javascript.jsx' : {
@@ -308,7 +244,6 @@ let g:user_emmet_settings = {
 
 " }}}
 
-
 " use AG instead of find (this respects the .gitignore) and it's fast :) :)
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -317,24 +252,9 @@ au BufNewFile,BufRead,BufReadPost *.tsx set filetype=typescript.tsx
 
 set signcolumn=yes
 
-inoremap <silent><expr> <c-space> coc#refresh()
-
 " Don't show insert in the bottom bar since it's already display by vim
 " lightline
 set noshowmode
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current
-" paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-"
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-nmap <leader>rn <Plug>(coc-rename)
-
 
 set ffs=unix,dos
 
