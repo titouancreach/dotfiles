@@ -5,6 +5,8 @@ Here is the list of dotfiles I use.
 ⚠️  Don't use it without taking a look to what's inside.
 To install, run `install.sh`. It will create symlinks to the right files.
 
+(I keep my original .vimrc as nvim.old, since I used it since school)
+
 ## Neovim 
 
 Install xclip in order to make the '+' register to work
