@@ -18,19 +18,21 @@ return require('packer').startup(function(use)
     'rose-pine/neovim',
     as = 'rose-pine',
     config = function()
-        require("rose-pine").setup()
-        vim.cmd('colorscheme rose-pine')
-    end
+      require("rose-pine").setup()
+      vim.cmd('colorscheme rose-pine')
+    end,
+    cond = function()
+      return vim.g.vscode ~= nil
+    end,
   })
 
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use('nvim-treesitter/playground')
   use('tpope/vim-fugitive')
-
+  use('jnurmine/Zenburn')
 
   use {
-    'phaazon/hop.nvim',
-    branch = 'v2', -- optional but strongly recommended
+    'aznhe21/hop.nvim',
+    --branch = 'v2', -- optional but strongly recommended
+    branch = 'fix-some-bugs', -- optional but strongly recommended
     config = function()
       -- you can configure Hop the way you like here; see :h hop-config
       require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }

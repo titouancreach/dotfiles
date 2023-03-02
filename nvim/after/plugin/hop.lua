@@ -21,7 +21,6 @@ vim.keymap.set('', 's', function()
   hop.hint_char2({ direction = directions.AFTER_CURSOR })
 end, { remap = true })
 
-
 vim.keymap.set('', 'S', function()
   hop.hint_char2({ direction = directions.BEFORE_CURSOR })
 end, { remap = true })
