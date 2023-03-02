@@ -17,11 +17,22 @@ vim.keymap.set('', 'T', function()
   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 end, {remap=true})
 
-vim.keymap.set('', 's', function()
-  hop.hint_char2({ direction = directions.AFTER_CURSOR })
+vim.keymap.set('n', 's', function()
+  hop.hint_char2({ direction = directions.after_cursor })
 end, { remap = true })
 
-vim.keymap.set('', 'S', function()
+vim.keymap.set('n', 'S', function()
   hop.hint_char2({ direction = directions.BEFORE_CURSOR })
 end, { remap = true })
+
+vim.keymap.set('v', 'x', function()
+  hop.hint_char2({ direction = directions.after_cursor })
+end, { remap = true })
+
+vim.keymap.set('v', 'X', function()
+  hop.hint_char2({ direction = directions.BEFORE_CURSOR })
+end, { remap = true })
+
+
+
 
