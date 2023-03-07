@@ -1,3 +1,4 @@
 {
-    "editor.inlineSuggest.enabled": true
+    "editor.inlineSuggest.enabled": false,
+    "redhat.telemetry.enabled": false
 }
