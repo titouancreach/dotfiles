@@ -52,5 +52,7 @@ return require('packer').startup(function(use)
   }
 
   use('rlane/pounce.nvim')
+  use('github/copilot.vim')
+
 
 end)
