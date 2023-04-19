@@ -1,5 +1,10 @@
 require("tcreach.remap")
 
+if vim.g.vscode then
+   vim.cmd('colorscheme shine') 
+else
+end
+
 vim.opt.listchars = {eol = '↵', space = '·', tab = '>~' }
 vim.opt.list = true
 
