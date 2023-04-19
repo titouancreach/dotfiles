@@ -13,4 +13,5 @@ vim.opt.wrap = true
 vim.opt.autoread = true
 vim.opt.ignorecase = true
 
+vim.opt.scrolloff = 8
 

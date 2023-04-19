@@ -44,4 +44,13 @@ return require('packer').startup(function(use)
   use('wellle/targets.vim')
   use('airblade/vim-gitgutter')
 
+  use {
+      "chrisgrieser/nvim-various-textobjs",
+      config = function ()
+          require("various-textobjs").setup({ useDefaultKeymaps = true })
+      end,
+  }
+
+  use('rlane/pounce.nvim')
+
 end)

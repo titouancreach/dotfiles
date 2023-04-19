@@ -7,8 +7,9 @@ vim.keymap.set("n", "<C-k>", "<C-W>k")
 
 vim.keymap.set("n", "//", ":nohlsearch<CR>")
 
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', "gk")
+vim.keymap.set('n', 'j', "gj")
+
 
 vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
@@ -37,3 +38,26 @@ vim.keymap.set(
     [[<Cmd>call VSCodeNotify('git.commitStaged')<CR>]]
 )
 
+vim.keymap.set(
+    'n',
+    '<leader>w',
+    [[<Cmd>call VSCodeNotify('workbench.action.switchWindow')<CR>]]
+)
+
+vim.keymap.set(
+    'n',
+    '<leader>co', -- copen
+    [[<Cmd>call VSCodeNotify('workbench.action.problems.focus')<CR>]]
+)
+
+vim.keymap.set(
+    'n',
+    '<leader>cp', -- cprev
+    [[<Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>]]
+)
+
+vim.keymap.set(
+    'n',
+    '<leader>cn', -- cnext
+    [[<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>]]
+)
