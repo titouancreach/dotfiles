@@ -1,8 +1,9 @@
 require("tcreach.remap")
 
 if vim.g.vscode then
-   vim.cmd('colorscheme shine') 
+   vim.cmd('colorscheme shine')
 else
+    vim.cmd('colorscheme catppuccin')
 end
 
 vim.opt.listchars = {eol = '↵', space = '·', tab = '>~' }
@@ -19,4 +20,7 @@ vim.opt.autoread = true
 vim.opt.ignorecase = true
 
 vim.opt.scrolloff = 8
+
+vim.opt.swapfile = false
+vim.opt.autochdir = true
 

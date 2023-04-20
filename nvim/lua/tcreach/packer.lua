@@ -14,18 +14,6 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    config = function()
-      require("rose-pine").setup()
-      vim.cmd('colorscheme rose-pine')
-    end,
-    cond = function()
-      return vim.g.vscode ~= nil
-    end,
-  })
-
   use('tpope/vim-fugitive')
   use('jnurmine/Zenburn')
 
@@ -53,6 +41,7 @@ return require('packer').startup(function(use)
 
   use('rlane/pounce.nvim')
   use('github/copilot.vim')
-
+  use { "catppuccin/nvim", as = "catppuccin" }
+  use('tpope/vim-sleuth')
 
 end)
