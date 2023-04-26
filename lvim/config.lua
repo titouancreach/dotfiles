@@ -11,6 +11,11 @@ vim.opt.number = false
 vim.opt.listchars = { eol = '↵', space = '·', tab = '>~' }
 vim.opt.list = true
 
+vim.opt.ignorecase = true
+vim.opt.wrap = true
+vim.opt.scrolloff = 8
+vim.opt.swapfile = false
+
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
@@ -29,6 +34,7 @@ lvim.keys.normal_mode["<C-p>"] = ":Telescope git_files<CR>"
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
 lvim.keys.normal_mode["<C-f>"] = ":Telescope live_grep<CR>"
 lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
+
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -73,7 +79,7 @@ lvim.builtin.treesitter.auto_install = true
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
 -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
-lvim.lsp.on_attach_callback = function(client, bufnr)
+lvim.lsp.on_attach_callback = function(client, _)
     if client.name == "omnisharp" then
         client.server_capabilities.semanticTokensProvider = {
             full = vim.empty_dict(),
