@@ -12,12 +12,20 @@ vim.opt.listchars = { eol = '↵', space = '·', tab = '>~' }
 vim.opt.list = true
 
 vim.opt.ignorecase = true
+
 vim.opt.wrap = true
+vim.opt.breakindent = true -- Indent wrapped lines
+
 vim.opt.scrolloff = 8
 vim.opt.swapfile = false
 
+vim.opt.fillchars = { eob = '~' }
+
+lvim.transparent_window = false
+
 -- general
 lvim.log.level = "info"
+
 lvim.format_on_save = {
     enabled = true,
     pattern = "*.lua",
@@ -30,12 +38,34 @@ lvim.format_on_save = {
 lvim.leader = ","
 -- add your own keymapping
 
-lvim.keys.normal_mode["<C-p>"] = ":Telescope git_files<CR>"
+
+-- ,f = :Telescope git_files
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
-lvim.keys.normal_mode["<C-f>"] = ":Telescope live_grep<CR>"
 lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
+lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<CR>"
+
+lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
 
 
+require("dap").adapters.coreclr = {
+    type = 'executable',
+    command = '/Users/tcreach/bin/netcoredbg/netcoredbg',
+    args = { '--interpreter=vscode' }
+}
+
+require("dap").configurations.cs = {
+    {
+        type = "coreclr",
+        name = "launch - netcoredbg",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to DLL > ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+        end,
+    },
+}
+
+
+--
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
@@ -44,7 +74,8 @@ lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
 -- -- Change theme settings
-lvim.colorscheme = "lunar"
+vim.o.background = "light"
+lvim.colorscheme = "github-colors"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -159,7 +190,8 @@ lvim.lsp.on_attach_callback = function(client, _)
 end
 
 
-lvim.builtin.project.patterns = { ".git", ".csproj", "package.json" };
+lvim.builtin.project.patterns = { "*.csproj", "package.json", ".git" }
+lvim.builtin.project.silent_chdir = false
 
 -- -- linters, formatters and code actions <https://www.lunarvim.org/docs/languages#lintingformatting>
 -- local formatters = require "lvim.lsp.null-ls.formatters"
@@ -208,7 +240,23 @@ lvim.plugins = {
         }
     },
     {
-        "github/copilot.vim"
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = {
+                    auto_trigger = true,
+                    keymap = {
+                        accept = "<C-y>"
+                    },
+                    filetypes = {
+                        ["*"] = true
+                    }
+                }
+
+            })
+        end,
     },
     {
         "tpope/vim-fugitive",
@@ -238,6 +286,8 @@ lvim.plugins = {
             require("various-textobjs").setup({ useDefaultKeymaps = true })
         end,
     },
+    { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
+    { "lourenci/github-colors" }
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>

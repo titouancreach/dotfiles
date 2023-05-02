@@ -100,7 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias vim="nvim"
+alias vim="lvim"
+alias nvim="lvim"
 alias prune="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 alias dc="docker compose"
 alias docker-compose="docker compose"
