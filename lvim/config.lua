@@ -43,8 +43,13 @@ lvim.leader = ","
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
 lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<CR>"
+lvim.keys.normal_mode["<leader>sp"] = ":Telescope projects<CR>"
+lvim.keys.normal_mode["<leader>s;"] = ":Telescope lsp_references<CR>"
 
 lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
+
+lvim.keys.normal_mode["<leader>bp"] = ":lua require('dap').toggle_breakpoint()<CR>"
+lvim.keys.normal_mode["<F5>"] = ":lua require('dap').continue()<CR>"
 
 
 require("dap").adapters.coreclr = {
@@ -75,7 +80,9 @@ require("dap").configurations.cs = {
 
 -- -- Change theme settings
 vim.o.background = "light"
-lvim.colorscheme = "github-colors"
+--lvim.colorscheme = "github-colors"
+--lvim.colorscheme = "lunar"
+lvim.colorscheme = "github_light"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -286,8 +293,19 @@ lvim.plugins = {
             require("various-textobjs").setup({ useDefaultKeymaps = true })
         end,
     },
-    { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
-    { "lourenci/github-colors" }
+    { "rcarriga/nvim-dap-ui",   dependencies = { "mfussenegger/nvim-dap" } },
+    { "wellle/targets.vim" },
+    { "mg979/vim-visual-multi", branch = "master" },
+    {
+        "projekt0n/github-nvim-theme",
+        branch = "0.0.x",
+        config = function()
+            require('github-theme').setup({
+            })
+
+            vim.cmd('colorscheme github_light')
+        end,
+    },
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>

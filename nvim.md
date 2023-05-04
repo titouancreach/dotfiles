@@ -12,7 +12,6 @@ qq : recording macro on q
 q : stop recording macro   
 @q : play the q macro  
 ctrl o / ctrl i : jump list (back next)  
-gd : go to def  
 gf : go to file  
 gx: go to url  
 0 go beggining in line  
@@ -45,11 +44,6 @@ gcG : comment until end (or gggcG)
 s : Pounce  
 S : Pounce with the last search (/ register) as the input  
 
-F : Hop backward 1 char (to (included boundaries))  
-f : Hop forward 1 char  
-T : Hop backward 1 char (until (excluded boundaries))  
-t : Hop forward 1 char  
-
 ## Text objects
 
 iw / ax: word  
@@ -70,5 +64,30 @@ gn: next match text object (search, then cgn, then repeat with dot)
 For text object (handed by targets.vim), can use l (last = previous) or n (next) like: cil)
 
 
+## LSP
 
+gd : go to def  
+gh : hover
+gl : diagnostic in window
+,lj / ,lk : next prev diagnostic
+,a : code action
+,l; : find references
+,lr : rename symbol
+
+
+## Git
+,gg : Lazygit
+
+## Telescope
+
+,f : git files
+,sr : recent
+,st : search text (grep)
+,sf : search file
+,sk : search key map
+
+## jumplist
+C-^ : last file visited
+C-o: last element in jumplist
+:Telescope jumplist
 
