@@ -38,7 +38,6 @@ lvim.format_on_save = {
 lvim.leader = ","
 -- add your own keymapping
 
-
 -- ,f = :Telescope git_files
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
 lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
@@ -316,3 +315,12 @@ lvim.plugins = {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+--
+
+vim.api.nvim_create_autocmd("BufWrite",
+    {
+        pattern = "*",
+        callback = function()
+            vim.cmd("%s/\\s\\+$//ge")
+        end
+    });
