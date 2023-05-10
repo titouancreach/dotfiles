@@ -21,6 +21,8 @@ vim.opt.swapfile = false
 
 vim.opt.fillchars = { eob = '~' }
 
+vim.g.ackprg = 'ag --vimgrep'
+
 lvim.transparent_window = false
 
 -- general
@@ -305,7 +307,14 @@ lvim.plugins = {
             vim.cmd('colorscheme github_light')
         end,
     },
+    {
+        'mileszs/ack.vim',
+        config = function()
+            vim.g.ackprg = 'ag --vimgrep'
+        end
+    }
 }
+
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
