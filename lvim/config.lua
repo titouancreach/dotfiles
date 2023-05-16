@@ -6,7 +6,7 @@
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.relativenumber = false
-vim.opt.number = false
+vim.opt.number = true
 
 vim.opt.listchars = { eol = '↵', space = '·', tab = '>~' }
 vim.opt.list = true
@@ -294,9 +294,8 @@ lvim.plugins = {
             require("various-textobjs").setup({ useDefaultKeymaps = true })
         end,
     },
-    { "rcarriga/nvim-dap-ui",   dependencies = { "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
     { "wellle/targets.vim" },
-    { "mg979/vim-visual-multi", branch = "master" },
     {
         "projekt0n/github-nvim-theme",
         branch = "0.0.x",
