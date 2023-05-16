@@ -22,6 +22,6 @@ brew install the_silver_searcher
 Iterm2:
 Settings > Profile > Keys > Keys mapping > (+) > Action: Send text with vim, and then configure
 
-Option k to send\<M-k> and Option j to send \<M-j>
+Option k to send\\<M-k> and Option j to send \\<M-j>
 
 ![screenshot](./screenshot/vim.png)
