@@ -53,6 +53,10 @@ lvim.keys.normal_mode["<leader>bp"] = ":lua require('dap').toggle_breakpoint()<C
 lvim.keys.normal_mode["<F5>"] = ":lua require('dap').continue()<CR>"
 
 
+lvim.keys.normal_mode["<leader>re"] = "<Plug>RestNvim"
+
+
+
 require("dap").adapters.coreclr = {
     type = 'executable',
     command = '/Users/tcreach/bin/netcoredbg/netcoredbg',
@@ -88,8 +92,24 @@ lvim.colorscheme = "github_light"
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
+
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+
+local function my_on_attach(bufnr)
+    local api = require('nvim-tree.api')
+
+    local function opts(desc)
+        return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+
+    api.config.mappings.default_on_attach(bufnr)
+    vim.keymap.del('n', 's', { buffer = bufnr })
+    vim.keymap.set('n', 's', '<cmd>Pounce<CR>', opts('Pounce'))
+end
+
+
+lvim.builtin.nvimtree.setup.on_attach = my_on_attach
 
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
@@ -310,6 +330,46 @@ lvim.plugins = {
         'mileszs/ack.vim',
         config = function()
             vim.g.ackprg = 'ag --vimgrep'
+        end
+    },
+    {
+        "rest-nvim/rest.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("rest-nvim").setup({
+                -- Open request results in a horizontal split
+                result_split_horizontal = false,
+                -- Keep the http file buffer above|left when split horizontal|vertical
+                result_split_in_place = false,
+                -- Skip SSL verification, useful for unknown certificates
+                skip_ssl_verification = false,
+                -- Encode URL before making request
+                encode_url = true,
+                -- Highlight request on run
+                highlight = {
+                    enabled = true,
+                    timeout = 150,
+                },
+                result = {
+                    -- toggle showing URL, HTTP info, headers at top the of result window
+                    show_url = true,
+                    show_http_info = true,
+                    show_headers = true,
+                    -- executables or functions for formatting response body [optional]
+                    -- set them to false if you want to disable them
+                    formatters = {
+                        json = "jq",
+                        html = function(body)
+                            return vim.fn.system({ "tidy", "-i", "-q", "-" }, body)
+                        end
+                    },
+                },
+                -- Jump to request line on run
+                jump_to_request = false,
+                env_file = '.env',
+                custom_dynamic_variables = {},
+                yank_dry_run = true,
+            })
         end
     }
 }
