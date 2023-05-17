@@ -265,7 +265,8 @@ lvim.plugins = {
         "rlane/pounce.nvim",
         keys = {
             { "s", "<cmd>Pounce<CR>" }
-        }
+        },
+        lazy = false,
     },
     {
         "zbirenbaum/copilot.lua",
