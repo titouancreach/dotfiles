@@ -8,8 +8,11 @@ vim.opt.tabstop = 4
 vim.opt.relativenumber = false
 vim.opt.number = true
 
-vim.opt.listchars = { eol = '↵', space = '·', tab = '>~' }
+vim.opt.listchars = { eol = '↵', space = '·', tab = '>~', nbsp = '␣' }
 vim.opt.list = true
+
+-- don't break word when wrapping
+vim.opt.linebreak = true
 
 vim.opt.ignorecase = true
 
@@ -372,6 +375,9 @@ lvim.plugins = {
                 yank_dry_run = true,
             })
         end
+    },
+    {
+        'mbbill/undotree'
     }
 }
 

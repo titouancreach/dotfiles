@@ -17,6 +17,7 @@ gx: go to url
 0 go beggining in line
 ^ go to first non blank char in line
 $ eol
+g_ : eol but without the newline char
 gg : beggining of a file
 G : eof
 . : repeat
