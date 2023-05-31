@@ -86,11 +86,13 @@ gl : diagnostic in window
 ,f : git files
 ,sr : recent
 ,st : search text (grep)
-,sf : search file
+,sf : search file (from current dir)
 ,sk : search key map
+,ss : git status
 
 ## jumplist
-C-^ : last file visited
-C-o: last element in jumplist
+C-^ / C-6 : last file visited
+C-o: previous element in jumplist
+C-i: next
 :Telescope jumplist
 

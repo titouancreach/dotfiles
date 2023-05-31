@@ -36,6 +36,9 @@ lvim.format_on_save = {
     pattern = "*.lua",
     timeout = 1000,
 }
+
+lvim.lsp.automatic_configuration.skipped_servers = { "csharp_ls" }
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -49,6 +52,7 @@ lvim.keys.normal_mode["<leader>a"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<CR>"
 lvim.keys.normal_mode["<leader>sp"] = ":Telescope projects<CR>"
 lvim.keys.normal_mode["<leader>s;"] = ":Telescope lsp_references<CR>"
+lvim.keys.normal_mode["<leader>ss"] = ":Telescope git_status<CR>"
 
 lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
 
@@ -87,9 +91,10 @@ require("dap").configurations.cs = {
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
 -- -- Change theme settings
-vim.o.background = "light"
 --lvim.colorscheme = "github-colors"
---lvim.colorscheme = "lunar"
+--
+-- lvim.colorscheme = "lunar"
+vim.o.background = "light"
 lvim.colorscheme = "github_light"
 
 lvim.builtin.alpha.active = true
@@ -314,17 +319,17 @@ lvim.plugins = {
     },
     {
         "chrisgrieser/nvim-various-textobjs",
-        config = function()
-            require("various-textobjs").setup({ useDefaultKeymaps = true })
-        end,
+        opts = { useDefaultKeymaps = true },
     },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
     { "wellle/targets.vim" },
     {
         "projekt0n/github-nvim-theme",
-        branch = "0.0.x",
         config = function()
             require('github-theme').setup({
+                options = {
+                    hide_end_of_buffer = false,
+                }
             })
 
             vim.cmd('colorscheme github_light')
@@ -338,7 +343,7 @@ lvim.plugins = {
     },
     {
         "rest-nvim/rest.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("rest-nvim").setup({
                 -- Open request results in a horizontal split
@@ -378,6 +383,20 @@ lvim.plugins = {
     },
     {
         'mbbill/undotree'
+    },
+    {
+        "nvim-zh/colorful-winsep.nvim",
+        config = true,
+        event = { "WinNew" },
+    },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("oil").setup();
+        end
     }
 }
 
