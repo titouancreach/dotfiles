@@ -141,4 +141,3 @@ source <(ng completion script)
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/Users/tcreach/Documents/Projects/resharper"
 
-export Redis__ConnectionString=redis-12609.c247.eu-west-1-1.ec2.cloud.redislabs.com:12609,password=Cn61gXMLDd8T8KFDCSWwHDaj8cGktbzW
