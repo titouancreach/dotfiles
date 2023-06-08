@@ -26,6 +26,10 @@ gU : uppercase
 gu : lowercase
 past clipboard : "+p ("+ is the system clipboard)
 
+"0p : last yanked register
+
+gs = change case (gsc change to camel case, gst title case, gsU : uppercase, gs_ : snake case) (vim-caser plugin)
+
 # Surround
 
 di' : delete inner quote
@@ -39,6 +43,8 @@ viwS' : select inner word and surround with quote
 gc : comment (but need to be associated with text-object or motion)
 gcc : comment current line
 gcG : comment until end (or gggcG)
+
+gb for block comment (gbc ...)
 
 # Moving accuratly
 
@@ -95,4 +101,6 @@ C-^ / C-6 : last file visited
 C-o: previous element in jumplist
 C-i: next
 :Telescope jumplist
+
+:cdo s/dede/dede/g : apply command on qf list (c do)
 
