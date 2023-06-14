@@ -37,6 +37,9 @@ ds' : delete surround quote
 cs' " : change surround quote to double quote
 
 viwS' : select inner word and surround with quote
+ys = add surround
+ysiw' add quote around inner word
+
 
 # Comment
 
@@ -103,4 +106,5 @@ C-i: next
 :Telescope jumplist
 
 :cdo s/dede/dede/g : apply command on qf list (c do)
+cdo up : save all file matching qf list (so good after cdo s/dede/dede/g)
 

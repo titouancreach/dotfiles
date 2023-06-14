@@ -143,5 +143,58 @@ lvim.plugins = {
     },
     {
         'arthurxavierx/vim-caser'
+    },
+    {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+            require "telescope".load_extension("frecency")
+        end,
+        dependencies = { "kkharji/sqlite.lua" }
+    },
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
+    {
+        "danielfalk/smart-open.nvim",
+        branch = "0.2.x",
+        config = function()
+            require "telescope".load_extension("smart_open")
+        end,
+        dependencies = {
+            "kkharji/sqlite.lua",
+            -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+            { "nvim-telescope/telescope-fzy-native.nvim" },
+        }
+    },
+    {
+        'abecodes/tabout.nvim',
+        config = function()
+            require('tabout').setup {
+                tabkey = '<Tab>',             -- key to trigger tabout, set to an empty string to disable
+                backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+                act_as_tab = false,           -- shift content if tab out is not possible
+                act_as_shift_tab = false,     -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+                default_tab = '<C-t>',        -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+                default_shift_tab = '<C-d>',  -- reverse shift default action,
+                enable_backwards = true,      -- well ...
+                completion = false,           -- if the tabkey is used in a completion pum
+                tabouts = {
+                    { open = "'", close = "'" },
+                    { open = '"', close = '"' },
+                    { open = '`', close = '`' },
+                    { open = '(', close = ')' },
+                    { open = '[', close = ']' },
+                    { open = '{', close = '}' }
+                },
+                ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+                exclude = {} -- tabout will ignore these filetypes
+            }
+        end,
+        dependencies = { 'nvim-treesitter' }, -- or require if not used so far
     }
 }

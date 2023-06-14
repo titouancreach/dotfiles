@@ -20,26 +20,9 @@ lvim.lsp.automatic_configuration.skipped_servers = { "csharp_ls" }
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
+--
 require("tcreach.keymap")
-
-
-require("dap").adapters.coreclr = {
-    type = 'executable',
-    command = '/Users/tcreach/bin/netcoredbg/netcoredbg',
-    args = { '--interpreter=vscode' }
-}
-
-require("dap").configurations.cs = {
-    {
-        type = "coreclr",
-        name = "launch - netcoredbg",
-        request = "launch",
-        program = function()
-            return vim.fn.input('Path to DLL > ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-        end,
-    },
-}
-
+-- require("tcreach.dap");
 --
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -116,3 +99,4 @@ lvim.builtin.project.silent_chdir = false
 
 require("tcreach.plugins")
 require("tcreach.autocmd")
+require("tcreach.commands")
