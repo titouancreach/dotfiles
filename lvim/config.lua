@@ -12,11 +12,13 @@ lvim.log.level = "info"
 
 lvim.format_on_save = {
     enabled = true,
-    pattern = "*.lua",
+    pattern = { "*.lua", "*.tsx" },
     timeout = 1000,
 }
 
-lvim.lsp.automatic_configuration.skipped_servers = { "csharp_ls" }
+
+-- Add server to the skipped list
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false

@@ -175,9 +175,9 @@ lvim.plugins = {
         'abecodes/tabout.nvim',
         config = function()
             require('tabout').setup {
-                tabkey = '<Tab>',             -- key to trigger tabout, set to an empty string to disable
+                tabkey = '<Tab>',             -- key to trigger thttps://github.com/about, set to an empty string to disable
                 backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-                act_as_tab = false,           -- shift content if tab out is not possible
+                act_as_tab = true,            -- shift content if tab out is not possible
                 act_as_shift_tab = false,     -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
                 default_tab = '<C-t>',        -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
                 default_shift_tab = '<C-d>',  -- reverse shift default action,
@@ -196,5 +196,20 @@ lvim.plugins = {
             }
         end,
         dependencies = { 'nvim-treesitter' }, -- or require if not used so far
+    },
+
+    {
+        "nvim-pack/nvim-spectre",
+        event = "BufRead",
+        config = function()
+            require("spectre").setup()
+        end,
+    },
+    {
+        'nmac427/guess-indent.nvim',
+        config = function() require('guess-indent').setup {} end,
+    },
+    {
+        'chaoren/vim-wordmotion'
     }
 }
