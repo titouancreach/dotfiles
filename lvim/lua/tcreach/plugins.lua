@@ -211,5 +211,8 @@ lvim.plugins = {
     },
     {
         'chaoren/vim-wordmotion'
+    },
+    {
+        'nvim-treesitter/playground'
     }
 }
