@@ -71,9 +71,6 @@ lvim.plugins = {
     },
     {
         'mileszs/ack.vim',
-        config = function()
-            vim.g.ackprg = 'ag --vimgrep'
-        end
     },
     {
         "rest-nvim/rest.nvim",
