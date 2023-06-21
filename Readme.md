@@ -20,9 +20,9 @@ brew install ripgrep
 https://www.nerdfonts.com/
 
 ### Iterm2:
-Settings > Profile > Keys > Keys mapping > (+) > Action: Send text with vim, and then configure
 
-Option k to send \\\<M-k> and Option j to send \\\<M-j>
+see to bind option key to Meta
+    -> https://www.lunarvim.org/docs/beginners-guide/keybinds-overview
 
 ### Screenshot
 
