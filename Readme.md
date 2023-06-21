@@ -19,11 +19,6 @@ brew install ripgrep
 ### Nerdfont
 https://www.nerdfonts.com/
 
-### Iterm2:
-
-see to bind option key to Meta
-    -> https://www.lunarvim.org/docs/beginners-guide/keybinds-overview
-
 ### Screenshot
 
 ![screenshot](./screenshot/vim.png)

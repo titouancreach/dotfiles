@@ -24,6 +24,12 @@ lvim.builtin.which_key.mappings["z"] = {
 
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
 
-lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<CR>"
-
 lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
+
+lvim.keys.visual_mode["J"] = ":m '>+1<CR>gv=gv"
+lvim.keys.visual_mode["K"] = ":m '<-2<CR>gv=gv"
+
+lvim.keys.normal_mode["j"] = "gj"
+lvim.keys.normal_mode["k"] = "gk"
+
+lvim.keys.normal_mode["0"] = "^"
