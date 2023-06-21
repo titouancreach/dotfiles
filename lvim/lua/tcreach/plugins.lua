@@ -59,10 +59,21 @@ lvim.plugins = {
     { "wellle/targets.vim" },
     {
         "projekt0n/github-nvim-theme",
+        lazy = false,
         config = function()
+            print("github-nvim-theme loaded...")
             require('github-theme').setup({
                 options = {
                     hide_end_of_buffer = false,
+                    dim_inactive = true,
+                },
+                groups = {
+                    all = {
+                        Whitespace = { fg = '#e4e6e6' },
+                        NonText = { fg = '#c4c6c6' },
+                        SpecialKey = { fg = '#c4c6c6' },
+                        CursorLine = { bg = '#f6f8fa' },
+                    }
                 }
             })
 
@@ -212,20 +223,4 @@ lvim.plugins = {
     {
         'nvim-treesitter/playground'
     },
-    {
-        'TimUntersberger/neogit',
-        dependencies =
-        {
-            'nvim-lua/plenary.nvim',
-            'sindrets/diffview.nvim'
-        },
-        config = function()
-            require('neogit').setup({
-                integrations = {
-                    diffview = true
-                }
-            })
-        end
-    },
-    { "sindrets/diffview.nvim" }
 }
