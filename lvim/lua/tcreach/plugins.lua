@@ -15,18 +15,19 @@ lvim.plugins = {
         cmd = "Copilot",
         event = "InsertEnter",
         config = function()
-            require("copilot").setup({
-                suggestion = {
-                    auto_trigger = true,
-                    keymap = {
-                        accept = "<C-y>"
-                    },
-                    filetypes = {
-                        ["*"] = true
+            vim.defer_fn(function()
+                require("copilot").setup({
+                    suggestion = {
+                        auto_trigger = true,
+                        keymap = {
+                            accept = "<C-y>"
+                        },
+                        filetypes = {
+                            ["*"] = true
+                        }
                     }
-                }
-
-            })
+                })
+            end, 100)
         end,
     },
     {

@@ -17,6 +17,7 @@ lvim.format_on_save = {
 }
 
 -- Add server to the skipped list
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})
 
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -37,6 +38,8 @@ require("tcreach.colors")
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
+
+lvim.builtin.illuminate.enable = false
 
 require("tcreach.nvim-tree")
 

@@ -33,3 +33,6 @@ lvim.keys.normal_mode["j"] = "gj"
 lvim.keys.normal_mode["k"] = "gk"
 
 lvim.keys.normal_mode["0"] = "^"
+
+lvim.keys.normal_mode["gvd"] = ":vsp<CR>gd" -- Goto Vertical Definition
+lvim.keys.normal_mode["ghd"] = ":sp<CR>gd"  -- Goto Horizontal Definition
