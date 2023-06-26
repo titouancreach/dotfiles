@@ -51,8 +51,10 @@ gb for block comment (gbc ...)
 
 # Moving accuratly
 
-s : Pounce
-S : Pounce with the last search (/ register) as the input
+s and / = flash (default mode)
+f / F / t / T (represse f or F or t or T to move between match)
+doing an action remotly (r) for example yr[label]iw = (yank remotly [label] inner word) (dr[label]d) delete line remotly
+
 
 ## Text objects
 
@@ -76,28 +78,30 @@ For text object (handed by targets.vim), can use l (last = previous) or n (next)
 
 ## LSP
 
-gd : go to def
-gh : hover
+dd : go to def
+K : hover (KK move to the popup)
 gl : diagnostic in window
-,lj / ,lk : next prev diagnostic
-,a : code action
-,l; : find references
-,lr : rename symbol
+<leader>lj / <leader>lk : next prev diagnostic
+<leader>a : code action
+<leader>l; : find references
+<leader>lr : rename symbol
+gs : signature
+gr: references
 
 
 ## Git
-,gg : Lazygit
-,gd : git diff
-,gk / ,gj : next hunk / previous hunk
+<leader>gg : Lazygit
+<leader>gd : git diff
+<leader>gk / <leader>gj : next hunk / previous hunk
 
 ## Telescope
 
-,f : git files
-,sr : recent
-,st : search text (grep)
-,sf : search file (from current dir)
-,sk : search key map
-,ss : git status
+<leader>f : git files
+<leader>sr : recent
+<leader>st : search text (grep)
+<leader>sf : search file (from current dir)
+<leader>sk : search key map
+<leader>ss : git status
 
 ## jumplist
 C-^ / C-6 : last file visited
