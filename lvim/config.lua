@@ -6,6 +6,7 @@
 require("tcreach.options")
 
 lvim.transparent_window = false
+-- lvim.builtin.lualine.style = "default"
 
 -- general
 lvim.log.level = "info"
@@ -15,6 +16,7 @@ lvim.format_on_save = {
     pattern = { "*.lua", "*.tsx" },
     timeout = 1000,
 }
+
 
 -- Add server to the skipped list
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
@@ -50,6 +52,7 @@ require("tcreach.nvim-tree")
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 lvim.builtin.treesitter.highlight.additional_vim_regex_highlighting = true;
+
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
 

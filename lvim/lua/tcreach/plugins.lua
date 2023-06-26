@@ -3,13 +3,6 @@ lvim.plugins = {
         "folke/trouble.nvim",
         cmd = "TroubleToggle",
     },
-    -- {
-    --     "rlane/pounce.nvim",
-    --     keys = {
-    --         { "s", "<cmd>Pounce<CR>" }
-    --     },
-    --     lazy = false,
-    -- },
     {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
@@ -71,8 +64,8 @@ lvim.plugins = {
                 groups = {
                     all = {
                         Whitespace = { fg = '#e4e6e6' },
-                        NonText = { fg = '#c4c6c6' },
-                        SpecialKey = { fg = '#c4c6c6' },
+                        NonText = { fg = '#e4e6e6' },
+                        SpecialKey = { fg = '#e4e6e6' },
                         CursorLine = { bg = '#f6f8fa' },
                     }
                 }
@@ -260,5 +253,11 @@ lvim.plugins = {
                 desc = "Remote Flash",
             },
         },
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require('colorizer').setup()
+        end
     }
 }

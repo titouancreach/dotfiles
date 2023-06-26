@@ -11,7 +11,8 @@ require('github-theme').setup({
         all = {
             Whitespace = { fg = '#cccccc' },
             NonText = { fg = '#cccccc' },
-            CursorLine = { bg = '#f6f6f6' },
+            CursorLine = { bg = '#f6f8fa' },
+            SLCopilot = { bg = '#000000', fg = '#000000' }
         }
     }
 })
