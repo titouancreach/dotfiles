@@ -3,13 +3,13 @@ lvim.plugins = {
         "folke/trouble.nvim",
         cmd = "TroubleToggle",
     },
-    {
-        "rlane/pounce.nvim",
-        keys = {
-            { "s", "<cmd>Pounce<CR>" }
-        },
-        lazy = false,
-    },
+    -- {
+    --     "rlane/pounce.nvim",
+    --     keys = {
+    --         { "s", "<cmd>Pounce<CR>" }
+    --     },
+    --     lazy = false,
+    -- },
     {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
@@ -224,4 +224,41 @@ lvim.plugins = {
     {
         'nvim-treesitter/playground'
     },
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {
+            search = {
+                mode = "fuzzy"
+            }
+        },
+        keys = {
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    -- default options: exact mode, multi window, all directions, with a backdrop
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
+            {
+                "S",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
+            },
+            {
+                "r",
+                mode = "o",
+                function()
+                    require("flash").remote()
+                end,
+                desc = "Remote Flash",
+            },
+        },
+    }
 }

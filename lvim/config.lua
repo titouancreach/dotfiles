@@ -17,8 +17,12 @@ lvim.format_on_save = {
 }
 
 -- Add server to the skipped list
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
+--vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})
+--
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+    return server ~= "omnisharp"
+end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false

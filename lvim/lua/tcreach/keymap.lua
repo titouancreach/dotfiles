@@ -1,5 +1,5 @@
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
-lvim.leader = ","
+--lvim.leader = "<SPACE>"
 
 -- add your own keymapping
 
