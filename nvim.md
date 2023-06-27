@@ -2,7 +2,7 @@
 
 # Basic
 
-Ctrl U / Ctrl D : Page Up / Page Down
+\<C-U\> / \<C-D\>: page up / page down
 \} / \{ : Move to the next blank like (paragraph)
 i / a / o / O : insert, append, insert next line, insert previous line
 p / P : past after / Past above
@@ -22,7 +22,7 @@ gg : beggining of a file
 G : eof
 . : repeat
 = : indent
-gU : uppercase
+gU : uppercase (put random line in lowercase with flash for example (gur[label]u))
 gu : lowercase
 past clipboard : "+p ("+ is the system clipboard)
 
@@ -67,18 +67,18 @@ iS : inner subword (camelcase)
 % : end of closing bracket
 
 ix / ax : html attribute (so useful)
-aa / ia : Argument text object (target)
+aa / ia : argument text object (target)
 
 im / am : member (chaining) ex .Map().Bind().Bind() (so dim very userful)
 
 gn: next match text object (search, then cgn, then repeat with dot)
 
-For text object (handed by targets.vim), can use l (last = previous) or n (next) like: cil)
+for text object (handled by targets.vim), can use l (last = previous) or n (next) like: cil)
 
 
 ## LSP
 
-dd : go to def
+gd : go to def
 K : hover (KK move to the popup)
 gl : diagnostic in window
 <leader>lj / <leader>lk : next prev diagnostic
@@ -109,6 +109,8 @@ C-o: previous element in jumplist
 C-i: next
 :Telescope jumplist
 
+## Search and replace
 :cdo s/dede/dede/g : apply command on qf list (c do)
-cdo up : save all file matching qf list (so good after cdo s/dede/dede/g)
+:cdo up : save all file matching qf list (so good after cdo s/dede/dede/g)
+:Ack 'searchpattern' [path]
 

@@ -59,7 +59,6 @@ lvim.plugins = {
             require('github-theme').setup({
                 options = {
                     hide_end_of_buffer = false,
-                    dim_inactive = true,
                 },
                 groups = {
                     all = {
@@ -70,7 +69,6 @@ lvim.plugins = {
                     }
                 }
             })
-
             vim.cmd('colorscheme github_light')
         end,
     },

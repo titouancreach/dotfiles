@@ -11,7 +11,10 @@ local function custom_on_attach(bufnr)
     api.config.mappings.default_on_attach(bufnr)
 
     vim.keymap.del('n', 's', { buffer = bufnr })
-    vim.keymap.set('n', 's', '<cmd>Pounce<CR>', opts('Pounce'))
+
+    vim.keymap.set('n', 's', function()
+        require('flash').jump()
+    end, opts('Pounce'))
 
     -- Open oil at path
     vim.keymap.set('n', '<leader>o', function()
