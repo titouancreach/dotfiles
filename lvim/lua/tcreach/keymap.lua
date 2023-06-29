@@ -22,8 +22,6 @@ lvim.builtin.which_key.mappings["z"] = {
     e = { "<Plug>RestNvim", "Execute request under cursor" },
 }
 
-lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
-
 lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
 
 lvim.keys.visual_mode["J"] = ":m '>+1<CR>gv=gv"
@@ -36,3 +34,6 @@ lvim.keys.normal_mode["0"] = "^"
 
 lvim.keys.normal_mode["gvd"] = ":vsp<CR>gd" -- Goto Vertical Definition
 lvim.keys.normal_mode["ghd"] = ":sp<CR>gd"  -- Goto Horizontal Definition
+
+
+lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"

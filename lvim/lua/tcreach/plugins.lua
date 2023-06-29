@@ -59,12 +59,13 @@ lvim.plugins = {
             require('github-theme').setup({
                 options = {
                     hide_end_of_buffer = false,
+                    dim = false
                 },
                 groups = {
                     all = {
-                        Whitespace = { fg = '#e4e6e6' },
-                        NonText = { fg = '#e4e6e6' },
-                        SpecialKey = { fg = '#e4e6e6' },
+                        Whitespace = { fg = '#cccccc' },
+                        NonText = { fg = '#cccccc' },
+                        SpecialKey = { fg = '#cccccc' },
                         CursorLine = { bg = '#f6f8fa' },
                     }
                 }
@@ -197,7 +198,6 @@ lvim.plugins = {
         end,
         dependencies = { 'nvim-treesitter' }, -- or require if not used so far
     },
-
     {
         "nvim-pack/nvim-spectre",
         event = "BufRead",
@@ -219,24 +219,19 @@ lvim.plugins = {
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
-        opts = {
-            search = {
-                mode = "fuzzy"
-            }
-        },
+        opts = {},
         keys = {
             {
                 "s",
                 mode = { "n", "x", "o" },
                 function()
-                    -- default options: exact mode, multi window, all directions, with a backdrop
                     require("flash").jump()
                 end,
                 desc = "Flash",
             },
             {
                 "S",
-                mode = { "n", "o", "x" },
+                mode = { "n", "o" },
                 function()
                     require("flash").treesitter()
                 end,
@@ -250,6 +245,22 @@ lvim.plugins = {
                 end,
                 desc = "Remote Flash",
             },
+            {
+                "R",
+                mode = { "o", "x" },
+                function()
+                    require("flash").treesitter_search()
+                end,
+                desc = "Flash Treesitter Search",
+            },
+            {
+                "<c-s>",
+                mode = { "c" },
+                function()
+                    require("flash").toggle()
+                end,
+                desc = "Toggle Flash Search",
+            },
         },
     },
     {
@@ -257,5 +268,11 @@ lvim.plugins = {
         config = function()
             require('colorizer').setup()
         end
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        build = "cd app && npm install",
+        init = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        ft = { "markdown" },
     }
 }
