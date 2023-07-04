@@ -35,5 +35,8 @@ lvim.keys.normal_mode["0"] = "^"
 lvim.keys.normal_mode["gvd"] = ":vsp<CR>gd" -- Goto Vertical Definition
 lvim.keys.normal_mode["ghd"] = ":sp<CR>gd"  -- Goto Horizontal Definition
 
+lvim.builtin.terminal.open_mapping = "<C-t>"
+lvim.builtin.terminal.direction = "horizontal"
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"

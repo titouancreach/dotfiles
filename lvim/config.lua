@@ -18,6 +18,17 @@ lvim.format_on_save = {
 }
 
 
+lvim.builtin.indentlines.active = true
+lvim.builtin.indentlines.options = {
+    buftype_exclude = { "terminal", "nofile" },
+    filetype_exclude = { "help", "terminal", "dashboard", "packer", "nofile" },
+    show_current_context = true,
+    show_end_of_line = true,
+    space_char_blankline = " ",
+    space_char_indent = " ",
+}
+
+
 -- Add server to the skipped list
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
 --vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})

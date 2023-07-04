@@ -274,5 +274,9 @@ lvim.plugins = {
         build = "cd app && npm install",
         init = function() vim.g.mkdp_filetypes = { "markdown" } end,
         ft = { "markdown" },
+    },
+    {
+        'voldikss/vim-browser-search',
+        cmd = { 'BrowserSearch' },
     }
 }
