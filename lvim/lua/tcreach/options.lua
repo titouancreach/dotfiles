@@ -4,8 +4,6 @@ vim.opt.tabstop = 4
 vim.opt.relativenumber = false
 vim.opt.number = true
 
-vim.opt.listchars = { eol = '↵', space = '·', tab = '>~', nbsp = '␣' }
-vim.opt.list = true
 
 -- don't break word when wrapping
 
@@ -13,8 +11,9 @@ vim.opt.ignorecase = true
 
 vim.opt.wrap = true
 vim.opt.breakindent = true -- Indent wrapped lines
+vim.opt.breakindentopt = { shift = 4 }
+
 vim.opt.linebreak = true
-vim.opt.lispoptions = { shift = 2 }
 
 vim.opt.scrolloff = 8
 vim.opt.swapfile = false

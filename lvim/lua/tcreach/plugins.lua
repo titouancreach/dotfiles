@@ -51,28 +51,39 @@ lvim.plugins = {
     },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
     { "wellle/targets.vim" },
-    {
-        "projekt0n/github-nvim-theme",
-        lazy = false,
-        config = function()
-            print("github-nvim-theme loaded...")
-            require('github-theme').setup({
-                options = {
-                    hide_end_of_buffer = false,
-                    dim = false
-                },
-                groups = {
-                    all = {
-                        Whitespace = { fg = '#cccccc' },
-                        NonText = { fg = '#cccccc' },
-                        SpecialKey = { fg = '#cccccc' },
-                        CursorLine = { bg = '#f6f8fa' },
-                    }
-                }
-            })
-            vim.cmd('colorscheme github_light')
-        end,
-    },
+    -- {
+    --     "projekt0n/github-nvim-theme",
+    --     lazy = false,
+    --     config = function()
+    --         local theme = 'github_dark';
+
+    --         local palette = require('github-theme.palette').load(theme)
+    --         local Color = require('github-theme.lib.color')
+
+    --         local bg = Color.from_hex(palette.canvas.default);
+
+    --         local darken = bg:lighten(-2):to_css();
+    --         local darkenplus = bg:lighten(-20):to_css();
+
+    --         print(darkenplus)
+
+    --         require('github-theme').setup({
+    --             options = {
+    --                 hide_end_of_buffer = false,
+    --                 dim = false
+    --             },
+    --             groups = {
+    --                 all = {
+    --                     Whitespace = { fg = darkenplus },
+    --                     NonText = { fg = darkenplus },
+    --                     SpecialKey = { fg = darkenplus },
+    --                     CursorLine = { bg = darken },
+    --                 }
+    --             }
+    --         })
+    --         -- vim.cmd('colorscheme ' .. theme)
+    --     end,
+    -- },
     {
         'mileszs/ack.vim',
     },
@@ -134,9 +145,10 @@ lvim.plugins = {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
+            colors = {
+                -- default is DiagnosticHint but this hl group is used in other places so I don't want to make a side effect
+                hint = { "DiagnosticInfo", "#10B981" },
+            },
         }
     },
     {
@@ -155,9 +167,9 @@ lvim.plugins = {
     {
         "folke/zen-mode.nvim",
         opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
+            window = {
+                width = 0.8,
+            }
         }
     },
     {
@@ -278,5 +290,42 @@ lvim.plugins = {
     {
         'voldikss/vim-browser-search',
         cmd = { 'BrowserSearch' },
+    },
+    {
+        'j-morano/buffer_manager.nvim',
+        keys = {
+            {
+                '<C-b>',
+                function()
+                    require("buffer_manager.ui").toggle_quick_menu()
+                end,
+                desc = 'Open buffer manager'
+            }
+        }
+    },
+    {
+        "sindrets/diffview.nvim"
+    },
+    {
+        'NeogitOrg/neogit',
+        dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' },
+    },
+    {
+        'arcticicestudio/nord-vim'
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require('catppuccin').setup({
+                show_end_of_buffer = true,
+                custom_highlights = function(color)
+                    return {
+                        Whitespace = { link = "NonText" }
+                    }
+                end
+            })
+        end
     }
 }

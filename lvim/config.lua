@@ -17,6 +17,8 @@ lvim.format_on_save = {
     timeout = 1000,
 }
 
+vim.opt.listchars = { eol = '↵', space = '·', tab = '>~', nbsp = '␣' }
+vim.opt.list = true
 
 lvim.builtin.indentlines.active = true
 lvim.builtin.indentlines.options = {
@@ -25,7 +27,6 @@ lvim.builtin.indentlines.options = {
     show_current_context = true,
     show_end_of_line = true,
     space_char_blankline = " ",
-    space_char_indent = " ",
 }
 
 
@@ -33,9 +34,9 @@ lvim.builtin.indentlines.options = {
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "csharp_ls" })
 --vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {})
 --
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-    return server ~= "omnisharp"
-end, lvim.lsp.automatic_configuration.skipped_servers)
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+--     return server ~= "omnisharp"
+-- end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -51,6 +52,8 @@ require("tcreach.keymap")
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 --
 require("tcreach.colors")
+
+lvim.colorscheme = "catppuccin-frappe"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -89,9 +92,8 @@ lvim.builtin.treesitter.highlight.additional_vim_regex_highlighting = true;
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
 -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
-require("tcreach.lsp")
 
-lvim.builtin.project.patterns = { "*.csproj", "package.json", ".git" }
+lvim.builtin.project.patterns = { "*.csproj", "package.json", ".git", "main.csx" }
 lvim.builtin.project.silent_chdir = false
 
 -- -- linters, formatters and code actions <https://www.lunarvim.org/docs/languages#lintingformatting>
@@ -123,3 +125,12 @@ lvim.builtin.project.silent_chdir = false
 require("tcreach.plugins")
 require("tcreach.autocmd")
 require("tcreach.commands")
+
+local neogit = require('neogit')
+
+neogit.setup {
+    integrations = {
+        diffview = true,
+        telescope = true
+    }
+}

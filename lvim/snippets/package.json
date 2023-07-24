@@ -1,0 +1,20 @@
+{
+  "name": "nvim-snippets",
+  "author": "Titouan CREACH",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "cs",
+        "path": "./csharp.json"
+      },
+      {
+        "language": "http",
+        "path": "./http.json"
+      }
+    ]
+  }
+}
+

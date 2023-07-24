@@ -1,0 +1,14 @@
+{
+    "hbpost": {
+        "prefix": "hbpost",
+        "body": [
+            "POST http://localhost:7001/$0/$1",
+            "Content-Type: application/json",
+            "Authorization: Bearer {{$$dotenv BEARER}}",
+            "",
+            "{",
+            "}"
+        ],
+        "description": "Create http for post"
+    }
+}

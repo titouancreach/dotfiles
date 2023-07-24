@@ -8,7 +8,7 @@ lvim.builtin.which_key.mappings["a"] = { ":lua vim.lsp.buf.code_action()<CR>", "
 lvim.builtin.which_key.mappings["o"] = { ":Oil<CR>", "Oil" }
 lvim.builtin.which_key.mappings["ss"] = { ":Telescope git_status<CR>", "Find dirty files" }
 
-lvim.builtin.which_key.mappings["bc"] = { ":%bd <bar> e# <bar> bd# <CR>", "Close all buffer but this one" };
+lvim.builtin.which_key.mappings["bc"] = { ":BufOnly<CR>", "Close all buffer but this one" };
 
 lvim.builtin.which_key.mappings["r"] = {
     name = "Replace",
@@ -20,6 +20,14 @@ lvim.builtin.which_key.mappings["r"] = {
 lvim.builtin.which_key.mappings["z"] = {
     name = "Execute",
     e = { "<Plug>RestNvim", "Execute request under cursor" },
+}
+
+lvim.builtin.which_key.mappings["gd"] = {
+    ":DiffviewOpen<CR>", "Open DiffView"
+}
+
+lvim.builtin.which_key.mappings["gg"] = {
+    ":Neogit<CR>", "Open Neogit"
 }
 
 lvim.keys.normal_mode["//"] = ":nohlsearch<CR>"
@@ -37,6 +45,6 @@ lvim.keys.normal_mode["ghd"] = ":sp<CR>gd"  -- Goto Horizontal Definition
 
 lvim.builtin.terminal.open_mapping = "<C-t>"
 lvim.builtin.terminal.direction = "horizontal"
-vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+vim.api.nvim_set_keymap("t", "<C-@>", "<C-\\><C-n>", { noremap = true })
 
-lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
+-- lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"

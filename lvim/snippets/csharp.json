@@ -1,0 +1,71 @@
+{
+    "hbcontroller": {
+        "prefix": "hbcontroller",
+        "body": [
+            "using FunctionalToolkit.AspNetCore;",
+            "using HouseBase.Common.Services;",
+            "using Microsoft.AspNetCore.Authorization;",
+            "using Microsoft.AspNetCore.Mvc;",
+            "using Api.Services;",
+            "",
+            "namespace HouseBase.Api.Features.$0",
+            "",
+            "[Authorize]",
+            "[ApiController]",
+            "[Route(\"[controller]/[action]\")]",
+            "public class ${TM_FILENAME_BASE} : ControllerBase",
+            "{",
+            "    private readonly IDbConnectionService _dbConnectionService;",
+            "    private readonly ResponseMaker _response;",
+            "    private readonly ClaimsService _claims;",
+            "    private readonly ILogger<${TM_FILENAME_BASE}> _logger;",
+            "",
+            "    public LoginHistoryController(",
+            "        IDbConnectionService dbConnectionService,",
+            "        ResponseMaker responseMaker,",
+            "        ClaimsService claims,",
+            "        ILogger<LoginHistoryController> logger)",
+            "    {",
+            "        _dbConnectionService = dbConnectionService;",
+            "        _response = responseMaker;",
+            "        _claims = claims;",
+            "        _logger = logger;",
+            "    }",
+            "}",
+            ""
+        ],
+        "description": "Create a Housebase Controller"
+    },
+
+    "hbget": {
+        "prefix": "hbget",
+        "body": [
+            "[HttpGet]",
+            "public async Task<ResponseModel<$0>> Get()",
+            "{",
+            "    var db = _dbConnectionService.GetDbConnection();",
+            "    return _response.Success<$0>(default);",
+            "}"
+
+        ]
+    },
+
+    "hbpost": {
+        "prefix": "hbpost",
+        "body": [
+            "[HttpPost]",
+            "public async Task<ResponseModel<$0>> Post()",
+            "{",
+            "    var db = _dbConnectionService.GetDbConnection();",
+            "    return _response.Success<$0>(default);",
+            "}"
+        ]
+    },
+
+    "maybe": {
+        "prefix": "mb",
+        "body": [
+            "Maybe<$0>"
+        ]
+    }
+}
