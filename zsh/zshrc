@@ -124,20 +124,13 @@ export ANDROID_HOME=~/Library/Android/sdk
 export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export ANDROID_AVD_HOME=~/.android/avd
 
-
-[[ -f /bin/kubectl ]] && source <(kubectl completion zsh)
-
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
 
 alias code="code-insiders"
 alias kf="kill -9 `ps ax | grep func | grep -v grep | awk '{ print $1 }'`"
 
-# eval $(thefuck --alias)
-
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
+alias plugins="nvim ~/Documents/Code/dotfiles/lvim/lua/tcreach/plugins.lua"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/Users/tcreach/Documents/Projects/resharper"
 
