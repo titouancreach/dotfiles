@@ -14,7 +14,7 @@ local function custom_on_attach(bufnr)
 
     vim.keymap.set('n', 's', function()
         require('flash').jump()
-    end, opts('Pounce'))
+    end, opts('Flash'))
 
     -- Open oil at path
     vim.keymap.set('n', '<leader>o', function()
