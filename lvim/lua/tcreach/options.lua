@@ -10,7 +10,7 @@ vim.opt.ignorecase = true
 
 vim.opt.wrap = true
 vim.opt.breakindent = true -- Indent wrapped lines
-vim.opt.breakindentopt = { shift = 4 }
+vim.opt.breakindentopt = { 'shift:4' }
 
 vim.opt.linebreak = true
 
