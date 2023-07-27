@@ -1,5 +1,6 @@
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
---lvim.leader = "<SPACE>"
+
+-- lvim.leader = "<SPACE>"
 
 -- add your own keymapping
 
@@ -10,12 +11,7 @@ lvim.builtin.which_key.mappings["ss"] = { ":Telescope git_status<CR>", "Find dir
 
 lvim.builtin.which_key.mappings["bc"] = { ":BufOnly<CR>", "Close all buffer but this one" };
 
-lvim.builtin.which_key.mappings["r"] = {
-    name = "Replace",
-    r = { "<cmd>lua require('spectre').open()<cr>", "Open spectre" },
-    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Open spectre with current word" },
-    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Spectre in current buffer" },
-}
+lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 
 lvim.builtin.which_key.mappings["z"] = {
     name = "Execute",
@@ -40,11 +36,17 @@ lvim.keys.normal_mode["k"] = "gk"
 
 lvim.keys.normal_mode["0"] = "^"
 
-lvim.keys.normal_mode["gvd"] = ":vsp<CR>gd" -- Goto Vertical Definition
-lvim.keys.normal_mode["ghd"] = ":sp<CR>gd"  -- Goto Horizontal Definition
-
 lvim.builtin.terminal.open_mapping = "<C-t>"
 lvim.builtin.terminal.direction = "horizontal"
+
 vim.api.nvim_set_keymap("t", "<C-@>", "<C-\\><C-n>", { noremap = true })
 
--- lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
+lvim.keys.normal_mode["<C-b>"] = ":Telescope buffers<CR>"
+
+vim.api.nvim_set_keymap("n", ">", "[", { noremap = false })
+vim.api.nvim_set_keymap("n", "<", "]", { noremap = false })
+
+-- vim.api.nvim_set_keymap("o", "<", "]", { noremap = false })
+-- vim.api.nvim_set_keymap("o", ">", "[", { noremap = false })
+-- vim.api.nvim_set_keymap("x", "<", "]", { noremap = false })
+-- vim.api.nvim_set_keymap("x", ">", "[", { noremap = false })

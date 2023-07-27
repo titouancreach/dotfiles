@@ -6,7 +6,6 @@ vim.opt.number = true
 
 
 -- don't break word when wrapping
-
 vim.opt.ignorecase = true
 
 vim.opt.wrap = true
@@ -20,7 +19,9 @@ vim.opt.swapfile = false
 
 vim.opt.fillchars = { eob = '~' }
 
-vim.g.ackprg = 'ag --vimgrep'
+vim.g.ackprg = 'rg --vimgrep --smart-case'
 
 vim.opt.ff = 'unix'
 vim.opt.fileformat = 'unix'
+
+vim.opt.autoread = true

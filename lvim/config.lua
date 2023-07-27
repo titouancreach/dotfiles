@@ -6,7 +6,8 @@
 require("tcreach.options")
 
 lvim.transparent_window = false
--- lvim.builtin.lualine.style = "default"
+--
+vim.g.markdown_syntax_conceal = 0
 
 -- general
 lvim.log.level = "info"
@@ -48,7 +49,6 @@ require("tcreach.keymap")
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 --
 require("tcreach.colors")
@@ -66,7 +66,6 @@ require("tcreach.nvim-tree")
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 lvim.builtin.treesitter.highlight.additional_vim_regex_highlighting = true;
-
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
 
@@ -134,3 +133,7 @@ neogit.setup {
         telescope = true
     }
 }
+
+-- extendent lunar vim cmp source with source named "git"
+
+table.insert(lvim.builtin.cmp.sources, { name = "git" })

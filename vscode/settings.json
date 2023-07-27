@@ -1,4 +1,5 @@
 {
     "editor.inlineSuggest.enabled": false,
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "git.openRepositoryInParentFolders": "always"
 }
