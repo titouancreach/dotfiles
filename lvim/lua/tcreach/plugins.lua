@@ -235,6 +235,9 @@ lvim.plugins = {
         end
     },
     {
+        'tpope/vim-unimpaired'
+    },
+    {
         "petertriho/cmp-git",
         ft = { "NeogitCommitMessage" },
         dependencies = { "nvim-lua/plenary.nvim" },
