@@ -131,6 +131,7 @@ alias code="code-insiders"
 alias kf="kill -9 `ps ax | grep func | grep -v grep | awk '{ print $1 }'`"
 
 alias plugins="nvim ~/Documents/Code/dotfiles/lvim/lua/tcreach/plugins.lua"
+alias neogit="nvim -c Neogit"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/Users/tcreach/Documents/Projects/resharper"
 
