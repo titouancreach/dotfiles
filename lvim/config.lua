@@ -131,6 +131,13 @@ neogit.setup {
     integrations = {
         diffview = true,
         telescope = true
+    },
+    kind = "split_above",
+    mappings = {
+        status = {
+            ["[c"] = "GoToPreviousHunkHeader",
+            ["]c"] = "GoToNextHunkHeader",
+        }
     }
 }
 
