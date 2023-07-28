@@ -217,7 +217,7 @@ lvim.plugins = {
         config = function()
             require('catppuccin').setup({
                 show_end_of_buffer = true,
-                custom_highlights = function(color)
+                custom_highlights = function(_)
                     return {
                         Whitespace = { link = "NonText" }
                     }
