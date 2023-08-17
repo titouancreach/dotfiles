@@ -51,5 +51,5 @@ vim.api.nvim_set_keymap("n", "<", "]", { noremap = false })
 -- vim.api.nvim_set_keymap("x", "<", "]", { noremap = false })
 -- vim.api.nvim_set_keymap("x", ">", "[", { noremap = false })
 --
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })

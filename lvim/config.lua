@@ -141,6 +141,4 @@ neogit.setup {
     }
 }
 
--- extendent lunar vim cmp source with source named "git"
-
 table.insert(lvim.builtin.cmp.sources, { name = "git" })
