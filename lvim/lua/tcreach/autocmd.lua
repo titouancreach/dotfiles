@@ -23,5 +23,24 @@ lvim.autocommands = {
                 vim.fn.setpos('.', pos);
             end
         }
+    },
+    {
+        "FileType",
+        {
+            pattern = { "NvimTree" },
+            callback = function()
+                vim.keymap.set('n', '<leader>o', function()
+                    local api = require('nvim-tree.api')
+                    local node = api.tree.get_node_under_cursor()
+                    local path = node.absolute_path
+
+                    if (path and vim.fn.isdirectory(path) == 0) then
+                        path = vim.fn.fnamemodify(path, ':h')
+                    end
+
+                    require("oil").open(path)
+                end, { buffer = true })
+            end
+        }
     }
 }

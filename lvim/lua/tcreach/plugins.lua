@@ -190,7 +190,11 @@ lvim.plugins = {
     {
         'norcalli/nvim-colorizer.lua',
         config = function()
-            require('colorizer').setup()
+            require('colorizer').setup {
+                ['*'] = {
+                    names = false
+                },
+            }
         end
     },
     {
@@ -237,5 +241,8 @@ lvim.plugins = {
                 filetypes = { "NeogitCommitMessage" },
             })
         end
+    },
+    {
+        'tpope/vim-dadbod'
     }
 }
