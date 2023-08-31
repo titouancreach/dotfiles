@@ -258,6 +258,16 @@ lvim.plugins = {
 						Whitespace = { link = "NonText" },
 					}
 				end,
+				integrations = {
+					noice = true,
+					notify = true,
+					neogit = true,
+					which_key = true,
+					telescope = {
+						enabled = true,
+						style = "nvchad"
+					}
+				}
 			})
 		end,
 	},

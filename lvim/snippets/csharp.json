@@ -67,5 +67,12 @@
         "body": [
             "Maybe<$0>"
         ]
+    },
+
+    "result": {
+        "prefix": "rs",
+        "body": [
+            "Result<$0>"
+        ]
     }
 }

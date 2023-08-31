@@ -42,5 +42,14 @@ lvim.autocommands = {
                 end, { buffer = true })
             end
         }
+    },
+    {
+        "FileType",
+        {
+            pattern = { "NeogitCommitMessage" },
+            callback = function()
+                vim.cmd("set buflisted")
+            end
+        }
     }
 }
