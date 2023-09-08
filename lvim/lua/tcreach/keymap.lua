@@ -51,3 +51,18 @@ vim.api.nvim_set_keymap("n", "<<", "<<", { noremap = false })
 --
 vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
+
+local gs = require("gitsigns")
+
+local function stage(t)
+    if t.range ~= 0 then
+        gs.stage_hunk({ t.line1, t.line2 })
+    else
+        gs.stage_hunk()
+    end
+end
+
+vim.api.nvim_create_user_command("Stage", function(t) stage(t) end, { range = true })
+
+vim.api.nvim_set_keymap("n", "]c", "<cmd>Gitsigns next_hunk<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "[c", "<cmd>Gitsigns prev_hunk<CR>", { noremap = true })

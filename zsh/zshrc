@@ -101,7 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias vim="lvim"
-alias nvim="lvim"
+alias v="lvim"
+
 alias prune="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 alias dc="docker compose"
 alias docker-compose="docker compose"
@@ -130,8 +131,9 @@ bindkey "^[^[[D" backward-word
 alias code="code-insiders"
 alias kf="kill -9 `ps ax | grep func | grep -v grep | awk '{ print $1 }'`"
 
-alias plugins="nvim ~/Documents/Code/dotfiles/lvim/lua/tcreach/plugins.lua"
-alias neogit="nvim -c Neogit"
+alias plugins="lvim ~/Documents/Code/dotfiles/lvim/lua/tcreach/plugins.lua"
+alias config="lvim ~/Documents/Code/dotfiles/lvim/config.lua"
+alias neogit="lvim -c Neogit"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/Users/tcreach/Documents/Projects/resharper"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/Users/tcreach/Documents/Projects/resharper:/Users/tcreach/.local/share/lvim/mason/packages/omnisharp/":
 

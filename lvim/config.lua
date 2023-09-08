@@ -13,14 +13,14 @@ lvim.format_on_save = {
     timeout = 1000,
 }
 
-vim.opt.listchars = { eol = '↵', space = '·', tab = '>~', nbsp = '␣' }
+vim.opt.listchars = { eol = '↵', space = '·', tab = '>-', nbsp = '␣' }
 vim.opt.list = true
 
 lvim.builtin.indentlines.active = true
 lvim.builtin.indentlines.options = {
     buftype_exclude = { "terminal", "nofile" },
     filetype_exclude = { "help", "terminal", "dashboard", "packer", "nofile" },
-    show_current_context = true,
+    show_current_context = false,
     show_end_of_line = true,
     space_char_blankline = " ",
 }
