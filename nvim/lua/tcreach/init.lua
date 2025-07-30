@@ -32,29 +32,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        'echasnovski/mini.surround',
-        version = '*',
-        config = function()
-            require('mini.surround').setup({
-                mappings = {
-                    add = 'gza',            -- Add surrounding in Normal and Visual modes
-                    delete = 'gzd',         -- Delete surrounding
-                    find = 'gzf',           -- Find surrounding (to the right)
-                    find_left = 'gzF',      -- Find surrounding (to the left)
-                    highlight = 'gzh',      -- Highlight surrounding
-                    replace = 'gzr',        -- Replace surrounding
-                    update_n_lines = 'gzn', -- Update `n_lines`
-
-                    suffix_last = 'l',      -- Suffix to search with "prev" method
-                    suffix_next = 'n',      -- Suffix to search with "next" method
-                },
-            })
-        end
-    },
-    {
-        'arthurxavierx/vim-caser' -- gs motion
-    },
-    {
         'chaoren/vim-wordmotion'
     },
     {
@@ -66,12 +43,6 @@ require("lazy").setup({
         opts = {},
         keys = {
             { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-            {
-                "S",
-                mode = { "n", "o", "x" },
-                function() require("flash").treesitter() end,
-                desc = "Flash Treesitter"
-            },
             {
                 "r",
                 mode = "o",
@@ -93,6 +64,28 @@ require("lazy").setup({
         },
     },
     {
-	'nvim-treesitter/nvim-treesitter'
-    }
+        'nvim-treesitter/nvim-treesitter'
+    },
+    {
+        "wellle/targets.vim"
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    },
+
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
+    },
+    { 'tpope/vim-abolish', event = 'VeryLazy' }
 })

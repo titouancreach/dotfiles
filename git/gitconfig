@@ -1,5 +1,5 @@
 [user]
-	email = t.creach@unitee.io
+	email = titouan.creach@gmail.com
 	name = Titouan CREACH
 [branch]
 	autosetupmerge = always
@@ -19,3 +19,5 @@
 	required = true
 [init]
 	defaultBranch = main
+[push]
+	autoSetupRemote = true
