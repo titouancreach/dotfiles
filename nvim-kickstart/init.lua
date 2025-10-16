@@ -246,6 +246,35 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   {
+    'nvimtools/none-ls.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'davidmh/cspell.nvim' },
+    opts = function(_, opts)
+      local cspell = require 'cspell'
+
+      opts.sources = opts.sources or {}
+
+      table.insert(
+        opts.sources,
+        cspell.diagnostics.with {
+          diagnostics_postprocess = function(diagnostic)
+            diagnostic.severity = vim.diagnostic.severity.HINT
+          end,
+        }
+      )
+      table.insert(opts.sources, cspell.code_actions)
+    end,
+  },
+  {
+    'dmmulroy/tsc.nvim', -- run and explore tsc errors
+    config = function()
+      require('tsc').setup()
+      vim.keymap.set('n', '<leader>to', ':TSCOpen<CR>', { desc = '[O]pen TSC window' })
+      vim.keymap.set('n', '<leader>tc', ':TSCClose<CR>', { desc = '[C]lose TSC window' })
+      vim.keymap.set('n', '<leader>tt', ':TSC<CR>', { desc = '[T]SC' })
+    end,
+  },
+  {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
@@ -304,7 +333,10 @@ require('lazy').setup({
   },
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+    opts = {},
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -743,6 +775,8 @@ require('lazy').setup({
         --
         biome = {},
 
+        tailwindcss = {},
+
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -1050,6 +1084,17 @@ require('lazy').setup({
     },
   },
 })
+
+vim.api.nvim_create_user_command('TestFile', function()
+  -- Get the full path of the current file
+  local file = vim.fn.expand '%'
+
+  -- Construct the test command
+  local cmd = 'pnpm run test -- ' .. file
+
+  -- Open a terminal and run the command
+  vim.cmd('vsplit | terminal ' .. cmd)
+end, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
