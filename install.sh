@@ -6,11 +6,11 @@ ln -s $PWD/nvim ~/.config/nvim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-ln -sf $PWD/zsh/zshrc $HOME/.zshrc
-ln -sf $PWD/git/gitconfig $HOME/.gitconfig
-
-mkdir -p $HOME/.ssh
-ln -sf $PWD/ssh/config $HOME/.ssh/config
+# ln -sf $PWD/zsh/zshrc $HOME/.zshrc
+# ln -sf $PWD/git/gitconfig $HOME/.gitconfig
+#
+# mkdir -p $HOME/.ssh
+# ln -sf $PWD/ssh/config $HOME/.ssh/config
 
 echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PackerSync 🎉"
