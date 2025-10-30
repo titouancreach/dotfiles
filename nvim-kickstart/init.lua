@@ -165,6 +165,10 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldenable = false
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -174,6 +178,16 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]xtend [d]iagnostic text' })
+
+vim.api.nvim_set_keymap('n', '>', '[', { noremap = false })
+vim.api.nvim_set_keymap('n', '<', ']', { noremap = false })
+
+vim.api.nvim_set_keymap('n', '>>', '>>', { noremap = false })
+vim.api.nvim_set_keymap('n', '<<', '<<', { noremap = false })
+
+vim.keymap.set('n', '<leader>+', [[<cmd>vertical resize +2<cr>]], { desc = 'Enlarge window' })
+vim.keymap.set('n', '<leader>-', [[<cmd>vertical resize -2<cr>]], { desc = 'Shrink window' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -246,6 +260,49 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      dashboard = {
+        preset = {
+          pick = 'telescope.nvim',
+        },
+
+        sections = {
+          { section = 'header' },
+          { section = 'keys', gap = 1, padding = 1 },
+          { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+          { section = 'startup' },
+        },
+
+        explorer = { enabled = false },
+        indent = { enabled = false },
+        input = { enabled = true },
+        browse = { enabled = true },
+        picker = { enabled = false },
+        notifier = { enabled = true },
+        gitbrowse = {},
+        quickfile = { enabled = true },
+        scope = { enabled = true },
+        scroll = { enabled = true },
+        statuscolumn = { enabled = true },
+        words = { enabled = true },
+      },
+    },
+  },
+  {
+    'linrongbin16/gitlinker.nvim',
+    cmd = 'GitLink',
+    opts = {},
+    keys = {},
+  },
+  {
     'nvimtools/none-ls.nvim',
     event = 'VeryLazy',
     dependencies = { 'davidmh/cspell.nvim' },
@@ -274,20 +331,68 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>tt', ':TSC<CR>', { desc = '[T]SC' })
     end,
   },
+
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
     opts = {
+      label = {
+        rainbow = {
+          enabled = true,
+          -- number between 1 and 9
+          shade = 2,
+        },
+      },
+
       modes = {
         search = {
           enabled = true,
         },
       },
     },
-  -- stylua: ignore
-    config = function()
-    end,
+    keys = {
+      {
+        's',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').jump()
+        end,
+        desc = 'Flash',
+      },
+      {
+        'S',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').treesitter()
+        end,
+        desc = 'Flash Treesitter',
+      },
+      {
+        'r',
+        mode = 'o',
+        function()
+          require('flash').remote()
+        end,
+        desc = 'Remote Flash',
+      },
+      {
+        'R',
+        mode = { 'o', 'x' },
+        function()
+          require('flash').treesitter_search()
+        end,
+        desc = 'Treesitter Search',
+      },
+      {
+        '<c-s>',
+        mode = { 'c' },
+        function()
+          require('flash').toggle()
+        end,
+        desc = 'Toggle Flash Search',
+      },
+    },
   },
   {
     'NeogitOrg/neogit',
@@ -331,6 +436,13 @@ require('lazy').setup({
       vim.cmd 'colorscheme github_light'
     end,
   },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  --   config = function()
+  --     vim.cmd 'colorscheme rose-pine-dawn'
+  --   end,
+  -- },
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
@@ -987,10 +1099,20 @@ require('lazy').setup({
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- - gsaiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - gsd'   - [S]urround [D]elete [']quotes
+      -- - gsr)'  - [S]urround [R]eplace [)] [']
+      require('mini.surround').setup {
+        mappings = {
+          add = 'gsa', -- Add surrounding in Normal and Visual modes
+          delete = 'gsd', -- Delete surrounding
+          find = 'gsf', -- Find surrounding (to the right)
+          find_left = 'gsF', -- Find surrounding (to the left)
+          highlight = 'gsh', -- Highlight surrounding
+          replace = 'gsr', -- Replace surrounding
+          update_n_lines = 'gsn', -- Update `n_lines`
+        },
+      }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
