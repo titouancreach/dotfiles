@@ -20,14 +20,20 @@ return { -- Autocompletion
         -- `friendly-snippets` contains a variety of premade snippets.
         --    See the README about individual language/framework/plugin snippets:
         --    https://github.com/rafamadriz/friendly-snippets
-        -- {
-        --   'rafamadriz/friendly-snippets',
-        --   config = function()
-        --     require('luasnip.loaders.from_vscode').lazy_load()
-        --   end,
-        -- },
+        {
+          'rafamadriz/friendly-snippets',
+        },
       },
-      opts = {},
+      init = function()
+        require('luasnip').log.set_loglevel 'debug'
+        -- Set up LuaSnip options
+        require('luasnip.loaders.from_vscode').lazy_load()
+        require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/effect.code-snippets' }
+        require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/icon.code-snippets' }
+        require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/inato.code-snippets' }
+        require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/story.code-snippets' }
+        require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/storydoc.code-snippets' }
+      end,
     },
     'folke/lazydev.nvim',
   },

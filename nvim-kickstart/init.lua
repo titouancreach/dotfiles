@@ -97,6 +97,8 @@ vim.g.have_nerd_font = true
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
+--
+vim.o.autochdir = true
 
 -- Make line numbers default
 vim.o.number = true
@@ -259,6 +261,12 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  {
+    'max397574/better-escape.nvim',
+    config = function()
+      require('better_escape').setup()
+    end,
+  },
   { 'github/copilot.vim' },
   {
     'nvimtools/none-ls.nvim',
@@ -499,17 +507,6 @@ require('lazy').setup({
     },
   },
 })
-
-vim.api.nvim_create_user_command('TestFile', function()
-  -- Get the full path of the current file
-  local file = vim.fn.expand '%'
-
-  -- Construct the test command
-  local cmd = 'pnpm run test -- ' .. file
-
-  -- Open a terminal and run the command
-  vim.cmd('vsplit | terminal ' .. cmd)
-end, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
