@@ -98,7 +98,7 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 --
-vim.o.autochdir = true
+-- vim.o.autochdir = true
 
 -- Make line numbers default
 vim.o.number = true
@@ -111,14 +111,6 @@ vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -191,7 +183,13 @@ vim.api.nvim_set_keymap('n', '<<', '<<', { noremap = false })
 vim.keymap.set('n', '<leader>+', [[<cmd>vertical resize +2<cr>]], { desc = 'Enlarge window' })
 vim.keymap.set('n', '<leader>-', [[<cmd>vertical resize -2<cr>]], { desc = 'Shrink window' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- Paste without overwriting register
+vim.keymap.set('v', 'p', '"_dP')
+
+-- Copy text to " register
+vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank into " register' })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank into " register' })
+
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
 --
@@ -262,12 +260,42 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   {
+    'mrcjkb/haskell-tools.nvim',
+    version = '^6', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+  {
+    'AckslD/nvim-neoclip.lua',
+    dependencies = {
+      { 'kkharji/sqlite.lua', module = 'sqlite' },
+      { 'nvim-telescope/telescope.nvim' },
+    },
+    event = 'VeryLazy',
+    config = function()
+      require('neoclip').setup {
+        enable_persistent_history = true,
+      }
+    end,
+  },
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('octo').setup()
+    end,
+  },
+
+  'kevinhwang91/nvim-bqf',
+  {
     'max397574/better-escape.nvim',
     config = function()
       require('better_escape').setup()
     end,
   },
-  { 'github/copilot.vim' },
   {
     'nvimtools/none-ls.nvim',
     event = 'VeryLazy',
@@ -324,6 +352,7 @@ require('lazy').setup({
         -- ...
       }
 
+      --vim.cmd 'colorscheme github_light'
       vim.cmd 'colorscheme github_light'
     end,
   },
@@ -415,23 +444,27 @@ require('lazy').setup({
         },
       }
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+    end,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {
+        sections = {
+          lualine_a = { 'mode', 'branch' },
+          lualine_b = { 'diff', 'diagnostics' },
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = {
+            { 'fileformat', 'filetype', 'lsp_status' },
+          },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' },
+        },
+        extensions = { 'quickfix', 'lazy', 'mason', 'oil' },
+      }
     end,
   },
   { -- Highlight, edit, and navigate code

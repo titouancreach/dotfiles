@@ -9,6 +9,7 @@ return {
     -- refer to the configuration section below
     bigfile = { enabled = true },
     dashboard = {
+
       preset = {
         pick = 'telescope.nvim',
       },

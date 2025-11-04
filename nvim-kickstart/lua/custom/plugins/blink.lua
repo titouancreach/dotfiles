@@ -25,8 +25,6 @@ return { -- Autocompletion
         },
       },
       init = function()
-        require('luasnip').log.set_loglevel 'debug'
-        -- Set up LuaSnip options
         require('luasnip.loaders.from_vscode').lazy_load()
         require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/effect.code-snippets' }
         require('luasnip.loaders.from_vscode').load_standalone { path = '~/Code/Inato/inato-marketplace/.vscode/icon.code-snippets' }
