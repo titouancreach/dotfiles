@@ -93,6 +93,11 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.shiftwidth = 2 -- number of spaces per indentation level
+vim.opt.tabstop = 2 -- number of spaces for a “tab” in the file
+vim.opt.softtabstop = 2
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -260,9 +265,26 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   {
+    'chrisgrieser/nvim-spider',
+    keys = {
+      { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'e', "<cmd>lua require('spider').motion('e')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'b', "<cmd>lua require('spider').motion('b')<CR>", mode = { 'n', 'o', 'x' } },
+    },
+  },
+  {
     'mrcjkb/haskell-tools.nvim',
     version = '^6', -- Recommended
     lazy = false, -- This plugin is already lazy
+    keys = function()
+      local ht = require 'haskell-tools'
+      local bufnr = vim.api.nvim_get_current_buf()
+      local opts = { noremap = true, silent = true, buffer = bufnr }
+
+      return {
+        { '<leader>hs', ht.hoogle.hoogle_signature, desc = '[H]oggle [S]ignature', opts },
+      }
+    end,
   },
   {
     'AckslD/nvim-neoclip.lua',
@@ -342,20 +364,6 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'projekt0n/github-nvim-theme',
-    name = 'github-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('github-theme').setup {
-        -- ...
-      }
-
-      --vim.cmd 'colorscheme github_light'
-      vim.cmd 'colorscheme github_light'
-    end,
-  },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
     'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically

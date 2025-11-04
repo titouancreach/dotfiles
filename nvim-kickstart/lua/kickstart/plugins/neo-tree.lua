@@ -21,5 +21,8 @@ return {
         },
       },
     },
+    window = {
+      width = 70,
+    },
   },
 }
