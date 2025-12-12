@@ -4,12 +4,12 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim', -- required
       'sindrets/diffview.nvim', -- optional - Diff integration
-      'nvim-telescope/telescope.nvim',
+      'folke/snacks.nvim',
     },
-    config = function()
-      vim.keymap.set('n', '<leader>hg', '<cmd>Neogit<CR>', { desc = 'Open Neo[g]it' })
-      vim.keymap.set('n', '<leader>hd', '<cmd>DiffviewFileHistory %<CR>', { desc = 'See [d]iff history for current file' })
-    end,
+    keys = {
+      { '<leader>hg', '<cmd>Neogit<CR>', desc = 'Open Neo[g]it' },
+      { '<leader>hd', '<cmd>DiffviewFileHistory %<CR>', desc = 'See [d]iff history for current file' },
+    },
   },
 
   {

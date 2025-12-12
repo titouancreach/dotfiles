@@ -21,7 +21,6 @@
 =====================================================================
 
 What is Kickstart?
-
   Kickstart.nvim is *not* a distribution.
 
   Kickstart.nvim is a starting point for your own configuration.
@@ -185,15 +184,16 @@ vim.api.nvim_set_keymap('n', '<', ']', { noremap = false })
 vim.api.nvim_set_keymap('n', '>>', '>>', { noremap = false })
 vim.api.nvim_set_keymap('n', '<<', '<<', { noremap = false })
 
-vim.keymap.set('n', '<leader>+', [[<cmd>vertical resize +2<cr>]], { desc = 'Enlarge window' })
-vim.keymap.set('n', '<leader>-', [[<cmd>vertical resize -2<cr>]], { desc = 'Shrink window' })
-
 -- Paste without overwriting register
 vim.keymap.set('v', 'p', '"_dP')
 
 -- Copy text to " register
 vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank into " register' })
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank into " register' })
+
+vim.keymap.set('n', '<leader>Y', function()
+  vim.fn.setreg('+', vim.fn.getreg '"')
+end, { desc = 'Copy last yanked text to system clipboard' })
 
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -217,6 +217,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Save with <leader>w
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[W]rite current buffer' })
+
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
@@ -236,6 +239,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+vim.api.nvim_create_user_command('QfUpdate', function()
+  require('inato').update_quickfix()
+end, {})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -265,6 +272,33 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   {
+    'stevearc/stickybuf.nvim',
+    opts = {},
+  },
+  {
+    'stevearc/quicker.nvim',
+    ft = 'qf',
+    ---@module "quicker"
+    ---@type quicker.SetupOptions
+    opts = {},
+    keys = {
+      {
+        '>',
+        function()
+          require('quicker').expand { before = 2, after = 2, add_to_existing = true }
+        end,
+        desc = 'Expand quickfix context',
+      },
+      {
+        '<',
+        function()
+          require('quicker').collapse()
+        end,
+        desc = 'Collapse quickfix context',
+      },
+    },
+  },
+  {
     'chrisgrieser/nvim-spider',
     keys = {
       { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
@@ -286,32 +320,7 @@ require('lazy').setup({
       }
     end,
   },
-  {
-    'AckslD/nvim-neoclip.lua',
-    dependencies = {
-      { 'kkharji/sqlite.lua', module = 'sqlite' },
-      { 'nvim-telescope/telescope.nvim' },
-    },
-    event = 'VeryLazy',
-    config = function()
-      require('neoclip').setup {
-        enable_persistent_history = true,
-      }
-    end,
-  },
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('octo').setup()
-    end,
-  },
 
-  'kevinhwang91/nvim-bqf',
   {
     'max397574/better-escape.nvim',
     config = function()
