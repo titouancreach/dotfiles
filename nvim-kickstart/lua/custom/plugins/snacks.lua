@@ -90,7 +90,9 @@ return {
     {
       '<leader>/',
       function()
-        Snacks.picker.grep()
+        Snacks.picker.grep {
+          regex = false,
+        }
       end,
       desc = 'Grep',
     },
