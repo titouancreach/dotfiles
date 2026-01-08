@@ -13,10 +13,9 @@ return {
   },
 
   {
-    'linrongbin16/gitlinker.nvim',
-    cmd = 'GitLink',
-    opts = {},
-    keys = {},
+    'esmuellert/codediff.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    cmd = 'CodeDiff',
   },
 
   -- Here is a more advanced example where we pass configuration
@@ -33,6 +32,10 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+    },
+    event = 'VeryLazy',
+    keys = {
+      { '<leader>hq', '<cmd>Gitsigns setqflist<CR>', desc = 'git show hunks in [Q]uicklist' },
     },
   },
 }

@@ -37,6 +37,26 @@ return {
       },
     },
   },
+
+  config = function(_, opts)
+    require('snacks').setup(opts)
+
+    vim.api.nvim_create_user_command('GitLink', function(cmd_opts)
+      require('snacks').gitbrowse {
+        branch = 'main', -- Matches your coworker's config
+        line_start = cmd_opts.line1, -- Supports visual selection
+        line_end = cmd_opts.line2,
+        open = function(url)
+          vim.fn.setreg('+', url) -- Copy to clipboard
+          vim.notify("Copied 'main' link to clipboard", vim.log.levels.INFO, { title = 'Snacks' })
+        end,
+      }
+    end, {
+      desc = 'Create GitHub link to current line or visual selection',
+      range = true,
+    })
+  end,
+
   keys = {
     {
       '<leader>gi',

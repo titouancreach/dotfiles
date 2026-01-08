@@ -97,6 +97,8 @@ vim.opt.shiftwidth = 2 -- number of spaces per indentation level
 vim.opt.tabstop = 2 -- number of spaces for a “tab” in the file
 vim.opt.softtabstop = 2
 
+vim.opt.background = 'light' -- set light mode
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
