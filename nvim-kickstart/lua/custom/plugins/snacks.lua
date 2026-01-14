@@ -5,6 +5,13 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
+    styles = {
+      preview = {
+        treesitter = {
+          enabled = true,
+        },
+      },
+    },
     dashboard = {
       preset = {
         pick = nil,
@@ -30,6 +37,23 @@ return {
       zen = { enabled = true },
       gh = { enabled = true },
       picker = {
+        formatters = {
+          file = {
+            filename_first = true,
+          },
+        },
+        preview = {
+          treesitter = {
+            enabled = true,
+          },
+        },
+        win = {
+          preview = {
+            treesitter = {
+              enabled = true,
+            },
+          },
+        },
         sources = {
           gh_issue = {},
           gh_pr = {},
@@ -85,58 +109,6 @@ return {
         Snacks.picker.gh_pr { state = 'all' }
       end,
       desc = 'GitHub Pull Requests (all)',
-    },
-    {
-      '<leader>sf',
-      function()
-        Snacks.picker.git_files()
-      end,
-      desc = 'Find Git Files',
-    },
-    {
-      '<leader><space>',
-      function()
-        Snacks.picker.recent()
-      end,
-      desc = 'Recent',
-    },
-    {
-      '<leader>,',
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = 'Buffers',
-    },
-    {
-      '<leader>/',
-      function()
-        Snacks.picker.grep {
-          regex = false,
-        }
-      end,
-      desc = 'Grep',
-    },
-
-    {
-      '<leader>ss',
-      function()
-        Snacks.picker()
-      end,
-      desc = 'Picker',
-    },
-    {
-      '<leader>sc',
-      function()
-        Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
-      end,
-      desc = 'Find [C]onfig File',
-    },
-    {
-      '<leader>sr',
-      function()
-        Snacks.picker.resume()
-      end,
-      desc = 'Find [R]esume',
     },
     {
       '<leader>.',

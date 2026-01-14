@@ -180,9 +180,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]xtend [d]iagnostic text' })
 
-vim.api.nvim_set_keymap('n', '>', '[', { noremap = false })
-vim.api.nvim_set_keymap('n', '<', ']', { noremap = false })
-
+-- Keep >> and << for indenting
 vim.api.nvim_set_keymap('n', '>>', '>>', { noremap = false })
 vim.api.nvim_set_keymap('n', '<<', '<<', { noremap = false })
 
@@ -276,29 +274,6 @@ require('lazy').setup({
   {
     'stevearc/stickybuf.nvim',
     opts = {},
-  },
-  {
-    'stevearc/quicker.nvim',
-    ft = 'qf',
-    ---@module "quicker"
-    ---@type quicker.SetupOptions
-    opts = {},
-    keys = {
-      {
-        '>',
-        function()
-          require('quicker').expand { before = 2, after = 2, add_to_existing = true }
-        end,
-        desc = 'Expand quickfix context',
-      },
-      {
-        '<',
-        function()
-          require('quicker').collapse()
-        end,
-        desc = 'Collapse quickfix context',
-      },
-    },
   },
   {
     'chrisgrieser/nvim-spider',
@@ -489,10 +464,10 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'typescript', 'tsx', 'javascript', 'jsx' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -524,7 +499,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 

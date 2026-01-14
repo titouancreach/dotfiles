@@ -18,7 +18,25 @@ return {
           accept = '<C-CR>',
         },
       },
+      nes = {
+        enabled = true, -- requires copilot-lsp as a dependency
+        auto_trigger = true,
+        keymap = {
+          accept = false,
+          disable = '<ESC>',
+          accept_and_goto = '<leader>p',
+        },
+      },
     },
+  },
+  {
+    'greggh/claude-code.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- Required for git operations
+    },
+    config = function()
+      require('claude-code').setup()
+    end,
   },
   --
   -- {
