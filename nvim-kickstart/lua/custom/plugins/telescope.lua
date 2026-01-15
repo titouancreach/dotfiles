@@ -29,18 +29,12 @@ return {
           },
         },
         pickers = {
-          find_files = {
-            previewer = require('telescope.previewers').vim_buffer_cat.new {},
-          },
-          git_files = {
-            previewer = require('telescope.previewers').vim_buffer_cat.new {},
-          },
-          live_grep = {
-            previewer = require('telescope.previewers').vim_buffer_vimgrep.new {},
-          },
-          grep_string = {
-            previewer = require('telescope.previewers').vim_buffer_vimgrep.new {},
-          },
+          -- Removed the manual previewer overrides here.
+          -- Telescope will now use the default, which supports Tree-sitter.
+          find_files = {},
+          git_files = {},
+          live_grep = {},
+          grep_string = {},
         },
         extensions = {
           ast_grep = {
