@@ -201,6 +201,8 @@ Save:
 ## Misc  
   
 `&`: full match in regex (e.g., `s/.*/&  /` adds 2 spaces at end of line)  
-Folding: configured with Treesitter (`za` to toggle, `zR` to open all, `zM` to close all)  
-Auto-pairs: automatic bracket/quote pairing enabled  
-Spell checking: cspell integration for diagnostics  
+`za` / `zR` / `zM`: toggle fold / open all folds / close all folds (Treesitter)  
+  
+Features:  
+- Auto-pairs: automatic bracket/quote pairing  
+- Spell checking: cspell integration for diagnostics  
