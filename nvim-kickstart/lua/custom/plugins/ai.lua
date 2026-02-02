@@ -1,35 +1,5 @@
 return {
   {
-    'zbirenbaum/copilot.lua',
-    dependencies = {
-      'copilotlsp-nvim/copilot-lsp',
-    },
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    opts = {
-      panel = {
-        auto_refresh = true,
-        enabled = true,
-      },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          accept = '<C-CR>',
-        },
-      },
-      nes = {
-        enabled = true, -- requires copilot-lsp as a dependency
-        auto_trigger = true,
-        keymap = {
-          accept = false,
-          disable = '<ESC>',
-          accept_and_goto = '<leader>p',
-        },
-      },
-    },
-  },
-  {
     'greggh/claude-code.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim', -- Required for git operations
