@@ -33,6 +33,17 @@ return {
           -- Telescope will now use the default, which supports Tree-sitter.
           find_files = {},
           git_files = {},
+          git_status = {
+            git_icons = {
+              added = '[A]',
+              changed = '[M]',
+              copied = '[C]',
+              deleted = '[D]',
+              renamed = '[R]',
+              unmerged = '[U]',
+              untracked = '[?]',
+            },
+          },
           live_grep = {},
           grep_string = {},
         },
@@ -56,10 +67,9 @@ return {
       -- Keybindings
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.git_files, { desc = '[S]earch Git [F]iles' })
+      -- <leader>sf and <leader>/ are now handled by fff.nvim (see fff.lua)
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader><space>', builtin.oldfiles, { desc = '[S]earch Recent Files' })
@@ -69,6 +79,7 @@ return {
       end, { desc = '[S]earch [C]onfig files' })
 
       vim.keymap.set('n', '<leader>sg', ':Telescope ast_grep<CR>', { desc = '[S]earch ast-[Grep]' })
+      vim.keymap.set('n', '<leader>st', '<cmd>CodeDiff<CR>', { desc = '[S]earch Git S[t]atus (CodeDiff)' })
 
       -- It's also possible to pass additional configuration options.
       vim.keymap.set('n', '<leader>s.', function()

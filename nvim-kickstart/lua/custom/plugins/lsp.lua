@@ -230,6 +230,8 @@ return {
 
         ast_grep = {},
 
+        elmls = {},
+
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -279,6 +281,20 @@ return {
           end,
         },
       }
+
+      -- Servers installed outside of Mason
+      -- Prefer the workspace-pinned oxlint (matches what `pnpm lint` runs in CI).
+      -- Falls back to `$PATH` oxlint when no workspace binary is found.
+      vim.lsp.config('oxlint', {
+        cmd = function(dispatchers, config)
+          local start = (config and config.root_dir) or vim.fn.getcwd()
+          local ws_root = vim.fs.root(start, { 'pnpm-workspace.yaml', 'package.json' }) or start
+          local local_bin = ws_root .. '/node_modules/.bin/oxlint'
+          local cmd = vim.fn.executable(local_bin) == 1 and local_bin or 'oxlint'
+          return vim.lsp.rpc.start({ cmd, '--lsp' }, dispatchers)
+        end,
+      })
+      vim.lsp.enable 'oxlint'
     end,
   },
 }

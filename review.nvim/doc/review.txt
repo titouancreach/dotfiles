@@ -1,0 +1,237 @@
+*review.txt*  Code review annotations for codediff.nvim
+
+Author: George Guimarães
+License: MIT
+
+==============================================================================
+CONTENTS                                                     *review-contents*
+
+    1. Overview .............. |review-overview|
+    2. Requirements .......... |review-requirements|
+    3. Commands .............. |review-commands|
+    4. Configuration ......... |review-config|
+    5. Keymaps ............... |review-keymaps|
+    6. Highlight Groups ...... |review-highlights|
+    7. Export Format ......... |review-export|
+    8. Storage ............... |review-storage|
+
+==============================================================================
+1. OVERVIEW                                                  *review-overview*
+
+review.nvim adds code review annotations on top of |codediff.nvim|. You can
+leave comments (notes, suggestions, issues, praise) on specific lines in a
+diff view, then export them to clipboard or send them to sidekick.nvim for AI
+chat.
+
+Features:
+- Line and range comments with box-style virtual text
+- Four comment types: Note, Suggestion, Issue, Praise
+- Comments persist per branch across sessions
+- Export format optimized for AI conversations
+- Commit picker to review specific revision ranges
+- Readonly and edit modes with separate keymap sets
+
+==============================================================================
+2. REQUIREMENTS                                          *review-requirements*
+
+- Neovim >= 0.9
+- codediff.nvim (https://github.com/esmuellert/codediff.nvim)
+- nui.nvim (https://github.com/MunifTanjim/nui.nvim)
+
+==============================================================================
+3. COMMANDS                                                 *review-commands*
+
+All commands use the `:Review` prefix.
+
+                                                                     *:Review*
+:Review                     Open codediff diff view with review keymaps.
+                            Shows staged and unstaged changes.
+
+:Review open                Same as `:Review`.
+
+                                                             *:Review-commits*
+:Review commits             Open commit picker (last 50 commits). Use
+                            `<Space>` to select a range, `<CR>` to confirm.
+
+:Review commits {rev1} {rev2}
+                            Review a specific revision range directly,
+                            skipping the picker.
+
+                                                               *:Review-close*
+:Review close               Export comments to clipboard and close the
+                            review tab.
+
+                                                              *:Review-export*
+:Review export              Export comments to clipboard and open a
+                            preview split.
+
+                                                             *:Review-preview*
+:Review preview             Preview exported markdown in a vertical split.
+
+                                                            *:Review-sidekick*
+:Review sidekick            Send comments to sidekick.nvim.
+
+                                                                *:Review-list*
+:Review list                List all comments with a picker to jump to any.
+
+                                                               *:Review-clear*
+:Review clear               Clear all comments.
+
+                                                              *:Review-toggle*
+:Review toggle              Toggle between readonly and edit mode.
+
+==============================================================================
+4. CONFIGURATION                                              *review-config*
+
+Call `require("review").setup(opts)` with any of the following options.
+All fields are optional; defaults are shown.
+>lua
+    require("review").setup({
+      comment_types = {
+        note = {
+          key = "n",
+          name = "Note",
+          icon = "📝",
+          hl = "ReviewNote",
+          line_hl = "ReviewNoteLine",
+        },
+        suggestion = {
+          key = "s",
+          name = "Suggestion",
+          icon = "💡",
+          hl = "ReviewSuggestion",
+          line_hl = "ReviewSuggestionLine",
+        },
+        issue = {
+          key = "i",
+          name = "Issue",
+          icon = "⚠️",
+          hl = "ReviewIssue",
+          line_hl = "ReviewIssueLine",
+        },
+        praise = {
+          key = "p",
+          name = "Praise",
+          icon = "✨",
+          hl = "ReviewPraise",
+          line_hl = "ReviewPraiseLine",
+        },
+      },
+
+      codediff = {
+        readonly = true,
+      },
+
+      keymaps = { ... },  -- see |review-keymaps|
+    })
+<
+
+                                                     *review-config-codediff*
+codediff.readonly ~
+    When true (default), diff buffers are readonly and simple single-key
+    keymaps are active (e.g. `i` to add comment). When false, leader-based
+    keymaps are used instead. Toggle at runtime with `R`.
+
+==============================================================================
+5. KEYMAPS                                                   *review-keymaps*
+
+All keymaps can be customized via `opts.keymaps`. Set a key to `false` to
+disable it. Keymaps are buffer-local to the review diff buffers.
+
+READONLY MODE (default)                              *review-keymaps-readonly*
+
+These keymaps are active when `codediff.readonly = true`:
+
+    Key     Description ~
+    `i`       Add comment (opens type picker)         |n, x|
+    `e`       Edit comment at cursor                  |n|
+    `d`       Delete comment at cursor                |n|
+    `F`       Add file-level comment                  |n|
+
+EDIT MODE                                               *review-keymaps-edit*
+
+These keymaps are active when `codediff.readonly = false`:
+
+    Key           Description ~
+    `<localleader>cc`    Add comment (pick type)              |n, x|
+    `<localleader>cn`    Add note                            |n, x|
+    `<localleader>cs`    Add suggestion                      |n, x|
+    `<localleader>ci`    Add issue                           |n, x|
+    `<localleader>cp`    Add praise                          |n, x|
+    `<localleader>cf`    Add file-level comment              |n|
+    `<localleader>ce`    Edit comment at cursor              |n|
+    `<localleader>cd`    Delete comment at cursor            |n|
+
+NAVIGATION                                               *review-keymaps-nav*
+
+    Key         Description ~
+    `]n`          Next comment in file                  |n|
+    `[n`          Previous comment in file              |n|
+    `<Tab>`       Next file in explorer                 |n|
+    `<S-Tab>`     Previous file in explorer             |n|
+    `f`           Toggle file panel                     |n|
+    `c`           List all comments                     |n|
+
+ACTIONS                                               *review-keymaps-actions*
+
+    Key         Description ~
+    `C`           Export to clipboard + preview          |n|
+    `S`           Send to sidekick.nvim                  |n|
+    `<C-r>`       Clear all comments                     |n|
+    `R`           Toggle readonly/edit mode               |n|
+    `q`           Export & close review                   |n|
+    `?`           Show help popup                         |n|
+    `t`           Toggle layout (side-by-side/inline)     |n|
+    `g?`          Show codediff help                      |n|
+
+POPUP                                                 *review-keymaps-popup*
+
+These keymaps are active inside the comment popup window:
+
+    Key         Description ~
+    `<C-s>`       Submit comment                         |i, n|
+    `<CR>`        Submit comment (normal mode only)      |n|
+    `q`           Cancel (normal mode)                   |n|
+    `<Esc>`       Cancel (normal mode)                   |n|
+    `<Tab>`       Cycle comment type                     |i, n|
+
+==============================================================================
+6. HIGHLIGHT GROUPS                                      *review-highlights*
+
+These highlight groups are defined with default links. Override them after
+calling setup() or in a |ColorScheme| autocommand.
+
+  Group                   Default link      Usage ~
+  `ReviewNote`              DiagnosticInfo    Note virtual text and sign
+  `ReviewSuggestion`        DiagnosticHint    Suggestion virtual text and sign
+  `ReviewIssue`             DiagnosticWarn    Issue virtual text and sign
+  `ReviewPraise`            DiagnosticOk      Praise virtual text and sign
+  `ReviewSign`              Comment           Sign column marker (●)
+  `ReviewVirtText`          Comment           General virtual text
+  `ReviewPickerHash`        Identifier        Commit hash in picker
+  `ReviewPickerMeta`        Comment           Author/date in picker
+  `ReviewPickerSelected`    String            Selected commit marker
+
+  Group                   Default bg        Usage ~
+  `ReviewNoteLine`          #0d1f28           Note line background
+  `ReviewSuggestionLine`    #152015           Suggestion line background
+  `ReviewIssueLine`         #28250d           Issue line background
+  `ReviewPraiseLine`        #15152a           Praise line background
+
+==============================================================================
+7. EXPORT FORMAT                                              *review-export*
+
+Comments are exported as markdown optimized for AI consumption. The format
+includes file path, line numbers, diff side (old/new), comment type, and
+surrounding code context. Use `:Review export` to preview.
+
+==============================================================================
+8. STORAGE                                                   *review-storage*
+
+Comments are stored as JSON files in: >
+    ~/.local/share/nvim/review/{project-hash}-{branch}.json
+<
+Sessions auto-expire after 7 days and are cleaned up on load.
+
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:

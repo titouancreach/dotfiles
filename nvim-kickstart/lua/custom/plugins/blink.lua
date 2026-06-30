@@ -80,8 +80,14 @@ return { -- Autocompletion
 
     sources = {
       default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      per_filetype = {
+        sql = { 'dadbod', 'snippets', 'buffer' },
+        mysql = { 'dadbod', 'snippets', 'buffer' },
+        plsql = { 'dadbod', 'snippets', 'buffer' },
+      },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
       },
     },
 

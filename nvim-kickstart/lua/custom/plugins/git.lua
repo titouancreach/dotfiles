@@ -9,25 +9,11 @@ return {
     keys = {
       { '<leader>hg', '<cmd>Neogit<CR>', desc = 'Open Neo[g]it' },
     },
-    config = function()
-      require('neogit').setup {
-        diff_viewer = 'codediff',
-      }
-
-      -- Command to add Claude as co-author
-      vim.api.nvim_create_user_command('AddClaudeAsCoAuthor', function()
-        local line = 'Co-Authored-By: Claude <noreply@anthropic.com>'
-        vim.api.nvim_put({ '', line }, 'l', true, true)
-      end, { desc = 'Add Claude as commit co-author' })
-
-      -- Keymap for Neogit commit buffer
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'NeogitCommitMessage',
-        callback = function()
-          vim.keymap.set('n', '<leader>hc', '<cmd>AddClaudeAsCoAuthor<CR>', { buffer = true, desc = 'Add [C]laude as co-author' })
-        end,
-      })
-    end,
+    opts = {
+      integrations = {
+        codediff = true,
+      },
+    },
   },
 
   {
