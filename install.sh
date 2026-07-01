@@ -12,6 +12,11 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 # mkdir -p $HOME/.ssh
 # ln -sf $PWD/ssh/config $HOME/.ssh/config
 
+# Claude personal skills
+mkdir -p $HOME/.claude/skills
+ln -sf $PWD/claude/skills/titouan-write-demo-steps $HOME/.claude/skills/titouan-write-demo-steps
+ln -sf $PWD/claude/skills/titouan-analyze-feature $HOME/.claude/skills/titouan-analyze-feature
+
 echo "🎉 Installation completed 🎉"
 echo "🎉 Run vim and install plugins via :PackerSync 🎉"
 echo "🎉 The neovim configuration is compatible with vscode: https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim 🎉"
