@@ -221,8 +221,8 @@ return {
         -- ts_ls = {},
         tsgo = {},
         --
-        --
-        biome = {},
+        -- oxlint (diagnostics) is configured below, outside of Mason.
+        -- oxfmt (formatting) runs through conform, see init.lua.
 
         tailwindcss = {},
 
@@ -264,6 +264,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'oxfmt', -- Fallback when a project has no node_modules/.bin/oxfmt
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

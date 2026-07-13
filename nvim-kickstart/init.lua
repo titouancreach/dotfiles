@@ -389,9 +389,12 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescript = { 'biome', 'biome-organize-imports' },
-        typescriptreact = { 'biome', 'biome-organize-imports' },
-        json = { 'biome' },
+        typescript = { 'oxfmt' },
+        typescriptreact = { 'oxfmt' },
+        javascript = { 'oxfmt' },
+        javascriptreact = { 'oxfmt' },
+        json = { 'oxfmt' },
+        jsonc = { 'oxfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
