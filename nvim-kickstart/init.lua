@@ -444,17 +444,35 @@ require('lazy').setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
-        sections = {
-          lualine_a = { 'mode', 'branch' },
-          lualine_b = { 'diff', 'diagnostics' },
-          lualine_c = { { 'filename', path = 1 } },
-          lualine_x = {
-            { 'fileformat', 'filetype', 'lsp_status' },
-          },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' },
+        options = {
+          theme = 'catppuccin-mocha',
+          globalstatus = true,
+          icons_enabled = true,
+          component_separators = '',
+          section_separators = { left = '\238\130\180', right = '\238\130\182' },
         },
-        extensions = { 'quickfix', 'lazy', 'mason', 'oil' },
+        sections = {
+          lualine_a = { { 'mode', separator = { left = '\238\130\182' }, right_padding = 2 } },
+          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_c = {
+            {
+              'filename',
+              path = 1,
+              fmt = function(str)
+                local parts = vim.split(str, '/', { plain = true })
+                local keep = 3 -- last dir(s) + filename to show
+                if #parts <= keep then
+                  return str
+                end
+                return '.../' .. table.concat(vim.list_slice(parts, #parts - keep + 1), '/')
+              end,
+            },
+          },
+          lualine_x = { 'filetype', 'lsp_status' },
+          lualine_y = { 'progress' },
+          lualine_z = { { 'location', separator = { right = '\238\130\180' }, left_padding = 2 } },
+        },
+        extensions = { 'quickfix', 'lazy', 'mason', 'oil', 'neo-tree' },
       }
     end,
   },

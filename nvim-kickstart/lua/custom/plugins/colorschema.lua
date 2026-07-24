@@ -14,17 +14,14 @@ return {
   --   end,
   -- },
   {
-    'sainnhe/everforest',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      -- Match Ghostty's "Everforest Dark Hard" palette
-      vim.o.background = 'dark'
-      vim.g.everforest_background = 'hard'
-      vim.g.everforest_enable_italic = 0
-      vim.g.everforest_disable_italic_comment = 1
-      vim.g.everforest_better_performance = 1
-      vim.g.everforest_show_eob = 1 -- show end-of-buffer ~, like the old catppuccin config
-      vim.cmd 'colorscheme everforest'
+      require('catppuccin').setup {
+        show_end_of_buffer = true,
+      }
+      vim.cmd 'colorscheme catppuccin-mocha'
     end,
   },
   -- {

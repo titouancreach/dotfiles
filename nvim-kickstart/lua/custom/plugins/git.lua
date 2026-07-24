@@ -36,10 +36,20 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      -- Inline blame at end of the current line, like VSCode/GitLens.
+      current_line_blame = true,
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol',
+        delay = 300,
+        ignore_whitespace = false,
+      },
+      current_line_blame_formatter = '  <author>, <author_time:%R> · <summary>',
     },
     event = 'VeryLazy',
     keys = {
       { '<leader>hq', '<cmd>Gitsigns setqflist<CR>', desc = 'git show hunks in [Q]uicklist' },
+      { '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>', desc = 'git [t]oggle line [b]lame' },
     },
   },
   {
