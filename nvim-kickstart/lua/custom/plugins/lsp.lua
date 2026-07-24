@@ -219,7 +219,8 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
 
         -- ts_ls = {},
-        tsgo = {},
+        -- tsgo (TypeScript 7 native LSP) is configured below, outside of Mason,
+        -- so it uses the workspace-pinned @typescript/native-preview binary.
         --
         -- oxlint (diagnostics) is configured below, outside of Mason.
         -- oxfmt (formatting) runs through conform, see init.lua.
@@ -296,6 +297,23 @@ return {
         end,
       })
       vim.lsp.enable 'oxlint'
+
+      -- TypeScript 7 (native, Go-based) language server — `tsgo`.
+      -- Prefer the workspace-pinned binary (@typescript/native-preview) so the
+      -- editor uses the exact TS version the repo/CI pins; fall back to a global
+      -- `tsgo` on $PATH. In this monorepo that resolves to TS 7.0.0-dev.
+      vim.lsp.config('tsgo', {
+        cmd = function(dispatchers, config)
+          local start = (config and config.root_dir) or vim.fn.getcwd()
+          local ws_root = vim.fs.root(start, { 'pnpm-workspace.yaml', 'package.json', '.git' }) or start
+          local local_bin = ws_root .. '/node_modules/.bin/tsgo'
+          local cmd = vim.fn.executable(local_bin) == 1 and local_bin or 'tsgo'
+          return vim.lsp.rpc.start({ cmd, '--lsp', '--stdio' }, dispatchers)
+        end,
+        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+        root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+      })
+      vim.lsp.enable 'tsgo'
     end,
   },
 }

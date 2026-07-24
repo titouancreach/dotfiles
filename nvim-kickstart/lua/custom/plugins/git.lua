@@ -20,6 +20,11 @@ return {
     'esmuellert/codediff.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
     cmd = 'CodeDiff',
+    keys = {
+      -- Commit-to-commit review: commit-log panel beside the diff.
+      -- Move commits with j/k, press <CR> to load the selected commit's diff.
+      { '<leader>gh', '<cmd>CodeDiff history<CR>', desc = 'git [h]istory (codediff commit browser)' },
+    },
   },
 
   -- Here is a more advanced example where we pass configuration
@@ -50,6 +55,30 @@ return {
     keys = {
       { '<leader>hq', '<cmd>Gitsigns setqflist<CR>', desc = 'git show hunks in [Q]uicklist' },
       { '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>', desc = 'git [t]oggle line [b]lame' },
+      -- Change navigation, AZERTY convention: < = next, > = previous (matches bracketed.lua).
+      -- In a diff window use builtin ]c/[c; in a normal buffer use gitsigns hunks.
+      {
+        '<c',
+        function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            require('gitsigns').nav_hunk 'next'
+          end
+        end,
+        desc = 'git next hunk/change',
+      },
+      {
+        '>c',
+        function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            require('gitsigns').nav_hunk 'prev'
+          end
+        end,
+        desc = 'git previous hunk/change',
+      },
     },
   },
   {

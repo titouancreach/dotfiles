@@ -280,16 +280,16 @@ require('lazy').setup({
   {
     'mrcjkb/haskell-tools.nvim',
     version = '^6', -- Recommended
-    lazy = false, -- This plugin is already lazy
-    keys = function()
-      local ht = require 'haskell-tools'
-      local bufnr = vim.api.nvim_get_current_buf()
-      local opts = { noremap = true, silent = true, buffer = bufnr }
-
-      return {
-        { '<leader>hs', ht.hoogle.hoogle_signature, desc = '[H]oggle [S]ignature', opts },
-      }
-    end,
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+    keys = {
+      {
+        '<leader>hs',
+        function()
+          require('haskell-tools').hoogle.hoogle_signature()
+        end,
+        desc = '[H]oogle [S]ignature',
+      },
+    },
   },
 
   {
