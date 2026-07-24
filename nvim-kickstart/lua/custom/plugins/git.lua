@@ -25,6 +25,17 @@ return {
       -- Move commits with j/k, press <CR> to load the selected commit's diff.
       { '<leader>gh', '<cmd>CodeDiff history<CR>', desc = 'git [h]istory (codediff commit browser)' },
     },
+    opts = {
+      keymaps = {
+        view = {
+          -- AZERTY convention (matches bracketed.lua / gitsigns): < = next, > = previous.
+          -- These are codediff's own hunk maps, buffer-local, so they win over the
+          -- global gitsigns <c/>c inside a codediff diff.
+          next_hunk = '<c',
+          prev_hunk = '>c',
+        },
+      },
+    },
   },
 
   -- Here is a more advanced example where we pass configuration
