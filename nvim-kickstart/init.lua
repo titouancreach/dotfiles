@@ -36,8 +36,9 @@ vim.o.showmode = false
 -- Enable break indent
 vim.o.breakindent = true
 
--- Save undo history
-vim.o.undofile = true
+-- No persistent undo: nvim encodes the full path into the undo file name, which
+-- overflows the 255-byte filename limit on deep paths (E828 on write). Git covers it.
+vim.o.undofile = false
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
