@@ -34,6 +34,17 @@ switch_tab = "prefix+1..9"
 rename_tab = ["prefix+comma", "prefix+shift+t"]  # tmux: prefix+,
 close_tab = "prefix+shift+x"
 
+# --- Workspaces = sessions tmux (perso, boulot, ...) ------------------------
+# tmux: prefix+s ouvrait choose-tree pour sauter d'une session à l'autre.
+# L'équivalent herdr est le workspace picker (prefix+w par défaut, gardé aussi).
+# Les workspaces et leur nom (custom_name) sont persistés dans session.json,
+# donc perso/boulot survivent à un redémarrage du serveur.
+workspace_picker = ["prefix+s", "prefix+w"]
+new_workspace = "prefix+shift+n"      # tmux: new-session
+rename_workspace = "prefix+shift+w"   # tmux: rename-session
+close_workspace = "prefix+shift+d"
+switch_workspace = "prefix+shift+1..9"  # saut direct, comme prefix+1..9 pour les tabs
+
 # --- Panes ------------------------------------------------------------------
 # prefix+hjkl comme tmux, + chords directs ctrl+alt gardés en secours : ils
 # marchent même dans un pane qui capture ctrl+hjkl (voir la section navigation
@@ -85,3 +96,8 @@ key = "ctrl+l"
 type = "plugin_action"
 command = "vim-herdr-navigation.right"
 description = "navigate right (vim/herdr)"
+
+[ui]
+# Demander le nom à la création d'un workspace (sinon nom généré depuis le cwd) :
+# c'est ce qui rend "perso" / "boulot" utilisables comme des sessions tmux.
+prompt_new_workspace_name = true
