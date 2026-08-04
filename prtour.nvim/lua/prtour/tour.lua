@@ -348,6 +348,26 @@ function M.expand_context(session)
   return true
 end
 
+-- Delete all local (unsent) comments for this tour, after confirmation.
+---@param session table
+function M.clear_comments(session)
+  session = session or M.current
+  if not session then
+    return
+  end
+  local n = store.count()
+  if n == 0 then
+    notify("No comments to clear", vim.log.levels.INFO)
+    return
+  end
+  if vim.fn.confirm(string.format("Delete all %d comment(s)?", n), "&Yes\n&No", 2) ~= 1 then
+    return
+  end
+  store.clear()
+  comments.render(session)
+  notify(string.format("Cleared %d comment(s)", n), vim.log.levels.INFO)
+end
+
 ---@param session table
 function M.close(session)
   session = session or M.current

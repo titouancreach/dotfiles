@@ -225,6 +225,23 @@ require("prtour.review").submit(session, "APPROVE")
 vim.notify = orig_notify
 check("github submit blocked in local mode", blocked ~= nil and blocked:match("Local review") ~= nil, blocked)
 
+-- Regression: export in local mode (session.number == nil) must not crash on %d.
+session.number = nil
+local store2 = require("prtour.store")
+require("prtour.storage").set_scope("/root", "local-main")
+store2.reset()
+store2.add("src/api.ts", 11, "remark", "note", nil, "new")
+local ok_md, md_local = pcall(require("prtour.export").generate_markdown, session)
+check("local export does not crash", ok_md and type(md_local) == "string" and md_local:match("# Review of") ~= nil, ok_md and md_local)
+
+-- Clear all comments (confirm -> yes).
+store2.add("src/api.ts", 11, "remark", "another", nil, "new")
+local orig_confirm = vim.fn.confirm
+vim.fn.confirm = function() return 1 end
+require("prtour.tour").clear_comments(session)
+vim.fn.confirm = orig_confirm
+check("clear removes all comments", store2.count() == 0, store2.count())
+
 -- 8. Notion ticket: URL extraction + render.
 print("== notion ticket ==")
 local urls = require("prtour.ai")._notion_urls(

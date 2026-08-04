@@ -20,7 +20,7 @@ function M.setup(opts)
       nargs = "*",
       desc = "PR code tour",
       complete = function()
-        return { "open", "url", "local", "refresh", "comments", "codediff", "push", "approve", "request-changes", "export", "close" }
+        return { "open", "url", "local", "refresh", "comments", "codediff", "push", "approve", "request-changes", "export", "clear", "close" }
       end,
     })
     initialized = true
@@ -46,7 +46,7 @@ function M.dispatch(fargs)
   local subcommands = {
     open = true, url = true, ["local"] = true, refresh = true, comments = true,
     codediff = true, push = true, approve = true, ["request-changes"] = true,
-    export = true, close = true,
+    export = true, clear = true, close = true,
   }
 
   if sub == "local" then
@@ -99,6 +99,8 @@ function M.dispatch(fargs)
     require("prtour.codediff").open_under_cursor(session)
   elseif sub == "export" then
     require("prtour.export").to_clipboard(session)
+  elseif sub == "clear" then
+    tour.clear_comments(session)
   elseif sub == "close" then
     tour.close(session)
   elseif sub == "approve" then

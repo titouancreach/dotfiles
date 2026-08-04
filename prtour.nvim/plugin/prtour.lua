@@ -9,6 +9,6 @@ end, {
   nargs = "*",
   desc = "PR code tour",
   complete = function()
-    return { "open", "url", "local", "refresh", "comments", "codediff", "push", "approve", "request-changes", "export", "close" }
+    return { "open", "url", "local", "refresh", "comments", "codediff", "push", "approve", "request-changes", "export", "clear", "close" }
   end,
 })

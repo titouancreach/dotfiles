@@ -45,6 +45,7 @@ comment popup + highlight primitives.
 :PrTour refresh         " re-fetch + regenerate the tour
 :PrTour comments        " reload existing GitHub review comments
 :PrTour export          " copy comments markdown to clipboard
+:PrTour clear           " delete all your local comments (asks first)
 :PrTour approve         " submit an APPROVE review to GitHub
 :PrTour request-changes " submit a REQUEST_CHANGES review
 :PrTour push            " submit a COMMENT review (inline comments only)
@@ -76,6 +77,17 @@ adds a `🎫 <ticket> — <purpose>` line near the top of the tour explaining *w
 exists. Requires the Notion MCP connected in your Claude CLI (`claude mcp list`). Toggle
 with `opts.notion.enabled`; set the allowed tool names via `opts.notion.tools`. If no link
 is found or the fetch fails, the tour is generated as usual.
+
+### Humanized prose
+
+The tour's prose (the one-line summary, each section's description, and the ticket
+purpose) is easy to spot as AI-written. When `opts.humanize.enabled` is on (the default),
+the headless `claude` runs the `humanizer` skill over those fields
+as a second pass before emitting the JSON, so they read like a note a teammate left rather
+than model output. It only rewrites the text, never the file paths or structure. Requires
+the skill installed where the CLI can find it (e.g. `~/.claude/skills/humanizer`); if it's
+missing, the tour still generates, just without the pass. Point `opts.humanize.skill` at a
+different skill name to use your own.
 
 The diff code is **syntax-highlighted with treesitter** (per file language, layered on
 the red/green diff backgrounds) — applied a tick after the tour paints, so it's never
@@ -114,6 +126,7 @@ file from disk. Handy as a pre-commit self-review (a gradual replacement for `:R
 | `y` | yank `path:line` + hunk block to clipboard (paste into Claude) |
 | `D` | open the file under the cursor in codediff (PR base…head, side-by-side) |
 | `gP` | reload existing GitHub review comments onto the tour |
+| `<C-r>` | clear all your local comments (asks first) |
 | `C` | export all comments to clipboard |
 | `<leader>a` / `<leader>r` / `<leader>p` | approve / request-changes / push review |
 | `<leader>R` | refresh |

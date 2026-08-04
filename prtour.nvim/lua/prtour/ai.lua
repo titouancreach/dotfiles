@@ -184,12 +184,33 @@ Rules:
   URL is given, or you cannot fetch it, OMIT "ticket" entirely.
 ]]
 
+-- Appended when the humanizer skill is enabled: run it over the prose fields as
+-- a second pass, but keep the JSON-only output contract intact.
+local function humanize_block(skill)
+  return string.format([[
+
+Humanize the prose before you finish:
+- After you have drafted the JSON, invoke the `%s` skill (via the Skill tool) to
+  load its guidance, then apply that guidance to the human-readable text fields:
+  "summary", every section "description", and "ticket.purpose".
+- The skill's own draft / audit-bullets / final-rewrite output format is for its
+  internal use ONLY. Do NOT print any of it. Your ONLY output is the final JSON
+  object described above: no fences, no commentary, nothing before or after it.
+- The skill rewrites text, not structure. Keep the JSON shape, the exact file
+  paths, and every rule above intact.
+- If the skill cannot be found, skip this step and output the JSON as usual.
+]], skill)
+end
+
 -- Build the stdin prompt for Claude.
-local function build_prompt(meta, diff_text, ticket_urls)
+local function build_prompt(meta, diff_text, ticket_urls, humanize_skill)
   local parts = {
     PROMPT,
-    string.format("\nPR #%d: %s\n", meta.number or 0, meta.title or ""),
   }
+  if humanize_skill and humanize_skill ~= "" then
+    table.insert(parts, humanize_block(humanize_skill))
+  end
+  table.insert(parts, string.format("\nPR #%d: %s\n", meta.number or 0, meta.title or ""))
   if ticket_urls and #ticket_urls > 0 then
     table.insert(parts, "\nLinked Notion ticket(s) — fetch with your Notion tool for the \"ticket\" field:\n  "
       .. table.concat(ticket_urls, "\n  ") .. "\n")
@@ -209,7 +230,7 @@ end
 
 local cache_dir = vim.fn.stdpath("data") .. "/prtour"
 -- Bump when the prompt/output shape changes, to invalidate stale cached tours.
-local TOUR_VERSION = 4
+local TOUR_VERSION = 5
 
 ---@param head_oid string|nil
 local function cache_path(head_oid)
@@ -270,16 +291,31 @@ function M.generate_tour(meta, files, diff_text, cb)
     table.insert(cmd, cfg.model)
   end
 
+  -- Tools the headless claude may call, gathered so we pass --allowedTools once.
+  local allowed = {}
+
   -- If the PR links a Notion ticket and the integration is on, let claude fetch it.
   local urls = {}
   if cfg.notion and cfg.notion.enabled then
     urls = notion_urls(meta)
     if #urls > 0 and cfg.notion.tools and #cfg.notion.tools > 0 then
-      table.insert(cmd, "--allowedTools")
-      table.insert(cmd, table.concat(cfg.notion.tools, ","))
+      vim.list_extend(allowed, cfg.notion.tools)
     end
   end
-  local prompt = build_prompt(meta, diff_text, urls)
+
+  -- If humanizing is on, allow the Skill tool so claude can invoke the skill.
+  local humanize_skill
+  if cfg.humanize and cfg.humanize.enabled and cfg.humanize.skill and cfg.humanize.skill ~= "" then
+    humanize_skill = cfg.humanize.skill
+    table.insert(allowed, "Skill")
+  end
+
+  if #allowed > 0 then
+    table.insert(cmd, "--allowedTools")
+    table.insert(cmd, table.concat(allowed, ","))
+  end
+
+  local prompt = build_prompt(meta, diff_text, urls, humanize_skill)
 
   vim.system(cmd, { text = true, stdin = prompt }, function(res)
     vim.schedule(function()

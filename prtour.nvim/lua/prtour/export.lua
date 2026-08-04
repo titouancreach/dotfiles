@@ -21,7 +21,10 @@ end
 function M.generate_markdown(session)
   local all = store.get_all()
   local out = {}
-  table.insert(out, string.format("# Review of PR #%d — %s", session.number, session.meta.title or ""))
+  local heading = (session.mode == "local" or not session.number)
+    and ("# Review of " .. (session.meta.title or "local changes"))
+    or string.format("# Review of PR #%d — %s", session.number, session.meta.title or "")
+  table.insert(out, heading)
   table.insert(out, "")
   table.insert(out, "I reviewed this PR and have the following comments. Please address them.")
   table.insert(out, "")
@@ -80,7 +83,8 @@ function M.yank_context(session)
   end
   local file, hunk = find_hunk(session, a.path, a.side, a.file_line)
   local lines = {}
-  table.insert(lines, string.format("In PR #%d, `%s:%d`:", session.number, a.path, a.file_line))
+  local where = session.number and ("PR #" .. session.number) or "local changes"
+  table.insert(lines, string.format("In %s, `%s:%d`:", where, a.path, a.file_line))
   table.insert(lines, "")
   table.insert(lines, "```diff")
   if hunk then

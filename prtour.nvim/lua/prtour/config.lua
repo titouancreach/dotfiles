@@ -22,6 +22,7 @@ M.defaults = {
     yank_context = "y", -- yank file:line + hunk for Claude
     open_codediff = "D", -- open file under cursor in codediff (base..head)
     reload_comments = "gP", -- re-fetch GitHub review comments
+    clear_comments = "<C-r>", -- delete all local comments (confirms first)
     export_clipboard = "C",
     approve = "<leader>a",
     request_changes = "<leader>r",
@@ -49,6 +50,15 @@ M.defaults = {
   -- Comment editor: "buffer" = a real editable split (:wq save / :q discard,
   -- full vim motions); "popup" = review.nvim's nui popup (<C-s> submit).
   comment_ui = "buffer",
+  -- Run the `humanizer` skill over the generated prose (summary, section
+  -- descriptions, ticket purpose) as a second pass, so the tour reads human
+  -- rather than AI. The headless `claude` invokes the skill via the Skill tool.
+  -- Requires the skill installed (e.g. `~/.claude/skills/humanizer`). If the
+  -- skill can't be found the tour still generates, just without the pass.
+  humanize = {
+    enabled = true,
+    skill = "humanizer",
+  },
   -- If the PR links a Notion ticket, let the headless `claude` fetch it (via the
   -- Notion MCP) and explain the PR's purpose at the top of the tour.
   notion = {

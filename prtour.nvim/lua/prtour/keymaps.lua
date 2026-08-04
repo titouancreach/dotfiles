@@ -14,6 +14,7 @@ local META = {
   yank_context     = { label = "Yank context for Claude", icon = "📋", group = "Actions" },
   open_codediff    = { label = "Open file in codediff", icon = "🔍", group = "Actions" },
   reload_comments  = { label = "Reload GitHub comments", icon = "🔃", group = "Actions" },
+  clear_comments   = { label = "Clear all comments", icon = "🧹", group = "Actions" },
   export_clipboard = { label = "Export comments", icon = "📑", group = "Actions" },
   refresh          = { label = "Refresh tour", icon = "🔄", group = "Actions" },
   close            = { label = "Close (export)", icon = "❌", group = "Actions" },
@@ -134,6 +135,9 @@ function M.setup(session)
   map(bufnr, km.export_clipboard, function()
     export.to_clipboard(session)
   end, "export_clipboard")
+  map(bufnr, km.clear_comments, function()
+    tour.clear_comments(session)
+  end, "clear_comments")
   map(bufnr, km.approve, function()
     review.submit(session, "APPROVE")
   end, "approve")
