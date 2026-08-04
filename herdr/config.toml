@@ -1,0 +1,87 @@
+# herdr configuration — keymap calqué sur ~/.tmux.conf
+# Référence : https://herdr.dev/docs/config-reference/
+# Recharger à chaud : prefix+r (ou `herdr server reload-config`)
+
+[theme]
+name = "catppuccin"
+
+# --- Restauration après restart ---------------------------------------------
+[session]
+# Relance les panes d'agent dans leur vraie conversation (claude --resume <id>)
+# après un redémarrage du serveur herdr. Nécessite l'intégration installée :
+#   herdr integration install claude   (statut : herdr integration status)
+resume_agents_on_restore = true
+
+[experimental]
+# Rejoue le contenu récent des terminaux après un restart complet du serveur.
+# ⚠️ écrit le scrollback en clair dans ~/.config/herdr/session-history.json
+# (peut contenir tokens/secrets). Passer à false pour désactiver.
+pane_history = true
+
+[keys]
+# --- Prefix : C-a comme dans tmux -------------------------------------------
+prefix = "ctrl+a"
+
+# --- Splits (tmux: bind % split-window -h / bind - split-window -v) ---------
+split_vertical = "prefix+%"        # côte à côte
+split_horizontal = "prefix+minus"  # empilé
+
+# --- Tabs = windows tmux ----------------------------------------------------
+new_tab = "prefix+c"                          # tmux: bind c new-window
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+switch_tab = "prefix+1..9"
+rename_tab = ["prefix+comma", "prefix+shift+t"]  # tmux: prefix+,
+close_tab = "prefix+shift+x"
+
+# --- Panes ------------------------------------------------------------------
+# prefix+hjkl comme tmux, + chords directs ctrl+alt gardés en secours : ils
+# marchent même dans un pane qui capture ctrl+hjkl (voir la section navigation
+# vim-aware plus bas, qui rétablit ctrl+hjkl à la vim-tmux-navigator)
+focus_pane_left = ["prefix+h", "ctrl+alt+h"]
+focus_pane_down = ["prefix+j", "ctrl+alt+j"]
+focus_pane_up = ["prefix+k", "ctrl+alt+k"]
+focus_pane_right = ["prefix+l", "ctrl+alt+l"]
+close_pane = "prefix+x"
+zoom = "prefix+z"
+copy_mode = "prefix+["             # copy-mode vi-like par défaut
+
+# --- Divers tmux ------------------------------------------------------------
+reload_config = "prefix+r"         # tmux: bind r source-file ~/.tmux.conf
+resize_mode = "prefix+shift+r"     # déplacé, prefix+r étant pris par reload
+detach = ["prefix+d", "prefix+q"]  # tmux: prefix+d
+edit_scrollback = "prefix+v"       # tmux: bind v -> scrollback dans $EDITOR (k)
+
+# --- Navigation vim-aware (ctrl+hjkl) ---------------------------------------
+# Plugin vim-herdr-navigation : le port de vim-tmux-navigator pour herdr.
+#   herdr plugin list --plugin vim-herdr-navigation
+# navigate.sh regarde le process au premier plan du pane focus : si c'est
+# vim/nvim il lui transmet la touche (nvim traverse ses splits puis rappelle
+# herdr au bord), sinon il déplace directement le focus de pane.
+#
+# ⚠️ ctrl+l et ctrl+k sont donc capturés dans les panes non-vim : plus de
+# clear-screen ni de kill-line readline dans zsh (même compromis qu'avec
+# vim-tmux-navigator sous tmux). Repli : prefix+l / ctrl+alt+l.
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"

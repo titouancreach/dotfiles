@@ -1,0 +1,42 @@
+# herdr
+
+[herdr](https://herdr.dev) config — replaces the tmux setup in `../tmux/`.
+Keymap is deliberately a port of `../tmux/tmux.conf` (prefix `C-a`, `%`/`-`
+splits, `prefix+c` new tab, …) so muscle memory carries over.
+
+`config.toml` is symlinked to `~/.config/herdr/config.toml` by `../install.sh`.
+Only that file is versioned — everything else under `~/.config/herdr/` is
+runtime state: `herdr.sock`, `*.log`, `session.json`, `session-history.json`,
+`plugins.json` (registry with absolute paths + content hashes) and the
+`plugins/github/` checkouts.
+
+Reload after editing: `prefix+r` or `herdr server reload-config`.
+
+## Not captured by config.toml
+
+Two pieces of the setup live outside this file:
+
+- **`vim-herdr-navigation` plugin** — provides the `ctrl+h/j/k/l` bindings in
+  `[[keys.command]]`. Installed by `../install.sh`; without it herdr logs an
+  unknown plugin action and those four keys do nothing (fall back to
+  `prefix+hjkl` or `ctrl+alt+hjkl`). Editor side lives in
+  `../nvim-kickstart/lua/custom/plugins/tmux-navigator.lua`, which resolves the
+  managed checkout by glob because its path carries a content hash.
+
+- **`HERDR_NAV_PASSTHROUGH_RE`** in `~/.zshrc` — TUIs that should keep
+  `ctrl+h/j/k/l` for themselves instead of moving pane focus:
+
+  ```sh
+  export HERDR_NAV_PASSTHROUGH_RE='^(fzf|lazygit|k9s)$'
+  ```
+
+  The regex is matched against the `name` field of `herdr pane process-info`,
+  which is not always the binary name — Claude Code reports its version string
+  (`2.1.221`) as `name` and `claude` only as `argv0`, so `^claude$` never
+  matches. Read by the *server* at startup: `herdr server stop` to pick up a
+  change.
+
+## Tradeoff to remember
+
+Binding `ctrl+k`/`ctrl+l` globally shadows readline's kill-line and
+clear-screen in non-Vim panes — same deal as `vim-tmux-navigator` under tmux.
