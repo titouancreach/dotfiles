@@ -15,17 +15,7 @@ vim.opt.softtabstop = 2
 vim.opt.background = 'dark' -- match the dark catppuccin-mocha colorscheme
 
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
---
--- vim.o.autochdir = true
-
--- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -36,9 +26,19 @@ vim.o.showmode = false
 -- Enable break indent
 vim.o.breakindent = true
 
--- No persistent undo: nvim encodes the full path into the undo file name, which
--- overflows the 255-byte filename limit on deep paths (E828 on write). Git covers it.
-vim.o.undofile = false
+-- Persistent undo. Nvim encodes the full file path into the undo file *name*,
+-- which overflows the 255-byte filename component limit on deep paths (E828 on
+-- write) — so disable it per-buffer only when the encoded name would be too long.
+vim.o.undofile = true
+vim.api.nvim_create_autocmd('BufReadPre', {
+  group = vim.api.nvim_create_augroup('undofile-deep-path-guard', { clear = true }),
+  callback = function(ev)
+    local encoded = ev.file:gsub('/', '%%')
+    if #encoded > 250 then
+      vim.bo[ev.buf].undofile = false
+    end
+  end,
+})
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
@@ -57,14 +57,7 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
+-- Display certain whitespace characters in the editor
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', lead = '·' }
 
@@ -86,10 +79,8 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 
 -- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -107,18 +98,8 @@ vim.keymap.set('n', '<leader>Y', function()
   vim.fn.setreg('+', vim.fn.getreg '"')
 end, { desc = 'Copy last yanked text to system clipboard' })
 
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
+-- NOTE: This won't work in all terminal emulators/tmux/etc.
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Navigation between splits is handled by vim-tmux-navigator plugin
 -- See lua/custom/plugins/tmux-navigator.lua
@@ -126,18 +107,9 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- Save with <leader>w
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[W]rite current buffer' })
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
 -- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -151,7 +123,6 @@ vim.api.nvim_create_user_command('QfUpdate', function()
 end, {})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -165,17 +136,7 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
--- NOTE: Here is where you install your plugins.
+-- [[ Configure and install plugins ]] (`:Lazy` for status, `:Lazy update` to update)
 require('lazy').setup({
   {
     'stevearc/stickybuf.nvim',
@@ -256,18 +217,10 @@ require('lazy').setup({
     end,
   },
 
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
     'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
     opts = {},
   },
-
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -380,41 +333,48 @@ require('lazy').setup({
               end,
             },
           },
-          lualine_x = { 'filetype', 'lsp_status' },
+          lualine_x = {
+            {
+              function()
+                local reg = vim.fn.reg_recording()
+                if reg == '' then
+                  return ''
+                end
+                return 'recording @' .. reg
+              end,
+              color = { fg = '#f38ba8', gui = 'bold' },
+            },
+            'filetype',
+            'lsp_status',
+          },
           lualine_y = { 'progress' },
           lualine_z = { { 'location', separator = { right = '\238\130\180' }, left_padding = 2 } },
         },
         extensions = { 'quickfix', 'lazy', 'mason', 'oil', 'neo-tree' },
       }
+
+      -- reg_recording() changes don't trigger a statusline redraw on their own
+      vim.api.nvim_create_autocmd('RecordingEnter', {
+        callback = function()
+          require('lualine').refresh()
+        end,
+      })
+      vim.api.nvim_create_autocmd('RecordingLeave', {
+        callback = function()
+          vim.defer_fn(function()
+            require('lualine').refresh()
+          end, 50)
+        end,
+      })
     end,
   },
 
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+  -- Auto-imports everything in `lua/custom/plugins/*.lua`
   { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
