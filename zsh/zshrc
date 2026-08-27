@@ -103,10 +103,10 @@ source $ZSH/oh-my-zsh.sh
 alias vim="lvim"
 alias v="lvim"
 
-alias ls="eza --icons"
-alias ll="eza --icons -la"
-alias la="eza --icons -a"
-alias lt="eza --icons --tree"
+alias ls="eza --icons=auto"
+alias ll="eza --icons=auto -la"
+alias la="eza --icons=auto -a"
+alias lt="eza --icons=auto --tree"
 
 alias prune="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 alias dc="docker compose"
