@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 #
-ln -s $PWD/nvim ~/.config/nvim
+# All dev binaries (git, rg, fzf, LSP servers, formatters, ...) come from ONE
+# nix profile declared in ./flake.nix. Needs nix with flakes enabled.
+#   update later with: nix flake update && nix profile upgrade dotfiles-tools
+nix profile add "$PWD"
 
-# install packer
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+ln -s $PWD/nvim ~/.config/nvim
 
 # ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 # ln -sf $PWD/git/gitconfig $HOME/.gitconfig

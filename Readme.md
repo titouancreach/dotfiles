@@ -4,17 +4,25 @@ Here is the list of the dotfiles I use.
 
 (I keep my original .vimrc as nvim.old, since I used it since school)
 
-## Neovim / Lunarvim
+## Binaries: one nix profile, no Mason
 
-Install xclip in order to make the '+' register to work
+Every CLI tool, LSP server, formatter and linter the configs rely on is listed
+in `flake.nix` (`buildEnv` bundle `dotfiles-tools`).
+
 ```
-sudo apt install xclip
+nix profile add ~/Code/dotfiles      # install everything
+nix flake update                     # bump nixpkgs
+nix profile upgrade dotfiles-tools   # rebuild the bundle
 ```
 
-### Ripgrep ->
-```
-brew install ripgrep
-```
+Neovim does not install anything itself: `lsp.lua` just `vim.lsp.enable`s
+servers found on `$PATH`. Exceptions: `ocamllsp` comes from the opam switch,
+`gleam` from per-project nix dev shells, `tsgo`/`oxlint` prefer the project's
+`node_modules/.bin`.
+
+## Neovim
+
+On Linux install xclip so the '+' register works: `sudo apt install xclip`.
 
 ### Nerdfont
 https://www.nerdfonts.com/

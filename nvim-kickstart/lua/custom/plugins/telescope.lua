@@ -50,7 +50,7 @@ return {
         extensions = {
           ast_grep = {
             command = {
-              'sg', -- For Linux, use `ast-grep` instead of `sg`
+              'ast-grep', -- nixpkgs ships only `ast-grep`, no `sg` alias
               '--json=stream',
             }, -- must have --json=stream
             grep_open_files = false, -- search in opened files

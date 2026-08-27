@@ -330,7 +330,7 @@ require('lazy').setup({
           lualine_y = { 'progress' },
           lualine_z = { { 'location', separator = { right = '\238\130\180' }, left_padding = 2 } },
         },
-        extensions = { 'quickfix', 'lazy', 'mason', 'oil', 'neo-tree' },
+        extensions = { 'quickfix', 'lazy', 'oil', 'neo-tree' },
       }
 
       -- reg_recording() changes don't trigger a statusline redraw on their own

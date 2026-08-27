@@ -15,12 +15,9 @@ return {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      -- Mason must be loaded before its dependents so we need to set it up here.
-      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
-      'mason-org/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      -- Binaries (LSP servers, formatters, linters) are NOT managed from nvim:
+      -- they come from the nix profile declared in ../../../flake.nix
+      -- (`nix profile add ~/Code/dotfiles`). No Mason.
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -118,13 +115,13 @@ return {
       -- Advertise blink.cmp's extra capabilities to every server.
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      -- Servers installed and configured through Mason.
+      -- Servers whose binary is on $PATH (nix profile, or opam for ocamllsp).
+      -- Default cmd/filetypes/root_markers come from nvim-lspconfig's `lsp/` dir.
+      --
+      -- tsgo (TypeScript 7 native LSP) and oxlint (diagnostics) are configured
+      -- further down so they prefer the workspace-pinned node_modules/.bin binary.
+      -- oxfmt (formatting) runs through conform, see init.lua.
       local servers = {
-        -- tsgo (TypeScript 7 native LSP) is configured below, outside of Mason,
-        -- so it uses the workspace-pinned @typescript/native-preview binary.
-        --
-        -- oxlint (diagnostics) is configured below, outside of Mason.
-        -- oxfmt (formatting) runs through conform, see init.lua.
 
         tailwindcss = {},
 
@@ -149,30 +146,16 @@ return {
         },
       }
 
-      -- Ensure the servers and tools above are installed (`:Mason` for status)
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'oxfmt', -- Fallback when a project has no node_modules/.bin/oxfmt
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- Advertise capabilities to every server, apply per-server overrides, enable.
+      vim.lsp.config('*', { capabilities = capabilities })
+      for name, cfg in pairs(servers) do
+        if next(cfg) ~= nil then
+          vim.lsp.config(name, cfg)
+        end
+      end
+      vim.lsp.enable(vim.tbl_keys(servers))
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
-
-      -- Servers installed outside of Mason
+      -- Servers with a custom cmd (workspace-pinned binaries first)
       -- Prefer the workspace-pinned oxlint (matches what `pnpm lint` runs in CI).
       -- Falls back to `$PATH` oxlint when no workspace binary is found.
       vim.lsp.config('oxlint', {
