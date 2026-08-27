@@ -9,7 +9,26 @@
       forAll = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      packages = forAll (pkgs: {
+      packages = forAll (pkgs:
+        let
+          # cspell dictionary from npm, exposed at lib/node_modules/@cspell/<name>
+          # so cspell.json can import it via ../../.nix-profile/lib/node_modules/...
+          # (medicalterms is not in cspell's bundled dicts; haskell is).
+          cspellDict = name: version: hash: pkgs.stdenvNoCC.mkDerivation {
+            pname = "cspell-${name}";
+            inherit version;
+            src = pkgs.fetchurl {
+              url = "https://registry.npmjs.org/@cspell/${name}/-/${name}-${version}.tgz";
+              inherit hash;
+            };
+            dontBuild = true;
+            installPhase = ''
+              mkdir -p $out/lib/node_modules/@cspell/${name}
+              cp -r . $out/lib/node_modules/@cspell/${name}/
+            '';
+          };
+        in
+        {
         default = pkgs.buildEnv {
           name = "dotfiles-tools";
           paths = with pkgs; [
@@ -47,6 +66,7 @@
             stylua # conform: lua
             oxfmt # conform: ts/js/json fallback
             cspell # none-ls cspell.nvim
+            (cspellDict "dict-medicalterms" "4.1.8" "sha512-MRA/6/KXoAena85lXrv++d0FRZ/j7uqqVQOvjiXfOoLRsChBrJrRAFvx9IRFoXM4uja67sg5QAqzFzzlg3B9gg==")
             markdownlint-cli # nvim-lint: markdown
 
             # --- debug adapters --------------------------------------------
