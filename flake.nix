@@ -29,12 +29,14 @@
             ripgrep # telescope live_grep, fff, checkhealth
             fd
             ast-grep # `sg`: telescope ast_grep + LSP ast_grep
+            tree-sitter # nvim-treesitter (main branch) compiles parsers with the CLI
 
             # --- LSP servers (were Mason-managed) --------------------------
             lua-language-server # lua_ls
             tailwindcss-language-server # tailwindcss
             graphql-language-service-cli # graphql
             elmPackages.elm-language-server # elmls
+            elmPackages.elm-format # elmls formatting
             # typescript-go # tsgo fallback when no node_modules/.bin/tsgo
             oxlint # fallback when no node_modules/.bin/oxlint
             # ocamllsp: NOT here on purpose — must match the opam switch compiler,
