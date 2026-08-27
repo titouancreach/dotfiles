@@ -6,6 +6,8 @@
 nix profile add "$PWD"
 
 ln -s $PWD/nvim ~/.config/nvim
+ln -sf $PWD/zsh/zshrc $HOME/.zshrc
+ln -sf $PWD/cspell.json $HOME/cspell.json
 
 # ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 # ln -sf $PWD/git/gitconfig $HOME/.gitconfig

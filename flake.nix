@@ -37,6 +37,7 @@
             jq
             gh
             herdr
+            starship
 
             neovim
             ripgrep
