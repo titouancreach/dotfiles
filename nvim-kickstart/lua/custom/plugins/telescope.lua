@@ -71,7 +71,13 @@ return {
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      -- Resume the last fff picker (files/grep); fall back to Telescope's
+      -- resume when fff has nothing saved (help, diagnostics, ...).
+      vim.keymap.set('n', '<leader>sr', function()
+        if not require('fff').resume() then
+          builtin.resume()
+        end
+      end, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader><space>', builtin.oldfiles, { desc = '[S]earch Recent Files' })
       vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>sc', function()

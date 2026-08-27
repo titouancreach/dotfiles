@@ -35,6 +35,14 @@ return {
       notify = {
         enabled = false,
       },
+
+      -- Error messages default to the top-right notify popup; route them to
+      -- the discreet bottom-right `mini` view instead. Long errors still go
+      -- to a split via the long_message_to_split preset.
+      messages = {
+        view_error = 'mini',
+        view_warn = 'mini',
+      },
     }
   end,
 }

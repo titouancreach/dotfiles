@@ -45,6 +45,12 @@ rename_workspace = "prefix+shift+w"   # tmux: rename-session
 close_workspace = "prefix+shift+d"
 switch_workspace = "prefix+shift+1..9"  # saut direct, comme prefix+1..9 pour les tabs
 
+# Déplacement DANS l'overlay du picker (navigate mode). Défaut : flèches seules.
+# j/k y sont déjà pris par navigate_pane_up/down (déplacement entre panes du
+# workspace surligné), d'où ctrl+n/ctrl+p pour changer de workspace.
+navigate_workspace_up = ["up", "ctrl+p"]
+navigate_workspace_down = ["down", "ctrl+n"]
+
 # --- Panes ------------------------------------------------------------------
 # prefix+hjkl comme tmux, + chords directs ctrl+alt gardés en secours : ils
 # marchent même dans un pane qui capture ctrl+hjkl (voir la section navigation
@@ -97,7 +103,31 @@ type = "plugin_action"
 command = "vim-herdr-navigation.right"
 description = "navigate right (vim/herdr)"
 
+[[keys.command]]
+key = "ctrl+shift+u"
+type = "plugin_action"
+command = "usagebar.open-limits"
+description = "Agent Usage: open limits pane"
+
+[[keys.command]]
+key = "ctrl+shift+m"
+type = "plugin_action"
+command = "usagebar.refresh"
+description = "Agent Usage: refresh sidebar meters"
+
 [ui]
 # Demander le nom à la création d'un workspace (sinon nom généré depuis le cwd) :
 # c'est ce qui rend "perso" / "boulot" utilisables comme des sessions tmux.
 prompt_new_workspace_name = true
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "$title"],
+  ["agent"],
+  [{ token = "$limit", fg = "#fab387", bold = true }],
+  ["$context"],
+]

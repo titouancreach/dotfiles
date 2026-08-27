@@ -128,6 +128,8 @@ return {
 
         tailwindcss = {},
 
+        ocamllsp = {},
+
         graphql = {},
 
         ast_grep = {},
@@ -184,22 +186,36 @@ return {
       })
       vim.lsp.enable 'oxlint'
 
-      -- TypeScript 7 (native, Go-based) language server — `tsgo`.
-      -- Prefer the workspace-pinned binary (@typescript/native-preview) so the
-      -- editor uses the exact TS version the repo/CI pins; fall back to a global
-      -- `tsgo` on $PATH. In this monorepo that resolves to TS 7.0.0-dev.
-      vim.lsp.config('tsgo', {
+      -- TypeScript 7 (native, Go-based) language server.
+      -- Prefer the workspace-pinned binary so the editor uses the exact TS
+      -- version the repo/CI pins. Probe `tsgo` (@typescript/native-preview)
+      -- BEFORE `tsc`: while a repo is on TS 6 + native-preview, its .bin/tsc
+      -- is the old JS compiler with no --lsp mode. On stable TS 7 the native
+      -- binary ships as `tsc` and the fallback picks it up.
+      vim.lsp.config('tsc', {
         cmd = function(dispatchers, config)
           local start = (config and config.root_dir) or vim.fn.getcwd()
           local ws_root = vim.fs.root(start, { 'pnpm-workspace.yaml', 'package.json', '.git' }) or start
-          local local_bin = ws_root .. '/node_modules/.bin/tsgo'
-          local cmd = vim.fn.executable(local_bin) == 1 and local_bin or 'tsgo'
+          local cmd = vim.iter({ 'tsgo', 'tsc' })
+            :map(function(bin)
+              return ws_root .. '/node_modules/.bin/' .. bin
+            end)
+            :find(function(bin)
+              return vim.fn.executable(bin) == 1
+            end) or 'tsgo'
           return vim.lsp.rpc.start({ cmd, '--lsp', '--stdio' }, dispatchers)
         end,
         filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
         root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
       })
-      vim.lsp.enable 'tsgo'
+      vim.lsp.enable 'tsc'
+
+      -- Gleam LSP ships with the compiler (`gleam lsp`). Installed per-project
+      -- via nix flakes, so only enable it when the binary is on $PATH — i.e.
+      -- when nvim was launched from the project's dev shell.
+      if vim.fn.executable 'gleam' == 1 then
+        vim.lsp.enable 'gleam'
+      end
     end,
   },
 }

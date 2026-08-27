@@ -139,10 +139,6 @@ rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]] (`:Lazy` for status, `:Lazy update` to update)
 require('lazy').setup({
   {
-    'stevearc/stickybuf.nvim',
-    opts = {},
-  },
-  {
     'chrisgrieser/nvim-spider',
     keys = {
       { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
@@ -166,12 +162,6 @@ require('lazy').setup({
   },
 
   {
-    'max397574/better-escape.nvim',
-    config = function()
-      require('better_escape').setup()
-    end,
-  },
-  {
     'nvimtools/none-ls.nvim',
     event = 'VeryLazy',
     dependencies = { 'davidmh/cspell.nvim' },
@@ -191,16 +181,6 @@ require('lazy').setup({
       table.insert(opts.sources, cspell.code_actions)
     end,
   },
-  {
-    'dmmulroy/tsc.nvim', -- run and explore tsc errors
-    config = function()
-      require('tsc').setup()
-      vim.keymap.set('n', '<leader>to', ':TSCOpen<CR>', { desc = '[O]pen TSC window' })
-      vim.keymap.set('n', '<leader>tc', ':TSCClose<CR>', { desc = '[C]lose TSC window' })
-      vim.keymap.set('n', '<leader>tt', ':TSC<CR>', { desc = '[T]SC' })
-    end,
-  },
-
   {
     'stevearc/oil.nvim',
     ---@module 'oil'
