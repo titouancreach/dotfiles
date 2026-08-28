@@ -49,9 +49,6 @@ starship is the prompt.
 ln -sf $PWD/git/gitconfig $HOME/.gitconfig
 ```
 
-Aliases: `co`, `up` (pull --rebase --autostash), `graph`. LFS filters,
-`fetch.prune`, `push.autoSetupRemote`.
-
 ### Neovim
 
 ```bash
@@ -72,5 +69,3 @@ herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
 
 
 ## Screenshot
-
-![screenshot](./screenshot/vim.png)
