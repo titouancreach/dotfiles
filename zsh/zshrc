@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.ghcup/bin:$HOME/.bun/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # --- shell behaviour (what oh-my-zsh used to set) ---------------------------
 HISTFILE=$HOME/.zsh_history
@@ -7,12 +7,26 @@ SAVEHIST=10000
 setopt extended_history hist_expire_dups_first hist_ignore_dups hist_ignore_space
 setopt hist_verify share_history autocd interactive_comments
 
-autoload -Uz compinit && compinit
+fpath=("$HOME/.nix-profile/share/zsh/site-functions" $fpath)
+if [[ -n "$IN_NIX_SHELL" ]]; then
+  for input in ${=nativeBuildInputs} ${=buildInputs}; do
+    [[ -d "$input/share/zsh/site-functions" ]] && fpath=("$input/share/zsh/site-functions" $fpath)
+  done
+fi
+autoload -Uz compinit && compinit -d "$HOME/.zcompdump${IN_NIX_SHELL:+-nix}"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors ''
 
 bindkey -e
+# prefix history search on up/down (what oh-my-zsh did): type "a", press up
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search    # up
+bindkey '^[OA' up-line-or-beginning-search    # up (app mode)
+bindkey '^[[B' down-line-or-beginning-search  # down
+bindkey '^[OB' down-line-or-beginning-search  # down (app mode)
 bindkey '^[[1;3C' forward-word   # alt+right
 bindkey '^[[1;3D' backward-word  # alt+left
 bindkey '^[[H' beginning-of-line
@@ -36,33 +50,35 @@ export VISUAL='k'
 export HERDR_NAV_PASSTHROUGH_RE='^(fzf|lazygit|k9s)$'
 
 # --- node -------------------------------------------------------------------
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+if [[ -z "$IN_NIX_SHELL" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+  # place this after nvm initialization!
+  autoload -U add-zsh-hook
+  load-nvmrc() {
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+    if [ -n "$nvmrc_path" ]; then
+      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+      if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+      elif [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm use
+      fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use default
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+  }
+  add-zsh-hook chpwd load-nvmrc
+  load-nvmrc
+fi
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -80,7 +96,6 @@ command -v fzf >/dev/null && source <(fzf --zsh)
 eval "$(starship init zsh)"
 
 # --- other toolchains -------------------------------------------------------
-[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$HOME/.moon/bin:$PATH"
 [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
