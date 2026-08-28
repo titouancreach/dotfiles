@@ -2,8 +2,14 @@
 #
 # All dev binaries (git, rg, fzf, LSP servers, formatters, ...) come from ONE
 # nix profile declared in ./flake.nix. Needs nix with flakes enabled.
-#   update later with: nix flake update && nix profile upgrade dotfiles-tools
+#   update later with: nix flake update && nix profile upgrade dotfiles
 nix profile add "$PWD"
+
+# macOS does not scan ~/.nix-profile/share/fonts; link the nerd font into ~/Library/Fonts
+if [ "$(uname)" = "Darwin" ]; then
+  mkdir -p "$HOME/Library/Fonts"
+  ln -sf "$HOME/.nix-profile/share/fonts/truetype/NerdFonts/JetBrainsMono/"*.ttf "$HOME/Library/Fonts/"
+fi
 
 ln -s $PWD/nvim ~/.config/nvim
 ln -sf $PWD/zsh/zshrc $HOME/.zshrc

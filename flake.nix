@@ -1,5 +1,5 @@
 {
-  description = "Titouan dotfiles; every dev binary in one nix profile (replaces Mason + brew scatter)";
+  description = "Titouan dotfiles";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -38,6 +38,7 @@
             gh
             herdr
             starship
+            nerd-fonts.jetbrains-mono
 
             neovim
             ripgrep
