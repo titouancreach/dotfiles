@@ -11,6 +11,9 @@ if [ "$(uname)" = "Darwin" ]; then
   ln -sf "$HOME/.nix-profile/share/fonts/truetype/NerdFonts/JetBrainsMono/"*.ttf "$HOME/Library/Fonts/"
 fi
 
+# ghostty — config + cursor shader (whole dir, custom-shader path is relative to it)
+ln -sfn $PWD/ghostty $HOME/.config/ghostty
+
 ln -s $PWD/nvim ~/.config/nvim
 ln -sf $PWD/zsh/zshrc $HOME/.zshrc
 ln -sf $PWD/cspell.json $HOME/cspell.json

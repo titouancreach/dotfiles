@@ -1,0 +1,17 @@
+# Ghostty — https://ghostty.org/docs/config
+# Symlinked as ~/.config/ghostty/config by ../install.sh.
+# `ghostty +show-config --default --docs` lists every option.
+# Reload: Cmd+Shift+,
+
+# Send C-CR directly to bypass tmux extended-keys issues
+keybind = ctrl+enter=text:\x1b[13;5u
+
+font-family = JetBrains Mono NL Medium
+# Render italic text in the regular face (no slanted glyphs anywhere)
+font-style-italic = false
+adjust-cell-height = 10%
+cursor-color = #DDDDDD
+theme = Nord
+
+# relative to this file's directory
+custom-shader = cursor_smear.glsl

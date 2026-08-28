@@ -34,6 +34,18 @@ fi
 
 On Linux fontconfig finds `~/.nix-profile/share/fonts` on its own.
 
+### Ghostty
+
+```bash
+ln -sfn $PWD/ghostty $HOME/.config/ghostty
+```
+
+Nord theme, JetBrains Mono NL, no italics, `cursor_smear.glsl` cursor shader.
+The whole directory is linked because `custom-shader` is resolved relative to
+the config file. Ghostty also reads
+`~/Library/Application Support/com.mitchellh.ghostty/config`; keep that one
+empty so there is a single source of truth.
+
 ### zsh
 
 ```bash
