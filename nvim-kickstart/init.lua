@@ -12,7 +12,7 @@ vim.opt.shiftwidth = 2 -- number of spaces per indentation level
 vim.opt.tabstop = 2 -- number of spaces for a “tab” in the file
 vim.opt.softtabstop = 2
 
-vim.opt.background = 'dark' -- match the dark rose-pine colorscheme
+vim.opt.background = 'dark' -- match the dark nord colorscheme
 
 -- [[ Setting options ]]
 vim.o.number = true
@@ -290,7 +290,7 @@ require('lazy').setup({
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'rose-pine',
+          theme = 'nord',
           globalstatus = true,
           icons_enabled = true,
           component_separators = '',

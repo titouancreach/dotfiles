@@ -4,7 +4,7 @@ onboarding = false
 # Recharger à chaud : prefix+r (ou `herdr server reload-config`)
 
 [theme]
-name = "rose-pine"
+name = "nord"
 
 # --- Restauration après restart ---------------------------------------------
 [session]

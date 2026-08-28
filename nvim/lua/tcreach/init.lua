@@ -32,11 +32,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "shaunsingh/nord.nvim",
         lazy = false,
         priority = 1000,
-        config = function() vim.cmd.colorscheme("rose-pine") end,
+        config = function() vim.cmd.colorscheme("nord") end,
     },
     {
         'chaoren/vim-wordmotion'
