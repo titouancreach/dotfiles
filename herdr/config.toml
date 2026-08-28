@@ -1,9 +1,10 @@
+onboarding = false
 # herdr configuration — keymap calqué sur ~/.tmux.conf
 # Référence : https://herdr.dev/docs/config-reference/
 # Recharger à chaud : prefix+r (ou `herdr server reload-config`)
 
 [theme]
-name = "catppuccin"
+name = "rose-pine"
 
 # --- Restauration après restart ---------------------------------------------
 [session]
