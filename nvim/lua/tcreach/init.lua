@@ -32,10 +32,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "shaunsingh/nord.nvim",
+        "gbprod/nord.nvim",
         lazy = false,
         priority = 1000,
-        config = function() vim.cmd.colorscheme("nord") end,
+        config = function()
+            require("nord").setup({ diff = { mode = "fg" } }) -- "bg" is reverse-video solid blocks
+            vim.cmd.colorscheme("nord")
+        end,
     },
     {
         'chaoren/vim-wordmotion'
