@@ -38,6 +38,7 @@
             gh
             herdr
             starship
+            yazi
             nerd-fonts.jetbrains-mono
 
             neovim
