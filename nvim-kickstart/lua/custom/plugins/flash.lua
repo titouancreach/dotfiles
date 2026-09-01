@@ -1,67 +1,37 @@
-return {
-  {
-    'folke/flash.nvim',
-    event = 'VeryLazy',
-    ---@type Flash.Config
-    opts = {
-      label = {
-        rainbow = {
-          enabled = true,
-          -- number between 1 and 9
-          shade = 2,
-        },
-      },
+-- Jump anywhere with labeled search (s / S in normal, x, o modes)
+vim.pack.add { 'https://github.com/folke/flash.nvim' }
 
-      modes = {
-        search = {
-          enabled = true,
-        },
-        char = {
-          jump_labels = true,
-        },
-      },
+require('flash').setup {
+  label = {
+    rainbow = {
+      enabled = true,
+      -- number between 1 and 9
+      shade = 2,
     },
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function()
-          require('flash').jump()
-        end,
-        desc = 'Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'x', 'o' },
-        function()
-          require('flash').treesitter()
-        end,
-        desc = 'Flash Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function()
-          require('flash').remote()
-        end,
-        desc = 'Remote Flash',
-      },
-      {
-        'R',
-        mode = { 'o', 'x' },
-        function()
-          require('flash').treesitter_search()
-        end,
-        desc = 'Treesitter Search',
-      },
-      {
-        '<c-s>',
-        mode = { 'c' },
-        function()
-          require('flash').toggle()
-        end,
-        desc = 'Toggle Flash Search',
-      },
+  },
+
+  modes = {
+    search = {
+      enabled = true,
+    },
+    char = {
+      jump_labels = true,
     },
   },
 }
+
+vim.keymap.set({ 'n', 'x', 'o' }, 's', function()
+  require('flash').jump()
+end, { desc = 'Flash' })
+vim.keymap.set({ 'n', 'x', 'o' }, 'S', function()
+  require('flash').treesitter()
+end, { desc = 'Flash Treesitter' })
+vim.keymap.set('o', 'r', function()
+  require('flash').remote()
+end, { desc = 'Remote Flash' })
+vim.keymap.set({ 'o', 'x' }, 'R', function()
+  require('flash').treesitter_search()
+end, { desc = 'Treesitter Search' })
+vim.keymap.set('c', '<c-s>', function()
+  require('flash').toggle()
+end, { desc = 'Toggle Flash Search' })

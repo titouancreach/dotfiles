@@ -1,8 +1,5 @@
-return {
-  'MeanderingProgrammer/render-markdown.nvim',
-  dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
-  ft = { 'markdown' },
-  ---@module 'render-markdown'
-  ---@type render.md.UserConfig
-  opts = {},
-}
+-- Pretty in-buffer markdown rendering (uses treesitter + mini from init.lua)
+vim.pack.add { 'https://github.com/MeanderingProgrammer/render-markdown.nvim' }
+
+---@diagnostic disable-next-line: missing-fields
+require('render-markdown').setup {}
