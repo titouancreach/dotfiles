@@ -4,16 +4,19 @@ Here is the list of the dotfiles I use.
 
 (I keep my original .vimrc and stuff into archive)
 
-## Binaries
-I use nix to manage the binaries I use cross projects:
+## home-manager
 
-To install:
+Everything (binaries, zsh, git, direnv, config symlinks) is declared in
+`home.nix` and applied with home-manager:
 
 ```
-nix profile add ~/Code/dotfiles      # install everything
-nix flake update                     # bump nixpkgs
-nix profile upgrade dotfiles         # rebuild the bundle
+nix run home-manager -- switch --flake ~/Code/dotfiles -b hm-backup   # first time
+home-manager switch --flake ~/Code/dotfiles                          # after any edit
+nix flake update && home-manager switch --flake ~/Code/dotfiles      # bump nixpkgs
 ```
+
+`-b hm-backup` moves pre-existing files (old symlinks, ~/.gitconfig) aside on
+the first run.
 
 I use it to install my lsp servers instead of Mason.
 
