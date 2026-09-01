@@ -28,6 +28,7 @@ in
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    btop
     eza
     jq
     gh
@@ -93,6 +94,7 @@ in
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    config.global.hide_env_diff = true;
   };
 
   programs.starship.enable = true;
