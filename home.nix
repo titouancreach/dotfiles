@@ -127,6 +127,7 @@ in
       # mkOrder 550 = before compinit
       (lib.mkOrder 550 ''
         fpath=(
+          "${dotfiles}/zsh/completions"
           "${config.home.profileDirectory}/share/zsh/site-functions"
           "$HOME/.nix-profile/share/zsh/site-functions"
           $fpath
