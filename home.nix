@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, neovim-nightly-overlay, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/Code/dotfiles";
@@ -36,7 +36,8 @@ in
     yazi
     nerd-fonts.jetbrains-mono
 
-    neovim
+    # nightly (0.13.0-dev) from the overlay flake input: native multicursor
+    neovim-nightly-overlay.packages.${pkgs.system}.default
     ripgrep
     fd
     ast-grep

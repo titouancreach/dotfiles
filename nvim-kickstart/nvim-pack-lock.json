@@ -59,9 +59,9 @@
       "src": "https://github.com/NMAC427/guess-indent.nvim"
     },
     "haskell-tools.nvim": {
-      "rev": "d223712c767011350ed887c3152da4955d9b1457",
+      "rev": "556c28dcfd7479270d557e3e73356411058005ea",
       "src": "https://github.com/mrcjkb/haskell-tools.nvim",
-      "version": "6.0.0 - 7.0.0"
+      "version": "10.0.0 - 11.0.0"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",

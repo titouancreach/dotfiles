@@ -17,6 +17,15 @@ require('snacks').setup {
     },
     sections = {
       { section = 'header' },
+      -- Neovim version under the header, e.g. "NVIM v0.13.0-nightly+4b3ab0d"
+      -- (first line of `:version`, which carries the nightly build hash).
+      {
+        text = {
+          { vim.api.nvim_exec2('version', { output = true }).output:match('^[^\n]+'), hl = 'footer' },
+        },
+        align = 'center',
+        padding = 1,
+      },
       { section = 'keys', gap = 1, padding = 1 },
       { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1, limit = 9 },
       -- NOTE: no `{ section = 'startup' }`: it requires 'lazy.stats' (lazy.nvim only)

@@ -108,8 +108,13 @@ do
   -- [[ Basic Keymaps ]]
   --  See `:help vim.keymap.set()`
 
-  -- Clear highlights on search when pressing <Esc> in normal mode
-  vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+  -- <Esc> in normal mode: clear search highlights and remove all multicursors
+  -- (|multicursor|, nvim 0.13). The default <C-L> does both, but <C-l> is
+  -- taken by the herdr/tmux split navigation (lua/custom/plugins/tmux-navigator.lua).
+  vim.keymap.set('n', '<Esc>', function()
+    vim.cmd.nohlsearch()
+    vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace 'nvim.multicursor', 0, -1)
+  end, { desc = 'Clear search highlight and multicursors' })
 
   -- Diagnostic Config & Keymaps
   --  See `:help vim.diagnostic.Opts`
