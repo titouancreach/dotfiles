@@ -11,7 +11,7 @@ font-family = JetBrains Mono NL Medium
 font-style-italic = false
 adjust-cell-height = 10%
 cursor-color = #DDDDDD
-theme = Nord
+theme = Rose Pine Moon
 
 # relative to this file's directory
 custom-shader = cursor_smear.glsl

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, neovim-nightly-overlay, ... }:
+{ config, lib, pkgs, neovim-nightly-overlay, nodejs, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/Code/dotfiles";
@@ -31,6 +31,7 @@ in
     btop
     eza
     jq
+    nodejs
     gh
     herdr
     yazi

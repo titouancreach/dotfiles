@@ -1,6 +1,6 @@
 -- Personal config based on kickstart.nvim (vim.pack edition).
 -- Structure follows upstream's numbered sections; deliberate deviations:
---   - nord + lualine instead of tokyonight + mini.statusline
+--   - rose-pine (moon) + lualine instead of tokyonight + mini.statusline
 --   - no Mason: LSP/formatter/linter binaries come from the nix profile
 --     (../flake.nix) or workspace node_modules (tsgo, oxlint)
 --   - no OS clipboard sync: explicit <leader>y / <leader>Y instead
@@ -28,7 +28,7 @@ do
   vim.opt.tabstop = 2 -- number of spaces for a “tab” in the file
   vim.opt.softtabstop = 2
 
-  vim.opt.background = 'dark' -- match the dark nord colorscheme
+  vim.opt.background = 'dark' -- match the dark rose-pine-moon colorscheme
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
@@ -179,7 +179,7 @@ do
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function()
-      vim.hl.on_yank()
+      vim.hl.hl_op()
     end,
   })
 
@@ -432,12 +432,18 @@ do
   }
 
   -- [[ Colorscheme ]]
-  -- maintained fork of nord.nvim (shaunsingh's is unmaintained since 2024
-  -- and paints DiffAdd/DiffDelete as solid reverse blocks, which breaks
-  -- Neogit / codediff line backgrounds)
-  vim.pack.add { gh 'gbprod/nord.nvim' }
-  require('nord').setup { diff = { mode = 'fg' } } -- 'bg' is reverse-video solid blocks
-  vim.cmd.colorscheme 'nord'
+  vim.pack.add { { src = gh 'rose-pine/neovim', name = 'rose-pine' } }
+  require('rose-pine').setup {
+    variant = 'moon',
+    dark_variant = 'moon',
+    styles = { italic = false },
+    highlight_groups = {
+      -- listchars (lead/trail dots): rose-pine's default `muted` is too loud
+      Whitespace = { fg = 'highlight_med' },
+      NonText = { fg = 'highlight_med' },
+    },
+  }
+  vim.cmd.colorscheme 'rose-pine-moon'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'nvim-lua/plenary.nvim', gh 'folke/todo-comments.nvim' }
@@ -488,7 +494,7 @@ do
   vim.pack.add { gh 'nvim-tree/nvim-web-devicons', gh 'nvim-lualine/lualine.nvim' }
   require('lualine').setup {
     options = {
-      theme = 'nord',
+      theme = 'rose-pine',
       globalstatus = true,
       icons_enabled = true,
       component_separators = '',

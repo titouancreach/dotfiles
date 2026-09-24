@@ -31,7 +31,7 @@ home-manager copies fonts from `home.packages` into
 
 ### Ghostty
 
-Nord theme, JetBrains Mono NL, no italics, `cursor_smear.glsl` cursor shader.
+Rosé Pine Moon theme, JetBrains Mono NL, no italics, `cursor_smear.glsl` cursor shader.
 The whole directory is linked because `custom-shader` is resolved relative to
 the config file. Ghostty also reads
 `~/Library/Application Support/com.mitchellh.ghostty/config`; keep that one

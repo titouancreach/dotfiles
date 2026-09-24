@@ -12,7 +12,8 @@ require('flash').setup {
 
   modes = {
     search = {
-      enabled = true,
+      -- off: labels hijack typed chars during `/`. <C-s> in cmdline toggles it on.
+      enabled = false,
     },
     char = {
       jump_labels = true,

@@ -4,7 +4,8 @@ onboarding = false
 # Recharger à chaud : prefix+r (ou `herdr server reload-config`)
 
 [theme]
-name = "nord"
+# pas de variante moon dans herdr (built-in : rose-pine, rose-pine-dawn)
+name = "rose-pine"
 
 # --- Restauration après restart ---------------------------------------------
 [session]
@@ -129,6 +130,6 @@ row_gap = 0
 rows = [
   ["state_icon", "$title"],
   ["agent"],
-  [{ token = "$limit", fg = "#fab387", bold = true }],
+  [{ token = "$limit", fg = "#f6c177", bold = true }],
   ["$context"],
 ]
