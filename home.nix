@@ -221,11 +221,7 @@ in
         bindkey '^[[F' end-of-line
         bindkey '^[[3~' delete-char
 
-        [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-        export PATH="$PATH:$HOME/.dotnet/tools"
-        export PATH="$HOME/.moon/bin:$PATH"
-        [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
       ''
     ];
   };
