@@ -99,6 +99,65 @@ in
     config.global.hide_env_diff = true;
   };
 
+  # i3-style tiling, one workspace per app. Based on AeroSpace's i3 preset, but
+  # workspaces/moves are on ctrl: on the French Mac layout alt+digit and
+  # alt+shift+letter type { } [ ] | etc.
+  # Keys are physical qwerty positions, so ctrl-1 = the "&" key, alt-z = AZERTY "w".
+  programs.aerospace = {
+    enable = true;
+    launchd.enable = true;
+    settings = {
+      config-version = 2;
+      persistent-workspaces = [ ];
+      on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
+      mode.main.binding =
+        let
+          # key "0" -> workspace 10, like i3
+          workspaces = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" ];
+          ws = k: if k == "0" then "10" else k;
+          perWorkspace = f: builtins.listToAttrs (map f workspaces);
+        in
+        perWorkspace (k: { name = "ctrl-${k}"; value = "workspace ${ws k}"; })
+        // perWorkspace (k: { name = "ctrl-shift-${k}"; value = "move-node-to-workspace ${ws k}"; })
+        // {
+          # ctrl-hjkl stays for vim/herdr pane navigation
+          alt-h = "focus --boundaries-action wrap-around-the-workspace left";
+          alt-j = "focus --boundaries-action wrap-around-the-workspace down";
+          alt-k = "focus --boundaries-action wrap-around-the-workspace up";
+          alt-l = "focus --boundaries-action wrap-around-the-workspace right";
+          ctrl-alt-h = "move left";
+          ctrl-alt-j = "move down";
+          ctrl-alt-k = "move up";
+          ctrl-alt-l = "move right";
+
+          alt-f = "fullscreen";
+          alt-s = "layout v_accordion"; # i3 'layout stacking'
+          alt-z = "layout h_accordion"; # i3 'layout tabbed' (mod+w), AZERTY "w" key
+          alt-e = "layout tiles horizontal vertical"; # i3 'layout toggle split'
+          alt-shift-space = "layout floating tiling"; # i3 'floating toggle'
+
+          alt-tab = "workspace-back-and-forth";
+          alt-shift-c = "reload-config";
+          alt-r = "mode resize";
+        };
+      mode.resize.binding = {
+        h = "resize width -50";
+        j = "resize height +50";
+        k = "resize height -50";
+        l = "resize width +50";
+        enter = "mode main";
+        esc = "mode main";
+      };
+      on-window-detected = [
+        { "if".app-id = "company.thebrowser.Browser"; run = "move-node-to-workspace 1"; }
+        { "if".app-id = "com.google.Chrome"; run = "move-node-to-workspace 1"; }
+        { "if".app-id = "com.tinyspeck.slackmacgap"; run = "move-node-to-workspace 3"; }
+        { "if".app-id = "notion.id"; run = "move-node-to-workspace 4"; }
+        { "if".app-id = "us.zoom.xos"; run = "move-node-to-workspace 5"; }
+      ];
+    };
+  };
+
   programs.starship.enable = true;
   programs.fzf.enable = true;
   programs.autojump.enable = true;
