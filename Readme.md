@@ -45,12 +45,9 @@ is the prompt.
 
 ### Neovim
 
-Two configs: `nvim` (legacy) and `nvim-kickstart`, both linked into
-`~/.config`. Run the kickstart one with:
-
-```bash
-NVIM_APPNAME=nvim-kickstart nvim
-```
+One config, `nvim-kickstart`, linked as both `~/.config/nvim-kickstart` and
+`~/.config/nvim`, so plain `nvim` (git, `$EDITOR`, ...) gets it too. The old
+config lives in `archive/nvim`.
 
 ### herdr
 

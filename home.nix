@@ -232,7 +232,7 @@ in
   };
 
   xdg.configFile = {
-    "nvim".source = outOfStore "nvim";
+    "nvim".source = outOfStore "nvim-kickstart";
     "nvim-kickstart".source = outOfStore "nvim-kickstart";
     # whole dir linked: custom-shader path is relative to the config file
     "ghostty".source = outOfStore "ghostty";
