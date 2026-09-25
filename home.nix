@@ -38,7 +38,7 @@ in
     nerd-fonts.jetbrains-mono
 
     # nightly (0.13.0-dev) from the overlay flake input: native multicursor
-    neovim-nightly-overlay.packages.${pkgs.system}.default
+    neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
     ripgrep
     fd
     ast-grep
