@@ -85,7 +85,6 @@ in
       branch.autosetupmerge = "always";
       fetch.prune = true;
       core = {
-        editor = "vim";
         quotepath = "off";
       };
       init.defaultBranch = "main";
